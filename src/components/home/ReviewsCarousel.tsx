@@ -80,13 +80,25 @@ function StarRow() {
 }
 
 export function ReviewsCarousel() {
+  const LOOP_CLONES = 3
   const [isVisible, setIsVisible] = useState(false)
   const [activeIndex, setActiveIndex] = useState(0)
+  const [visualIndex, setVisualIndex] = useState(LOOP_CLONES)
   const [paused, setPaused] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(false)
   const rootRef = useRef<HTMLElement | null>(null)
   const scrollerRef = useRef<HTMLDivElement | null>(null)
   const cardRefs = useRef<Array<HTMLDivElement | null>>([])
+  const isAdjustingRef = useRef(false)
+  const scrollStopTimerRef = useRef<number | null>(null)
+
+  const loopedReviews = useMemo(() => {
+    const head = REVIEWS.slice(-LOOP_CLONES)
+    const tail = REVIEWS.slice(0, LOOP_CLONES)
+    return [...head, ...REVIEWS, ...tail]
+  }, [LOOP_CLONES])
+
+  const toLogicalIndex = (idx: number) => ((idx - LOOP_CLONES) % REVIEWS.length + REVIEWS.length) % REVIEWS.length
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -112,17 +124,82 @@ export function ReviewsCarousel() {
   }, [])
 
   useEffect(() => {
-    if (reducedMotion || paused) return
+    if (!isVisible || reducedMotion || paused) return
     const timer = window.setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % REVIEWS.length)
+      setVisualIndex((prev) => prev + 1)
     }, 4200)
     return () => window.clearInterval(timer)
-  }, [paused, reducedMotion])
+  }, [isVisible, paused, reducedMotion])
 
   useEffect(() => {
-    const target = cardRefs.current[activeIndex]
-    target?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', inline: 'start', block: 'nearest' })
-  }, [activeIndex, reducedMotion])
+    if (!isVisible) return
+    const target = cardRefs.current[visualIndex]
+    if (!target) return
+    target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', inline: 'start', block: 'nearest' })
+    setActiveIndex(toLogicalIndex(visualIndex))
+  }, [isVisible, reducedMotion, visualIndex])
+
+  useEffect(() => {
+    if (!isVisible) return
+    const scroller = scrollerRef.current
+    const startCard = cardRefs.current[LOOP_CLONES]
+    if (!scroller || !startCard) return
+    scroller.scrollTo({ left: startCard.offsetLeft, behavior: 'auto' })
+    setVisualIndex(LOOP_CLONES)
+    setActiveIndex(0)
+  }, [isVisible, LOOP_CLONES])
+
+  useEffect(() => {
+    if (!isVisible) return
+    const maxRealIndex = LOOP_CLONES + REVIEWS.length - 1
+    const needsWrapLeft = visualIndex < LOOP_CLONES
+    const needsWrapRight = visualIndex > maxRealIndex
+
+    if (!needsWrapLeft && !needsWrapRight) return
+
+    const timeout = window.setTimeout(() => {
+      const scroller = scrollerRef.current
+      if (!scroller) return
+
+      isAdjustingRef.current = true
+      const wrappedVisual = needsWrapLeft ? visualIndex + REVIEWS.length : visualIndex - REVIEWS.length
+      const wrappedCard = cardRefs.current[wrappedVisual]
+      if (wrappedCard) {
+        scroller.scrollTo({ left: wrappedCard.offsetLeft, behavior: 'auto' })
+        setVisualIndex(wrappedVisual)
+        setActiveIndex(toLogicalIndex(wrappedVisual))
+      }
+      window.setTimeout(() => {
+        isAdjustingRef.current = false
+      }, 60)
+    }, reducedMotion ? 0 : 520)
+
+    return () => window.clearTimeout(timeout)
+  }, [isVisible, visualIndex, reducedMotion, LOOP_CLONES])
+
+  const handleTrackScroll = () => {
+    if (!isVisible || isAdjustingRef.current) return
+    if (scrollStopTimerRef.current) window.clearTimeout(scrollStopTimerRef.current)
+
+    scrollStopTimerRef.current = window.setTimeout(() => {
+      const scroller = scrollerRef.current
+      if (!scroller) return
+
+      let nearest = 0
+      let minDistance = Number.POSITIVE_INFINITY
+      cardRefs.current.forEach((card, idx) => {
+        if (!card) return
+        const distance = Math.abs(scroller.scrollLeft - card.offsetLeft)
+        if (distance < minDistance) {
+          minDistance = distance
+          nearest = idx
+        }
+      })
+
+      setVisualIndex(nearest)
+      setActiveIndex(toLogicalIndex(nearest))
+    }, 100)
+  }
 
   const indicators = useMemo(() => REVIEWS.map((review, idx) => ({ id: review.id, idx })), [])
 
@@ -154,10 +231,11 @@ export function ReviewsCarousel() {
             ref={scrollerRef}
             className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2"
             aria-label="Carrusel de resenas de clientes"
+            onScroll={handleTrackScroll}
           >
-            {REVIEWS.map((review, idx) => (
+            {loopedReviews.map((review, idx) => (
               <div
-                key={review.id}
+                key={`${review.id}-${idx}`}
                 ref={(node) => {
                   cardRefs.current[idx] = node
                 }}
@@ -177,7 +255,7 @@ export function ReviewsCarousel() {
               <button
                 key={id}
                 type="button"
-                onClick={() => setActiveIndex(idx)}
+                onClick={() => setVisualIndex(LOOP_CLONES + idx)}
                 className={`h-2.5 rounded-full transition-all ${
                   idx === activeIndex ? 'w-7 bg-gold' : 'w-2.5 bg-stone-300 hover:bg-stone-400'
                 }`}
