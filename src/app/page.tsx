@@ -2,23 +2,39 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { createPublicSupabase } from '@/lib/supabase/public-server'
 import { rowsToProperties, type PropertyRow } from '@/lib/property-db'
-import { PropertyCard } from '@/components/properties/PropertyCard'
 import { ReviewsCarousel } from '@/components/home/ReviewsCarousel'
+import { FeaturedPropertiesGrid } from '@/components/home/FeaturedPropertiesGrid'
 import { formatPrice } from '@/lib/utils'
 
 export const dynamic = 'force-dynamic'
 
 async function getFeaturedProperties() {
   const supabase = createPublicSupabase()
-  const { data, error } = await supabase
+  const { data: featuredData, error: featuredError } = await supabase
     .from('properties')
     .select('*')
-    // Prioriza siempre las propiedades marcadas como destacadas.
-    .order('featured', { ascending: false })
+    .eq('featured', true)
     .order('created_at', { ascending: false })
     .limit(3)
-  if (error) throw error
-  return rowsToProperties(data as PropertyRow[] | null)
+  if (featuredError) throw featuredError
+
+  const featuredRows = (featuredData as PropertyRow[] | null) ?? []
+  if (featuredRows.length >= 3) {
+    return rowsToProperties(featuredRows.slice(0, 3))
+  }
+
+  const remaining = 3 - featuredRows.length
+  const { data: fallbackData, error: fallbackError } = await supabase
+    .from('properties')
+    .select('*')
+    .or('featured.eq.false,featured.is.null')
+    .order('created_at', { ascending: false })
+    .limit(remaining)
+
+  if (fallbackError) throw fallbackError
+
+  const fallbackRows = (fallbackData as PropertyRow[] | null) ?? []
+  return rowsToProperties([...featuredRows, ...fallbackRows].slice(0, 3))
 }
 
 export default async function HomePage() {
@@ -76,11 +92,7 @@ export default async function HomePage() {
         </div>
 
         {featured.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featured.map((property) => (
-              <PropertyCard key={property.id} property={property} />
-            ))}
-          </div>
+          <FeaturedPropertiesGrid properties={featured} />
         ) : (
           <div className="text-center py-20 text-stone-400">
             <p>Pronto añadiremos propiedades destacadas.</p>
