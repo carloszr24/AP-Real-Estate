@@ -91,6 +91,7 @@ export function ReviewsCarousel() {
   const cardRefs = useRef<Array<HTMLDivElement | null>>([])
   const isAdjustingRef = useRef(false)
   const scrollStopTimerRef = useRef<number | null>(null)
+  const interactionResumeTimerRef = useRef<number | null>(null)
 
   const loopedReviews = useMemo(() => {
     const head = REVIEWS.slice(-LOOP_CLONES)
@@ -130,6 +131,13 @@ export function ReviewsCarousel() {
     }, 4200)
     return () => window.clearInterval(timer)
   }, [isVisible, paused, reducedMotion])
+
+  useEffect(() => {
+    return () => {
+      if (scrollStopTimerRef.current) window.clearTimeout(scrollStopTimerRef.current)
+      if (interactionResumeTimerRef.current) window.clearTimeout(interactionResumeTimerRef.current)
+    }
+  }, [])
 
   useEffect(() => {
     if (!isVisible) return
@@ -180,6 +188,12 @@ export function ReviewsCarousel() {
   const handleTrackScroll = () => {
     if (!isVisible || isAdjustingRef.current) return
     if (scrollStopTimerRef.current) window.clearTimeout(scrollStopTimerRef.current)
+    if (interactionResumeTimerRef.current) window.clearTimeout(interactionResumeTimerRef.current)
+
+    setPaused(true)
+    interactionResumeTimerRef.current = window.setTimeout(() => {
+      setPaused(false)
+    }, 2500)
 
     scrollStopTimerRef.current = window.setTimeout(() => {
       const scroller = scrollerRef.current
@@ -201,16 +215,10 @@ export function ReviewsCarousel() {
     }, 100)
   }
 
-  const indicators = useMemo(() => REVIEWS.map((review, idx) => ({ id: review.id, idx })), [])
-
   return (
     <section
       ref={rootRef}
       className="bg-stone-50 py-20 md:py-24 px-6 md:px-10 overflow-hidden"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={() => setPaused(false)}
     >
       <div className="max-w-7xl mx-auto">
         <div
@@ -232,6 +240,13 @@ export function ReviewsCarousel() {
             className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2"
             aria-label="Carrusel de resenas de clientes"
             onScroll={handleTrackScroll}
+            onPointerDown={() => setPaused(true)}
+            onPointerUp={() => {
+              if (interactionResumeTimerRef.current) window.clearTimeout(interactionResumeTimerRef.current)
+              interactionResumeTimerRef.current = window.setTimeout(() => {
+                setPaused(false)
+              }, 1000)
+            }}
           >
             {loopedReviews.map((review, idx) => (
               <div
@@ -247,20 +262,6 @@ export function ReviewsCarousel() {
                   <p className="mt-6 text-stone-900 font-semibold">{review.name}</p>
                 </article>
               </div>
-            ))}
-          </div>
-
-          <div className="flex items-center justify-center gap-2 mt-6" aria-label="Indicadores de resenas">
-            {indicators.map(({ id, idx }) => (
-              <button
-                key={id}
-                type="button"
-                onClick={() => setVisualIndex(LOOP_CLONES + idx)}
-                className={`h-2.5 rounded-full transition-all ${
-                  idx === activeIndex ? 'w-7 bg-gold' : 'w-2.5 bg-stone-300 hover:bg-stone-400'
-                }`}
-                aria-label={`Ir a la resena ${idx + 1}`}
-              />
             ))}
           </div>
         </div>
