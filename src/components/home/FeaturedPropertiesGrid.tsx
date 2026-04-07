@@ -42,7 +42,7 @@ export function FeaturedPropertiesGrid({ properties }: FeaturedPropertiesGridPro
         {properties.map((property, index) => (
           <div
             key={property.id}
-            className={`snap-start shrink-0 w-[86vw] sm:w-[68vw] md:w-[48%] lg:w-[31.8%] ${
+            className={`snap-start shrink-0 w-[78vw] sm:w-[60vw] md:w-[44%] lg:w-[30%] ${
               isVisible ? 'animate-fade-up' : 'opacity-0 translate-y-6'
             }`}
             style={
@@ -54,7 +54,7 @@ export function FeaturedPropertiesGrid({ properties }: FeaturedPropertiesGridPro
                 : undefined
             }
           >
-            <PropertyCard property={property} />
+            <PropertyCard property={property} variant="featuredMinimal" />
           </div>
         ))}
       </div>
