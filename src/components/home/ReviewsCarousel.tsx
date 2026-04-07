@@ -128,7 +128,7 @@ export function ReviewsCarousel() {
     if (!isVisible || reducedMotion || paused) return
     const timer = window.setInterval(() => {
       setVisualIndex((prev) => prev + 1)
-    }, 4200)
+    }, 2600)
     return () => window.clearInterval(timer)
   }, [isVisible, paused, reducedMotion])
 
@@ -237,7 +237,7 @@ export function ReviewsCarousel() {
         <div className={`transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div
             ref={scrollerRef}
-            className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2"
+            className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
             aria-label="Carrusel de resenas de clientes"
             onScroll={handleTrackScroll}
             onPointerDown={() => setPaused(true)}
