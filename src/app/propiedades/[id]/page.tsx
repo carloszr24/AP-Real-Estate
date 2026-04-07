@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation'
-import Image from 'next/image'
 import Link from 'next/link'
 import { createPublicSupabase } from '@/lib/supabase/public-server'
 import { rowToProperty, type PropertyRow } from '@/lib/property-db'
 import { formatPrice, OPERATION_LABELS, parseImages, STATUS_LABELS, TYPE_LABELS } from '@/lib/utils'
 import { cn } from '@/lib/utils'
+import { PropertyImageViewer } from '@/components/properties/PropertyImageViewer'
 
 export const dynamic = 'force-dynamic'
 
@@ -32,7 +32,8 @@ export default async function PropertyDetailPage({
   const property = rowToProperty(data as PropertyRow)
 
   const images = parseImages(property.images)
-  const mainImage = images[0] || 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200'
+  const whatsappText = `Hola! Me gustaría solicitar información sobre ${property.title}`
+  const whatsappUrl = `https://wa.me/34695919069?text=${encodeURIComponent(whatsappText)}`
   const featureItems = [
     { label: 'Tipo de inmueble', value: TYPE_LABELS[property.type] || property.type },
     { label: 'Disponibilidad', value: property.availability },
@@ -76,34 +77,7 @@ export default async function PropertyDetailPage({
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
           {/* LEFT: Images + description */}
           <div className="lg:col-span-3">
-            {/* Main image */}
-            <div className="relative aspect-[16/10] overflow-hidden bg-stone-100 mb-3">
-              <Image
-                src={mainImage}
-                alt={property.title}
-                fill
-                className="object-cover"
-                priority
-                sizes="(max-width: 1024px) 100vw, 60vw"
-              />
-            </div>
-
-            {/* Gallery thumbnails */}
-            {images.length > 1 && (
-              <div className="grid grid-cols-4 gap-2 mb-10">
-                {images.slice(1).map((img, i) => (
-                  <div key={i} className="relative aspect-square overflow-hidden bg-stone-100">
-                    <Image
-                      src={img}
-                      alt={`${property.title} ${i + 2}`}
-                      fill
-                      className="object-cover hover:scale-105 transition-transform duration-300"
-                      sizes="15vw"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
+            <PropertyImageViewer images={images} title={property.title} />
 
             {/* Description */}
             <div className="mt-8">
@@ -185,9 +159,14 @@ export default async function PropertyDetailPage({
 
               {/* CTAs */}
               <div className="space-y-3">
-                <Link href="/contacto" className="btn-primary w-full text-center text-sm py-4">
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary w-full text-center text-sm py-4"
+                >
                   Solicitar información
-                </Link>
+                </a>
                 {property.fotocasaUrl && (
                   <a
                     href={property.fotocasaUrl}
