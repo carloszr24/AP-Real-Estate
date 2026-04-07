@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { createPublicSupabase } from '@/lib/supabase/public-server'
 import { rowsToProperties, type PropertyRow } from '@/lib/property-db'
 import { PropertyCard } from '@/components/properties/PropertyCard'
+import { ReviewsCarousel } from '@/components/home/ReviewsCarousel'
 import { formatPrice } from '@/lib/utils'
 
 export const dynamic = 'force-dynamic'
@@ -59,6 +60,8 @@ export default async function HomePage() {
         </div>
 
       </section>
+
+      <ReviewsCarousel />
 
       {/* FEATURED PROPERTIES */}
       <section className="py-24 px-6 md:px-10 max-w-7xl mx-auto">
