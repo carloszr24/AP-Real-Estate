@@ -12,7 +12,8 @@ async function getFeaturedProperties() {
   const { data, error } = await supabase
     .from('properties')
     .select('*')
-    .eq('featured', true)
+    // Prioriza siempre las propiedades marcadas como destacadas.
+    .order('featured', { ascending: false })
     .order('created_at', { ascending: false })
     .limit(3)
   if (error) throw error
