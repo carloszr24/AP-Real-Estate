@@ -20,22 +20,8 @@ async function getFeaturedProperties() {
   return rowsToProperties(data as PropertyRow[] | null)
 }
 
-async function getStats() {
-  const supabase = createPublicSupabase()
-  const { count: total, error: e1 } = await supabase
-    .from('properties')
-    .select('*', { count: 'exact', head: true })
-  if (e1) throw e1
-  const { count: available, error: e2 } = await supabase
-    .from('properties')
-    .select('*', { count: 'exact', head: true })
-    .eq('status', 'disponible')
-  if (e2) throw e2
-  return { total: total ?? 0, available: available ?? 0 }
-}
-
 export default async function HomePage() {
-  const [featured, stats] = await Promise.all([getFeaturedProperties(), getStats()])
+  const featured = await getFeaturedProperties()
 
   return (
     <>
@@ -72,25 +58,6 @@ export default async function HomePage() {
           </div>
         </div>
 
-      </section>
-
-      {/* STATS */}
-      <section className="bg-stone-950 text-white py-14">
-        <div className="max-w-7xl mx-auto px-6 md:px-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            {[
-              { value: '+15', label: 'Años de experiencia' },
-              { value: stats.total.toString(), label: 'Propiedades en cartera' },
-              { value: stats.available.toString(), label: 'Disponibles ahora' },
-              { value: '+500', label: 'Familias satisfechas' },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <div className="font-display text-4xl font-light text-gold mb-2">{stat.value}</div>
-                <div className="text-stone-400 text-xs tracking-wide">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* FEATURED PROPERTIES */}
