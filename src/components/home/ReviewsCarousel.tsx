@@ -80,26 +80,19 @@ function StarRow() {
 }
 
 export function ReviewsCarousel() {
-  const LOOP_CLONES = 3
   const [isVisible, setIsVisible] = useState(false)
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [visualIndex, setVisualIndex] = useState(LOOP_CLONES)
-  const [paused, setPaused] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
   const [reducedMotion, setReducedMotion] = useState(false)
   const rootRef = useRef<HTMLElement | null>(null)
-  const scrollerRef = useRef<HTMLDivElement | null>(null)
-  const cardRefs = useRef<Array<HTMLDivElement | null>>([])
-  const isAdjustingRef = useRef(false)
-  const scrollStopTimerRef = useRef<number | null>(null)
-  const interactionResumeTimerRef = useRef<number | null>(null)
-
-  const loopedReviews = useMemo(() => {
-    const head = REVIEWS.slice(-LOOP_CLONES)
-    const tail = REVIEWS.slice(0, LOOP_CLONES)
-    return [...head, ...REVIEWS, ...tail]
-  }, [LOOP_CLONES])
-
-  const toLogicalIndex = (idx: number) => ((idx - LOOP_CLONES) % REVIEWS.length + REVIEWS.length) % REVIEWS.length
+  const trackRef = useRef<HTMLDivElement | null>(null)
+  const rafRef = useRef<number | null>(null)
+  const lastFrameRef = useRef<number | null>(null)
+  const offsetRef = useRef(0)
+  const loopWidthRef = useRef(0)
+  const pointerXRef = useRef<number | null>(null)
+  const isDraggingRef = useRef(false)
+  const resumeTimerRef = useRef<number | null>(null)
+  const loopedReviews = useMemo(() => [...REVIEWS, ...REVIEWS], [])
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -125,101 +118,77 @@ export function ReviewsCarousel() {
   }, [])
 
   useEffect(() => {
-    if (!isVisible || reducedMotion || paused) return
-    const timer = window.setInterval(() => {
-      setVisualIndex((prev) => prev + 1)
-    }, 1000)
-    return () => window.clearInterval(timer)
-  }, [isVisible, paused, reducedMotion])
+    if (!isVisible || !trackRef.current) return
+    loopWidthRef.current = trackRef.current.scrollWidth / 2
+  }, [isVisible, loopedReviews])
+
+  useEffect(() => {
+    if (!isVisible || reducedMotion || !trackRef.current) return
+
+    const speedPxPerSecond = 22
+    const tick = (timestamp: number) => {
+      if (lastFrameRef.current === null) lastFrameRef.current = timestamp
+      const delta = timestamp - lastFrameRef.current
+      lastFrameRef.current = timestamp
+
+      if (!isPaused && !isDraggingRef.current && loopWidthRef.current > 0) {
+        offsetRef.current += (speedPxPerSecond * delta) / 1000
+        if (offsetRef.current >= loopWidthRef.current) {
+          offsetRef.current -= loopWidthRef.current
+        }
+        trackRef.current!.style.transform = `translate3d(${-offsetRef.current}px, 0, 0)`
+      }
+
+      rafRef.current = window.requestAnimationFrame(tick)
+    }
+
+    rafRef.current = window.requestAnimationFrame(tick)
+    return () => {
+      if (rafRef.current) window.cancelAnimationFrame(rafRef.current)
+      rafRef.current = null
+      lastFrameRef.current = null
+    }
+  }, [isVisible, reducedMotion, isPaused])
 
   useEffect(() => {
     return () => {
-      if (scrollStopTimerRef.current) window.clearTimeout(scrollStopTimerRef.current)
-      if (interactionResumeTimerRef.current) window.clearTimeout(interactionResumeTimerRef.current)
+      if (resumeTimerRef.current) window.clearTimeout(resumeTimerRef.current)
     }
   }, [])
 
-  useEffect(() => {
-    if (!isVisible) return
-    const target = cardRefs.current[visualIndex]
-    if (!target) return
-    target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', inline: 'start', block: 'nearest' })
-    setActiveIndex(toLogicalIndex(visualIndex))
-  }, [isVisible, reducedMotion, visualIndex])
+  const resumeAutoplay = () => {
+    if (resumeTimerRef.current) window.clearTimeout(resumeTimerRef.current)
+    resumeTimerRef.current = window.setTimeout(() => setIsPaused(false), 1200)
+  }
 
-  useEffect(() => {
-    if (!isVisible) return
-    const scroller = scrollerRef.current
-    const startCard = cardRefs.current[LOOP_CLONES]
-    if (!scroller || !startCard) return
-    scroller.scrollTo({ left: startCard.offsetLeft, behavior: 'auto' })
-    setVisualIndex(LOOP_CLONES)
-    setActiveIndex(0)
-  }, [isVisible, LOOP_CLONES])
+  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    pointerXRef.current = event.clientX
+    isDraggingRef.current = true
+    setIsPaused(true)
+  }
 
-  useEffect(() => {
-    if (!isVisible) return
-    const maxRealIndex = LOOP_CLONES + REVIEWS.length - 1
-    const needsWrapLeft = visualIndex < LOOP_CLONES
-    const needsWrapRight = visualIndex > maxRealIndex
+  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current || pointerXRef.current === null || loopWidthRef.current <= 0) return
+    const deltaX = event.clientX - pointerXRef.current
+    pointerXRef.current = event.clientX
+    offsetRef.current -= deltaX
 
-    if (!needsWrapLeft && !needsWrapRight) return
+    while (offsetRef.current < 0) offsetRef.current += loopWidthRef.current
+    while (offsetRef.current >= loopWidthRef.current) offsetRef.current -= loopWidthRef.current
 
-    const timeout = window.setTimeout(() => {
-      const scroller = scrollerRef.current
-      if (!scroller) return
+    if (trackRef.current) {
+      trackRef.current.style.transform = `translate3d(${-offsetRef.current}px, 0, 0)`
+    }
+  }
 
-      isAdjustingRef.current = true
-      const wrappedVisual = needsWrapLeft ? visualIndex + REVIEWS.length : visualIndex - REVIEWS.length
-      const wrappedCard = cardRefs.current[wrappedVisual]
-      if (wrappedCard) {
-        scroller.scrollTo({ left: wrappedCard.offsetLeft, behavior: 'auto' })
-        setVisualIndex(wrappedVisual)
-        setActiveIndex(toLogicalIndex(wrappedVisual))
-      }
-      window.setTimeout(() => {
-        isAdjustingRef.current = false
-      }, 60)
-    }, reducedMotion ? 0 : 520)
-
-    return () => window.clearTimeout(timeout)
-  }, [isVisible, visualIndex, reducedMotion, LOOP_CLONES])
-
-  const handleTrackScroll = () => {
-    if (!isVisible || isAdjustingRef.current) return
-    if (scrollStopTimerRef.current) window.clearTimeout(scrollStopTimerRef.current)
-    if (interactionResumeTimerRef.current) window.clearTimeout(interactionResumeTimerRef.current)
-
-    setPaused(true)
-    interactionResumeTimerRef.current = window.setTimeout(() => {
-      setPaused(false)
-    }, 2500)
-
-    scrollStopTimerRef.current = window.setTimeout(() => {
-      const scroller = scrollerRef.current
-      if (!scroller) return
-
-      let nearest = 0
-      let minDistance = Number.POSITIVE_INFINITY
-      cardRefs.current.forEach((card, idx) => {
-        if (!card) return
-        const distance = Math.abs(scroller.scrollLeft - card.offsetLeft)
-        if (distance < minDistance) {
-          minDistance = distance
-          nearest = idx
-        }
-      })
-
-      setVisualIndex(nearest)
-      setActiveIndex(toLogicalIndex(nearest))
-    }, 100)
+  const handlePointerUp = () => {
+    isDraggingRef.current = false
+    pointerXRef.current = null
+    resumeAutoplay()
   }
 
   return (
-    <section
-      ref={rootRef}
-      className="bg-stone-50 py-20 md:py-24 px-6 md:px-10 overflow-hidden"
-    >
+    <section ref={rootRef} className="bg-stone-50 py-20 md:py-24 px-6 md:px-10 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         <div
           className={`text-center max-w-3xl mx-auto mb-10 md:mb-12 transition-all duration-700 ${
@@ -236,33 +205,28 @@ export function ReviewsCarousel() {
 
         <div className={`transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div
-            ref={scrollerRef}
-            className="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            className="overflow-hidden select-none touch-pan-y"
             aria-label="Carrusel de resenas de clientes"
-            onScroll={handleTrackScroll}
-            onPointerDown={() => setPaused(true)}
-            onPointerUp={() => {
-              if (interactionResumeTimerRef.current) window.clearTimeout(interactionResumeTimerRef.current)
-              interactionResumeTimerRef.current = window.setTimeout(() => {
-                setPaused(false)
-              }, 1000)
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerUp}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => {
+              if (!isDraggingRef.current) resumeAutoplay()
             }}
           >
-            {loopedReviews.map((review, idx) => (
-              <div
-                key={`${review.id}-${idx}`}
-                ref={(node) => {
-                  cardRefs.current[idx] = node
-                }}
-                className="snap-start shrink-0 basis-[88%] sm:basis-[70%] md:basis-[48%] lg:basis-[32%]"
-              >
-                <article className="card-hover h-full min-h-56 bg-white border border-stone-200 p-6 md:p-7 rounded-lg shadow-sm hover:shadow-lg">
-                  <StarRow />
-                  <p className="text-stone-600 text-sm md:text-base leading-relaxed mt-4">"{review.text}"</p>
-                  <p className="mt-6 text-stone-900 font-semibold">{review.name}</p>
-                </article>
-              </div>
-            ))}
+            <div ref={trackRef} className="flex items-stretch gap-4 md:gap-6 will-change-transform">
+              {loopedReviews.map((review, idx) => (
+                <div key={`${review.id}-${idx}`} className="shrink-0 w-[86vw] sm:w-[68vw] md:w-[44vw] lg:w-[31vw]">
+                  <article className="card-hover h-full min-h-56 bg-white border border-stone-200 p-6 md:p-7 rounded-lg shadow-sm hover:shadow-lg">
+                    <StarRow />
+                    <p className="text-stone-600 text-sm md:text-base leading-relaxed mt-4">"{review.text}"</p>
+                    <p className="mt-6 text-stone-900 font-semibold">{review.name}</p>
+                  </article>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
