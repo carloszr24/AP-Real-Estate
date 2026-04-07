@@ -12,6 +12,9 @@ const links = [
   { href: '/contacto', label: 'Contacto' },
 ]
 
+const phoneDisplay = '950 79 02 17'
+const phoneHref = 'tel:+34950790217'
+
 export function Navbar() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
@@ -54,8 +57,12 @@ export function Navbar() {
 
           {/* CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <Link href="/contacto" className="btn-primary text-xs px-5 py-2.5">
-              Contactar
+            <Link
+              href={phoneHref}
+              className="btn-primary text-xs px-5 py-2.5"
+              aria-label="Llamar al 950 79 02 17"
+            >
+              {phoneDisplay}
             </Link>
           </div>
 
@@ -87,8 +94,13 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Link href="/contacto" onClick={() => setOpen(false)} className="btn-primary text-xs mt-4 w-full text-center">
-            Contactar
+          <Link
+            href={phoneHref}
+            onClick={() => setOpen(false)}
+            className="btn-primary text-xs mt-4 w-full text-center"
+            aria-label="Llamar al 950 79 02 17"
+          >
+            Llamar: {phoneDisplay}
           </Link>
         </div>
       )}
