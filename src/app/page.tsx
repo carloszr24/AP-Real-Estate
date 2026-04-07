@@ -26,7 +26,7 @@ export default async function HomePage() {
   return (
     <>
       {/* HERO */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[calc(100svh-4rem)] pt-24 pb-14 md:pt-28 md:pb-20 flex items-center justify-center overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -40,12 +40,12 @@ export default async function HomePage() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-          <h1 className="font-display text-5xl md:text-7xl font-light text-white leading-[1.1] mb-8 animate-fade-up">
+        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+          <h1 className="font-display text-[clamp(2.6rem,9vw,5.8rem)] text-white leading-[1.05] mb-7 md:mb-8 animate-fade-up">
             Tu hogar ideal,<br />
             <span className="italic">donde lo imaginas</span>
           </h1>
-          <p className="text-stone-300 text-lg font-light max-w-xl mx-auto mb-10 leading-relaxed animate-fade-up" style={{ animationDelay: '0.1s', opacity: 0, animationFillMode: 'forwards' }}>
+          <p className="text-stone-200 text-lg md:text-xl font-normal max-w-2xl mx-auto mb-9 md:mb-10 leading-relaxed animate-fade-up" style={{ animationDelay: '0.1s', opacity: 0, animationFillMode: 'forwards' }}>
             Gestionamos arrendamientos y ventas de viviendas propias y de particulares.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up" style={{ animationDelay: '0.2s', opacity: 0, animationFillMode: 'forwards' }}>

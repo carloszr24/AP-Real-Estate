@@ -17,6 +17,18 @@
   * {
     box-sizing: border-box;
   }
+
+  h1,
+  h2 {
+    @apply font-display font-semibold tracking-normal leading-tight;
+  }
+
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display font-medium tracking-normal leading-snug;
+  }
 }
 
 @layer components {
@@ -33,7 +45,7 @@
   }
 
   .section-title {
-    @apply font-display text-4xl md:text-5xl font-light text-stone-900 leading-tight;
+    @apply font-display text-4xl md:text-5xl font-semibold text-stone-900 leading-tight;
   }
 
   .section-subtitle {

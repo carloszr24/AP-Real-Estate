@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Cormorant_Garamond, Inter } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import './globals.css'
 import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
@@ -7,12 +7,6 @@ import { Footer } from '@/components/layout/Footer'
 const sans = Inter({
   subsets: ['latin'],
   variable: '--font-geist-sans',
-})
-
-const cormorant = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  variable: '--font-cormorant',
 })
 
 export const metadata: Metadata = {
@@ -27,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" className={`${sans.variable} ${cormorant.variable}`}>
+    <html lang="es" className={sans.variable}>
       <body className="bg-white text-stone-900 antialiased">
         <Navbar />
         <main className="min-h-screen">{children}</main>
