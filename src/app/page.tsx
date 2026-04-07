@@ -54,9 +54,6 @@ export default async function HomePage() {
 
         {/* Content */}
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-          <p className="text-gold text-xs tracking-[0.3em] uppercase mb-6 animate-fade-in">
-            Almería · Servicios inmobiliarios
-          </p>
           <h1 className="font-display text-5xl md:text-7xl font-light text-white leading-[1.1] mb-8 animate-fade-up">
             Tu hogar ideal,<br />
             <span className="italic">donde lo imaginas</span>
@@ -74,13 +71,6 @@ export default async function HomePage() {
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2">
-          <span className="text-white/40 text-xs tracking-widest uppercase">Scroll</span>
-          <div className="w-px h-12 bg-white/20 relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1/2 bg-white/60 animate-scroll" />
-          </div>
-        </div>
       </section>
 
       {/* STATS */}
