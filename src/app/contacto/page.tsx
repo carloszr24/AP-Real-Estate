@@ -126,10 +126,10 @@ export default function ContactoPage() {
               <h2 className="font-display text-3xl font-light text-stone-900 mb-8">Información</h2>
               <div className="space-y-6">
                 {[
-                  { icon: '📍', label: 'Dirección', value: 'Av. Ramón y Cajal, 12\nFuengirola, 29640 Málaga' },
-                  { icon: '📞', label: 'Teléfono', value: '+34 952 000 000' },
-                  { icon: '✉️', label: 'Email', value: 'info@plenocasa.es' },
-                  { icon: '🕐', label: 'Horario', value: 'Lun–Vie: 9:00–19:00\nSáb: 10:00–14:00' },
+                  { icon: '📍', label: 'Dirección', value: 'Av. de la Estación, 25, 7º 3 B\n04005 Almería' },
+                  { icon: '📞', label: 'Teléfono', value: '950 79 02 17' },
+                  { icon: '✉️', label: 'Email', value: 'adm.ap.servicios.inmobiliarios@gmail.com' },
+                  { icon: '🕐', label: 'Horario', value: 'Lun–Vie: 9:30–14:00 · 17:00–20:00\nSáb–Dom: Cerrado' },
                 ].map((item) => (
                   <div key={item.label} className="flex gap-4">
                     <span className="text-xl shrink-0">{item.icon}</span>

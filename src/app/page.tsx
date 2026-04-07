@@ -55,15 +55,14 @@ export default async function HomePage() {
         {/* Content */}
         <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
           <p className="text-gold text-xs tracking-[0.3em] uppercase mb-6 animate-fade-in">
-            Costa del Sol · Desde 2009
+            Almería · Servicios inmobiliarios
           </p>
           <h1 className="font-display text-5xl md:text-7xl font-light text-white leading-[1.1] mb-8 animate-fade-up">
             Tu hogar ideal,<br />
             <span className="italic">donde lo imaginas</span>
           </h1>
           <p className="text-stone-300 text-lg font-light max-w-xl mx-auto mb-10 leading-relaxed animate-fade-up" style={{ animationDelay: '0.1s', opacity: 0, animationFillMode: 'forwards' }}>
-            Más de 15 años conectando familias con propiedades excepcionales
-            en la Costa del Sol.
+            Gestionamos arrendamientos y ventas de viviendas propias y de particulares.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up" style={{ animationDelay: '0.2s', opacity: 0, animationFillMode: 'forwards' }}>
             <Link href="/propiedades" className="btn-gold px-10 py-4 text-sm tracking-wide">

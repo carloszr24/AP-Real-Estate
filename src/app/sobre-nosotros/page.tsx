@@ -66,14 +66,14 @@ export default function SobreNosotrosPage() {
               en hogares
             </h1>
             <p className="text-stone-400 text-lg font-light leading-relaxed">
-              Nacimos en Fuengirola con la misión de ofrecer un servicio inmobiliario
-              diferente: cercano, honesto y completamente orientado al cliente.
+              Somos un equipo de agentes inmobiliarios en Almería con una misión clara:
+              ofrecer un servicio cercano, honesto y completamente orientado al cliente.
             </p>
           </div>
           <div className="relative aspect-[4/3] overflow-hidden">
             <Image
               src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800"
-              alt="Oficina PlenoCasa"
+              alt="Oficina AP Real Estate Services"
               fill
               className="object-cover"
             />

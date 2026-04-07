@@ -16,9 +16,9 @@ const cormorant = Cormorant_Garamond({
 })
 
 export const metadata: Metadata = {
-  title: 'Pleno Casa | Inmobiliaria en la Costa del Sol',
-  description: 'Encuentra tu hogar ideal en la Costa del Sol. Pisos, casas, villas y locales en Marbella, Fuengirola, Mijas y Benalmádena.',
-  keywords: 'inmobiliaria, costa del sol, marbella, fuengirola, casas, pisos, villas',
+  title: 'AP Real Estate Services | Inmobiliaria en Almería',
+  description: 'Gestionamos arrendamientos y ventas de viviendas propias y de particulares en Almería.',
+  keywords: 'inmobiliaria, almería, pisos, casas, locales, alquiler, venta',
 }
 
 export default function RootLayout({
