@@ -38,11 +38,11 @@ export function FeaturedPropertiesGrid({ properties }: FeaturedPropertiesGridPro
 
   return (
     <div ref={sectionRef}>
-      <div className="flex gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden pb-1">
+      <div className="flex gap-5 md:gap-7 overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden pb-1">
         {properties.map((property, index) => (
           <div
             key={property.id}
-            className={`snap-start shrink-0 w-[78vw] sm:w-[60vw] md:w-[44%] lg:w-[30%] ${
+            className={`snap-start shrink-0 w-[86vw] sm:w-[68vw] md:w-[52%] lg:w-[36%] ${
               isVisible ? 'animate-fade-up' : 'opacity-0 translate-y-6'
             }`}
             style={

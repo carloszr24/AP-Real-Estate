@@ -83,11 +83,18 @@ export default async function HomePage() {
       <section className="py-24 px-6 md:px-10 max-w-7xl mx-auto">
         {featured.length > 0 ? (
           <div className="space-y-7">
-            <h2 className="font-display text-4xl md:text-5xl leading-tight">
-              Nuevas <span className="text-gold">oportunidades</span>
-            </h2>
+            <div className="relative min-h-10">
+              <h2 className="font-display text-4xl md:text-5xl leading-tight text-center">
+                Nuevas <span className="text-gold">oportunidades</span>
+              </h2>
+              <div className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2">
+                <Link href="/propiedades" className="btn-outline text-xs shrink-0">
+                  Ver todas →
+                </Link>
+              </div>
+            </div>
             <FeaturedPropertiesGrid properties={featured} />
-            <div className="flex justify-end">
+            <div className="flex justify-end md:hidden">
               <Link href="/propiedades" className="btn-outline text-xs shrink-0">
                 Ver todas →
               </Link>
