@@ -128,7 +128,7 @@ export function ReviewsCarousel() {
     if (!isVisible || reducedMotion || paused) return
     const timer = window.setInterval(() => {
       setVisualIndex((prev) => prev + 1)
-    }, 2000)
+    }, 1000)
     return () => window.clearInterval(timer)
   }, [isVisible, paused, reducedMotion])
 
