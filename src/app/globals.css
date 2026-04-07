@@ -3,9 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --gold: #b8975a;
-  --gold-light: #d4b483;
-  --gold-dark: #8a6e3c;
+  /* Azul corporativo (del logo) */
+  --gold: #0A16FF;
+  --gold-light: #4D5CFF;
+  --gold-dark: #0810CC;
 }
 
 @layer base {
@@ -20,11 +21,11 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-stone-900 text-white text-sm font-medium tracking-wide hover:bg-stone-700 transition-colors duration-200;
+    @apply inline-flex items-center justify-center px-6 py-3 bg-gold text-white text-sm font-medium tracking-wide hover:bg-gold-dark transition-colors duration-200;
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center px-6 py-3 border border-stone-900 text-stone-900 text-sm font-medium tracking-wide hover:bg-stone-900 hover:text-white transition-colors duration-200;
+    @apply inline-flex items-center justify-center px-6 py-3 border border-gold text-gold text-sm font-medium tracking-wide hover:bg-gold hover:text-white transition-colors duration-200;
   }
 
   .btn-gold {

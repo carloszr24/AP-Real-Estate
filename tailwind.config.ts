@@ -17,9 +17,10 @@ const config: Config = {
           950: '#0c0a09',
         },
         gold: {
-          DEFAULT: '#b8975a',
-          light: '#d4b483',
-          dark: '#8a6e3c',
+          // Azul corporativo (del logo)
+          DEFAULT: '#0A16FF',
+          light: '#4D5CFF',
+          dark: '#0810CC',
         },
       },
       animation: {
