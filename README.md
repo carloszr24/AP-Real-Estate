@@ -1,80 +1,66 @@
 # PlenoCasa — Inmobiliaria Web
 
-Next.js + TypeScript + Tailwind + Prisma + PostgreSQL ([Supabase](https://supabase.com))
+Next.js + TypeScript + Tailwind + **Supabase** (Postgres + cliente oficial)
 
 ---
 
 ## Setup en local
 
 ### 1. Instalar dependencias
+
 ```bash
 npm install
 ```
 
-### 2. Supabase y entorno
-1. Crea un proyecto en Supabase → **Settings → Database**.
-2. `cp .env.example .env` y rellena en `.env`:
-   - **DATABASE_URL**: URI de **Connection pooling** (modo **Transaction**, puerto **6543**). Si no incluye `pgbouncer=true`, añádelo al final de la URL.
-   - **DIRECT_URL**: **Connection string** directa (puerto **5432**) para migraciones y Prisma Studio.
-   - **ADMIN_PASSWORD**: contraseña del panel `/admin` (solo servidor; no uses `NEXT_PUBLIC_`).
+### 2. Supabase: tabla y RLS
 
-En Postgres local sin pooler puedes usar la **misma** URL en `DATABASE_URL` y `DIRECT_URL`.
+1. Crea un proyecto en [Supabase](https://supabase.com).
+2. **SQL Editor** → pega y ejecuta el contenido de [`supabase/migrations/20260407120000_properties.sql`](supabase/migrations/20260407120000_properties.sql).
 
-### 3. Tablas y datos de ejemplo
+### 3. Variables de entorno
+
 ```bash
-npx prisma migrate dev    # primera vez: crea tablas a partir de prisma/migrations
-npm run db:seed           # opcional: propiedades de ejemplo
+cp .env.example .env
 ```
 
-### 4. Desarrollo
-```bash
-npm run dev
-```
+Rellena con **Project Settings → API**:
 
-Abre [http://localhost:3000](http://localhost:3000). El panel admin está en `/admin` (contraseña = `ADMIN_PASSWORD`).
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` (anon / public)
+- `SUPABASE_SERVICE_ROLE_KEY` (service_role; solo servidor)
+- `ADMIN_PASSWORD` (acceso a `/admin`)
 
----
-
-## Páginas
-
-| Ruta | Descripción |
-|------|-------------|
-| `/` | Home con hero y propiedades destacadas |
-| `/propiedades` | Catálogo con filtros |
-| `/propiedades/[id]` | Detalle de propiedad |
-| `/sobre-nosotros` | Presentación y servicios |
-| `/contacto` | Formulario de contacto |
-| `/admin` | Panel de gestión (sesión por cookie tras login) |
-
----
-
-## Despliegue en Vercel
-
-1. Sube el repo a GitHub y conecta el proyecto en [vercel.com](https://vercel.com).
-2. En **Settings → Environment Variables** añade las mismas variables que en `.env` (`DATABASE_URL`, `DIRECT_URL`, `ADMIN_PASSWORD`).
-3. El archivo `vercel.json` ejecuta `prisma migrate deploy` antes del build para aplicar migraciones en Supabase.
-
-Tras el primer deploy, si quieres datos de ejemplo, desde tu máquina (con `.env` apuntando a Supabase):
+### 4. Datos de ejemplo (opcional)
 
 ```bash
 npm run db:seed
 ```
 
+(Requiere Node 20+ por `node --env-file=.env`, o exporta las variables a mano.)
+
+### 5. Desarrollo
+
+```bash
+npm run dev
+```
+
+- Web: [http://localhost:3000](http://localhost:3000)
+- Admin: `/admin`
+
 ---
 
-## Personalización
+## Despliegue en Vercel
 
-### Datos de contacto y branding
-Edita `src/components/layout/Footer.tsx` y `src/app/contacto/page.tsx`. Busca "Pleno Casa" / "PlenoCasa" para el nombre.
+1. Conecta el repo en [Vercel](https://vercel.com).
+2. **Environment Variables** (Production y Preview si aplica): las mismas que en `.env`.
+3. Deploy: `next build` (por defecto).
 
-### Imágenes
-En el admin, pega URLs (Unsplash, Cloudinary, imgBB, etc.), una por línea.
+No hace falta `DATABASE_URL` ni Prisma: la app usa el cliente Supabase.
 
 ---
 
 ## Stack
 
-- **Framework**: Next.js 14 (App Router)
-- **Base de datos**: PostgreSQL (Supabase) via Prisma
-- **Estilos**: Tailwind CSS
-- **Fuentes**: Cormorant Garamond + Inter
+- Next.js 14 (App Router)
+- Supabase JS (`@supabase/supabase-js`)
+- Tailwind CSS

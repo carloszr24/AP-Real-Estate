@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { createPublicSupabase } from '@/lib/supabase/public-server'
+import { createAdminSupabase } from '@/lib/supabase/admin'
 import { getAdminTokenFromRequest, verifyAdminSessionToken } from '@/lib/admin-session'
+import { bodyToInsert, rowToProperty, type PropertyRow } from '@/lib/property-db'
 
 function unauthorized() {
   return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
@@ -8,9 +10,15 @@ function unauthorized() {
 
 export async function GET(_: NextRequest, { params }: { params: { id: string } }) {
   try {
-    const property = await prisma.property.findUnique({ where: { id: params.id } })
-    if (!property) return NextResponse.json({ error: 'No encontrada' }, { status: 404 })
-    return NextResponse.json(property)
+    const supabase = createPublicSupabase()
+    const { data, error } = await supabase
+      .from('properties')
+      .select('*')
+      .eq('id', params.id)
+      .maybeSingle()
+    if (error) throw error
+    if (!data) return NextResponse.json({ error: 'No encontrada' }, { status: 404 })
+    return NextResponse.json(rowToProperty(data as PropertyRow))
   } catch {
     return NextResponse.json({ error: 'Error' }, { status: 500 })
   }
@@ -27,25 +35,31 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       images, fotocasaUrl, bedrooms, bathrooms, sqMeters, featured,
     } = body
 
-    const property = await prisma.property.update({
-      where: { id: params.id },
-      data: {
-        title,
-        price: parseFloat(price),
-        location,
-        type,
-        status,
-        description,
-        images: Array.isArray(images) ? JSON.stringify(images) : images,
-        fotocasaUrl: fotocasaUrl || null,
-        bedrooms: bedrooms ? parseInt(bedrooms) : null,
-        bathrooms: bathrooms ? parseInt(bathrooms) : null,
-        sqMeters: sqMeters ? parseFloat(sqMeters) : null,
-        featured: featured || false,
-      },
+    const row = bodyToInsert({
+      title,
+      price,
+      location,
+      type,
+      status,
+      description,
+      images,
+      fotocasaUrl,
+      bedrooms,
+      bathrooms,
+      sqMeters,
+      featured,
     })
 
-    return NextResponse.json(property)
+    const supabase = createAdminSupabase()
+    const { data, error } = await supabase
+      .from('properties')
+      .update({ ...row, updated_at: new Date().toISOString() })
+      .eq('id', params.id)
+      .select('*')
+      .single()
+
+    if (error) throw error
+    return NextResponse.json(rowToProperty(data as PropertyRow))
   } catch {
     return NextResponse.json({ error: 'Error al actualizar' }, { status: 500 })
   }
@@ -56,7 +70,9 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
     return unauthorized()
   }
   try {
-    await prisma.property.delete({ where: { id: params.id } })
+    const supabase = createAdminSupabase()
+    const { error } = await supabase.from('properties').delete().eq('id', params.id)
+    if (error) throw error
     return NextResponse.json({ success: true })
   } catch {
     return NextResponse.json({ error: 'Error al eliminar' }, { status: 500 })

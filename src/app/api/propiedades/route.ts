@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { createPublicSupabase } from '@/lib/supabase/public-server'
+import { createAdminSupabase } from '@/lib/supabase/admin'
 import { getAdminTokenFromRequest, verifyAdminSessionToken } from '@/lib/admin-session'
+import { bodyToInsert, rowToProperty, rowsToProperties, type PropertyRow } from '@/lib/property-db'
 
 function unauthorized() {
   return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
@@ -8,10 +10,13 @@ function unauthorized() {
 
 export async function GET() {
   try {
-    const properties = await prisma.property.findMany({
-      orderBy: { createdAt: 'desc' },
-    })
-    return NextResponse.json(properties)
+    const supabase = createPublicSupabase()
+    const { data, error } = await supabase
+      .from('properties')
+      .select('*')
+      .order('created_at', { ascending: false })
+    if (error) throw error
+    return NextResponse.json(rowsToProperties(data as PropertyRow[] | null))
   } catch {
     return NextResponse.json({ error: 'Error al obtener propiedades' }, { status: 500 })
   }
@@ -32,24 +37,30 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 })
     }
 
-    const property = await prisma.property.create({
-      data: {
-        title,
-        price: parseFloat(price),
-        location,
-        type,
-        status: status || 'disponible',
-        description,
-        images: Array.isArray(images) ? JSON.stringify(images) : images,
-        fotocasaUrl: fotocasaUrl || null,
-        bedrooms: bedrooms ? parseInt(bedrooms) : null,
-        bathrooms: bathrooms ? parseInt(bathrooms) : null,
-        sqMeters: sqMeters ? parseFloat(sqMeters) : null,
-        featured: featured || false,
-      },
+    const insert = bodyToInsert({
+      title,
+      price,
+      location,
+      type,
+      status,
+      description,
+      images,
+      fotocasaUrl,
+      bedrooms,
+      bathrooms,
+      sqMeters,
+      featured,
     })
 
-    return NextResponse.json(property, { status: 201 })
+    const supabase = createAdminSupabase()
+    const { data, error } = await supabase
+      .from('properties')
+      .insert(insert)
+      .select('*')
+      .single()
+
+    if (error) throw error
+    return NextResponse.json(rowToProperty(data as PropertyRow), { status: 201 })
   } catch {
     return NextResponse.json({ error: 'Error al crear propiedad' }, { status: 500 })
   }

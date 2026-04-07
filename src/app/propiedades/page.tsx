@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
-import { prisma } from '@/lib/prisma'
-import { PropertyCard, PropertyCardSkeleton } from '@/components/properties/PropertyCard'
+import { createPublicSupabase } from '@/lib/supabase/public-server'
+import { rowsToProperties, type PropertyRow } from '@/lib/property-db'
+import { PropertyCard } from '@/components/properties/PropertyCard'
 import { PropertyFilters } from '@/components/properties/PropertyFilters'
 
 export const dynamic = 'force-dynamic'
@@ -13,20 +14,17 @@ interface SearchParams {
 }
 
 async function getProperties(searchParams: SearchParams) {
-  const where: Record<string, unknown> = {}
+  const supabase = createPublicSupabase()
+  let q = supabase.from('properties').select('*').order('created_at', { ascending: false })
 
-  if (searchParams.type) where.type = searchParams.type
-  if (searchParams.status) where.status = searchParams.status
-  if (searchParams.minPrice || searchParams.maxPrice) {
-    where.price = {}
-    if (searchParams.minPrice) (where.price as Record<string, number>).gte = parseFloat(searchParams.minPrice)
-    if (searchParams.maxPrice) (where.price as Record<string, number>).lte = parseFloat(searchParams.maxPrice)
-  }
+  if (searchParams.type) q = q.eq('type', searchParams.type)
+  if (searchParams.status) q = q.eq('status', searchParams.status)
+  if (searchParams.minPrice) q = q.gte('price', parseFloat(searchParams.minPrice))
+  if (searchParams.maxPrice) q = q.lte('price', parseFloat(searchParams.maxPrice))
 
-  return prisma.property.findMany({
-    where,
-    orderBy: { createdAt: 'desc' },
-  })
+  const { data, error } = await q
+  if (error) throw error
+  return rowsToProperties(data as PropertyRow[] | null)
 }
 
 export default async function PropiedadesPage({

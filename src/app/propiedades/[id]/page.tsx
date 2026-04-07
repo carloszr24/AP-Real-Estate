@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { prisma } from '@/lib/prisma'
+import { createPublicSupabase } from '@/lib/supabase/public-server'
+import { rowToProperty, type PropertyRow } from '@/lib/property-db'
 import { formatPrice, parseImages, STATUS_LABELS, TYPE_LABELS } from '@/lib/utils'
 import { cn } from '@/lib/utils'
 
@@ -18,11 +19,17 @@ export default async function PropertyDetailPage({
 }: {
   params: { id: string }
 }) {
-  const property = await prisma.property.findUnique({
-    where: { id: params.id },
-  })
+  const supabase = createPublicSupabase()
+  const { data, error } = await supabase
+    .from('properties')
+    .select('*')
+    .eq('id', params.id)
+    .maybeSingle()
 
-  if (!property) notFound()
+  if (error) throw error
+  if (!data) notFound()
+
+  const property = rowToProperty(data as PropertyRow)
 
   const images = parseImages(property.images)
   const mainImage = images[0] || 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200'

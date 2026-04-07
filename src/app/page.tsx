@@ -1,23 +1,36 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { prisma } from '@/lib/prisma'
+import { createPublicSupabase } from '@/lib/supabase/public-server'
+import { rowsToProperties, type PropertyRow } from '@/lib/property-db'
 import { PropertyCard } from '@/components/properties/PropertyCard'
 import { formatPrice } from '@/lib/utils'
 
 export const dynamic = 'force-dynamic'
 
 async function getFeaturedProperties() {
-  return prisma.property.findMany({
-    where: { featured: true },
-    orderBy: { createdAt: 'desc' },
-    take: 3,
-  })
+  const supabase = createPublicSupabase()
+  const { data, error } = await supabase
+    .from('properties')
+    .select('*')
+    .eq('featured', true)
+    .order('created_at', { ascending: false })
+    .limit(3)
+  if (error) throw error
+  return rowsToProperties(data as PropertyRow[] | null)
 }
 
 async function getStats() {
-  const total = await prisma.property.count()
-  const available = await prisma.property.count({ where: { status: 'disponible' } })
-  return { total, available }
+  const supabase = createPublicSupabase()
+  const { count: total, error: e1 } = await supabase
+    .from('properties')
+    .select('*', { count: 'exact', head: true })
+  if (e1) throw e1
+  const { count: available, error: e2 } = await supabase
+    .from('properties')
+    .select('*', { count: 'exact', head: true })
+    .eq('status', 'disponible')
+  if (e2) throw e2
+  return { total: total ?? 0, available: available ?? 0 }
 }
 
 export default async function HomePage() {
