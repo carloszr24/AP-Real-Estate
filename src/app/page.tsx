@@ -81,18 +81,15 @@ export default async function HomePage() {
 
       {/* FEATURED PROPERTIES */}
       <section className="py-24 px-6 md:px-10 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
-          <div>
-            <p className="text-gold text-xs tracking-[0.3em] uppercase mb-3">Selección</p>
-            <h2 className="section-title">Propiedades<br />destacadas</h2>
-          </div>
-          <Link href="/propiedades" className="btn-outline text-xs shrink-0">
-            Ver todas →
-          </Link>
-        </div>
-
         {featured.length > 0 ? (
-          <FeaturedPropertiesGrid properties={featured} />
+          <div className="space-y-7">
+            <FeaturedPropertiesGrid properties={featured} />
+            <div className="flex justify-end">
+              <Link href="/propiedades" className="btn-outline text-xs shrink-0">
+                Ver todas →
+              </Link>
+            </div>
+          </div>
         ) : (
           <div className="text-center py-20 text-stone-400">
             <p>Pronto añadiremos propiedades destacadas.</p>

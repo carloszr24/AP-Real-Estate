@@ -37,23 +37,27 @@ export function FeaturedPropertiesGrid({ properties }: FeaturedPropertiesGridPro
   }, [])
 
   return (
-    <div ref={sectionRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {properties.map((property, index) => (
-        <div
-          key={property.id}
-          className={isVisible ? 'animate-fade-up' : 'opacity-0 translate-y-6'}
-          style={
-            isVisible
-              ? {
-                  animationDelay: reducedMotion ? '0s' : `${index * 0.12}s`,
-                  animationFillMode: 'forwards',
-                }
-              : undefined
-          }
-        >
-          <PropertyCard property={property} />
-        </div>
-      ))}
+    <div ref={sectionRef}>
+      <div className="flex gap-5 md:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden pb-1">
+        {properties.map((property, index) => (
+          <div
+            key={property.id}
+            className={`snap-start shrink-0 w-[86vw] sm:w-[68vw] md:w-[48%] lg:w-[31.8%] ${
+              isVisible ? 'animate-fade-up' : 'opacity-0 translate-y-6'
+            }`}
+            style={
+              isVisible
+                ? {
+                    animationDelay: reducedMotion ? '0s' : `${index * 0.12}s`,
+                    animationFillMode: 'forwards',
+                  }
+                : undefined
+            }
+          >
+            <PropertyCard property={property} />
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
