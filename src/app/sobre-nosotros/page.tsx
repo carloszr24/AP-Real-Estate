@@ -72,7 +72,7 @@ export default function SobreNosotrosPage() {
           </div>
           <div className="relative aspect-[4/3] overflow-hidden">
             <Image
-              src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800"
+              src="/images/imagen-nosotros.jpg"
               alt="Oficina AP Real Estate Services"
               fill
               className="object-cover"
