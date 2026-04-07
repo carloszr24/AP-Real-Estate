@@ -38,11 +38,12 @@ export function FeaturedPropertiesGrid({ properties }: FeaturedPropertiesGridPro
 
   return (
     <div ref={sectionRef}>
-      <div className="flex gap-5 md:gap-7 overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden pb-1">
+      <div className="overflow-x-auto lg:overflow-visible snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden pb-1">
+        <div className="flex gap-5 md:gap-7 lg:grid lg:grid-cols-3 lg:gap-7">
         {properties.map((property, index) => (
           <div
             key={property.id}
-            className={`snap-start shrink-0 w-[86vw] sm:w-[68vw] md:w-[52%] lg:w-[36%] ${
+            className={`snap-start shrink-0 w-[86vw] sm:w-[68vw] md:w-[52%] lg:w-auto lg:min-w-0 ${
               isVisible ? 'animate-fade-up' : 'opacity-0 translate-y-6'
             }`}
             style={
@@ -57,6 +58,7 @@ export function FeaturedPropertiesGrid({ properties }: FeaturedPropertiesGridPro
             <PropertyCard property={property} variant="featuredMinimal" />
           </div>
         ))}
+        </div>
       </div>
     </div>
   )
