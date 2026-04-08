@@ -1,5 +1,13 @@
 import type { Property } from '@/types'
 
+function normalizeExternalUrl(value?: string | null): string | null {
+  if (!value) return null
+  const trimmed = value.trim()
+  if (!trimmed) return null
+  if (/^https?:\/\//i.test(trimmed)) return trimmed
+  return `https://${trimmed}`
+}
+
 export type PropertyRow = {
   id: string
   title: string
@@ -138,7 +146,7 @@ export function bodyToInsert(body: {
     status: body.status || 'disponible',
     description: body.description,
     images: imagesStr,
-    fotocasa_url: body.fotocasaUrl || null,
+    fotocasa_url: normalizeExternalUrl(body.fotocasaUrl),
     bedrooms: body.bedrooms !== undefined && body.bedrooms !== '' && body.bedrooms !== null
       ? parseInt(String(body.bedrooms), 10)
       : null,
