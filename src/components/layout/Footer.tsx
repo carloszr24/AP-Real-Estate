@@ -2,6 +2,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 export function Footer() {
+  const mapsHref = 'https://www.google.com/maps/search/?api=1&query=Av.+de+la+Estaci%C3%B3n%2C+25%2C+7%C2%BA+3+B%2C+04005+Almer%C3%ADa'
+  const phoneHref = 'tel:+34950790217'
+  const emailHref = 'mailto:adm.ap.servicios.inmobiliarios@gmail.com'
+  const whatsappHref = 'https://wa.me/34695919069'
+
   return (
     <footer className="bg-stone-200 text-stone-700 mt-24 border-t border-stone-300">
       <div className="max-w-7xl mx-auto px-6 md:px-10 py-16">
@@ -29,13 +34,41 @@ export function Footer() {
           <div>
             <h4 className="text-stone-900 text-xs tracking-widest uppercase mb-4">Contacto</h4>
             <ul className="space-y-2 text-sm">
-              <li>Av. de la Estación, 25, 7º 3 B</li>
-              <li>04005 Almería</li>
-              <li className="pt-1">
-                <a href="tel:+34950790217" className="hover:text-stone-900 transition-colors">950 79 02 17</a>
+              <li>
+                <a
+                  href={mapsHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-stone-900 transition-colors"
+                >
+                  Av. de la Estación, 25, 7º 3 B
+                </a>
               </li>
               <li>
-                <a href="mailto:adm.ap.servicios.inmobiliarios@gmail.com" className="hover:text-stone-900 transition-colors">adm.ap.servicios.inmobiliarios@gmail.com</a>
+                <a
+                  href={mapsHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-stone-900 transition-colors"
+                >
+                  04005 Almería
+                </a>
+              </li>
+              <li className="pt-1">
+                <a href={phoneHref} className="hover:text-stone-900 transition-colors">950 79 02 17</a>
+              </li>
+              <li>
+                <a href={emailHref} className="hover:text-stone-900 transition-colors">adm.ap.servicios.inmobiliarios@gmail.com</a>
+              </li>
+              <li>
+                <a
+                  href={whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-stone-900 transition-colors"
+                >
+                  WhatsApp: +34 695 91 90 69
+                </a>
               </li>
             </ul>
           </div>

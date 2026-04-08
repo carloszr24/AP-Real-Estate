@@ -7,6 +7,14 @@ export default function ContactoPage() {
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
 
+  const mapsHref = 'https://www.google.com/maps/search/?api=1&query=Av.+de+la+Estaci%C3%B3n%2C+25%2C+7%C2%BA+3+B%2C+04005+Almer%C3%ADa'
+  const phoneDisplay = '950 79 02 17'
+  const phoneHref = 'tel:+34950790217'
+  const email = 'adm.ap.servicios.inmobiliarios@gmail.com'
+  const emailHref = `mailto:${email}`
+  const whatsappDisplay = '+34 695 91 90 69'
+  const whatsappHref = 'https://wa.me/34695919069'
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
@@ -125,20 +133,66 @@ export default function ContactoPage() {
             <div>
               <h2 className="font-display text-3xl font-light text-stone-900 mb-8">Información</h2>
               <div className="space-y-6">
-                {[
-                  { icon: '📍', label: 'Dirección', value: 'Av. de la Estación, 25, 7º 3 B\n04005 Almería' },
-                  { icon: '📞', label: 'Teléfono', value: '950 79 02 17' },
-                  { icon: '✉️', label: 'Email', value: 'adm.ap.servicios.inmobiliarios@gmail.com' },
-                  { icon: '🕐', label: 'Horario', value: 'Lun–Vie: 9:30–14:00 · 17:00–20:00\nSáb–Dom: Cerrado' },
-                ].map((item) => (
-                  <div key={item.label} className="flex gap-4">
-                    <span className="text-xl shrink-0">{item.icon}</span>
-                    <div>
-                      <p className="text-xs text-stone-400 tracking-wide mb-1">{item.label}</p>
-                      <p className="text-stone-700 text-sm whitespace-pre-line">{item.value}</p>
-                    </div>
+                <div className="flex gap-4">
+                  <span className="text-xl shrink-0">📍</span>
+                  <div>
+                    <p className="text-xs text-stone-400 tracking-wide mb-1">Dirección</p>
+                    <a
+                      href={mapsHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-stone-700 text-sm whitespace-pre-line hover:text-stone-900 transition-colors"
+                    >
+                      Av. de la Estación, 25, 7º 3 B
+                      <br />
+                      04005 Almería
+                    </a>
                   </div>
-                ))}
+                </div>
+
+                <div className="flex gap-4">
+                  <span className="text-xl shrink-0">📞</span>
+                  <div>
+                    <p className="text-xs text-stone-400 tracking-wide mb-1">Teléfono</p>
+                    <a href={phoneHref} className="text-stone-700 text-sm hover:text-stone-900 transition-colors">
+                      {phoneDisplay}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <span className="text-xl shrink-0">✉️</span>
+                  <div>
+                    <p className="text-xs text-stone-400 tracking-wide mb-1">Email</p>
+                    <a href={emailHref} className="text-stone-700 text-sm hover:text-stone-900 transition-colors break-all">
+                      {email}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <span className="text-xl shrink-0">💬</span>
+                  <div>
+                    <p className="text-xs text-stone-400 tracking-wide mb-1">WhatsApp</p>
+                    <a
+                      href={whatsappHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-stone-700 text-sm hover:text-stone-900 transition-colors"
+                    >
+                      {whatsappDisplay}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <span className="text-xl shrink-0">🕐</span>
+                  <div>
+                    <p className="text-xs text-stone-400 tracking-wide mb-1">Horario</p>
+                    <p className="text-stone-700 text-sm whitespace-pre-line">Lun–Vie: 9:30–14:00 · 17:00–20:00
+Sáb–Dom: Cerrado</p>
+                  </div>
+                </div>
               </div>
             </div>
 
