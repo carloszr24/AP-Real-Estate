@@ -41,20 +41,10 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="hover:text-stone-900 transition-colors"
                 >
-                  Av. de la Estación, 25, 7º 3 B
+                  Av. de la Estación, 25, 7º 3 B, 04005 Almería
                 </a>
               </li>
               <li>
-                <a
-                  href={mapsHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-stone-900 transition-colors"
-                >
-                  04005 Almería
-                </a>
-              </li>
-              <li className="pt-1">
                 <a href={phoneHref} className="hover:text-stone-900 transition-colors">950 79 02 17</a>
               </li>
               <li>
