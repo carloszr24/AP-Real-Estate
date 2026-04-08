@@ -57,12 +57,14 @@ export default async function HomePage() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
-          <h1 className="font-display text-[clamp(2.6rem,9vw,5.8rem)] text-white leading-[1.05] mb-7 md:mb-8 animate-fade-up">
-            Tu hogar ideal,<br />
-            <span className="italic">donde lo imaginas</span>
+        <div className="relative z-10 text-center px-4 min-[400px]:px-6 max-w-5xl mx-auto">
+          <h1 className="font-display text-white text-balance max-md:tracking-[-0.02em] text-[clamp(2.25rem,7.5vw+0.35rem,3.45rem)] md:text-[clamp(2.65rem,5.2vw+1.1rem,5.8rem)] leading-[1.11] md:leading-[1.05] mb-6 md:mb-8 animate-fade-up">
+            Encuentra tu hogar
+            <span className="hidden md:inline"> </span>
+            <br className="md:hidden" aria-hidden="true" />
+            en Almería
           </h1>
-          <p className="text-stone-200 text-lg md:text-xl font-normal max-w-2xl mx-auto mb-9 md:mb-10 leading-relaxed animate-fade-up" style={{ animationDelay: '0.1s', opacity: 0, animationFillMode: 'forwards' }}>
+          <p className="text-stone-200 text-base sm:text-lg md:text-xl font-normal max-w-[min(100%,22rem)] sm:max-w-2xl mx-auto mb-8 sm:mb-9 md:mb-10 leading-relaxed text-pretty animate-fade-up" style={{ animationDelay: '0.1s', opacity: 0, animationFillMode: 'forwards' }}>
             Gestionamos arrendamientos y ventas de viviendas propias y de particulares.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up" style={{ animationDelay: '0.2s', opacity: 0, animationFillMode: 'forwards' }}>
