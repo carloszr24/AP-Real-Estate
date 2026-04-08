@@ -19,6 +19,7 @@ export type PropertyRow = {
   heating: string | null
   condition: string | null
   property_age: string | null
+  floor: string | null
   garage: string | null
   elevator: string | null
   furnished: string | null
@@ -51,6 +52,7 @@ export function rowToProperty(r: PropertyRow): Property {
     heating: r.heating,
     condition: r.condition,
     propertyAge: r.property_age,
+    floor: r.floor,
     garage: r.garage,
     elevator: r.elevator,
     furnished: r.furnished,
@@ -87,6 +89,7 @@ export type PropertyInsert = {
   heating: string | null
   condition: string | null
   property_age: string | null
+  floor: string | null
   garage: string | null
   elevator: string | null
   furnished: string | null
@@ -115,6 +118,7 @@ export function bodyToInsert(body: {
   heating?: string | null
   condition?: string | null
   propertyAge?: string | null
+  floor?: string | null
   garage?: string | null
   elevator?: string | null
   furnished?: string | null
@@ -149,6 +153,7 @@ export function bodyToInsert(body: {
     heating: body.heating || null,
     condition: body.condition || null,
     property_age: body.propertyAge || null,
+    floor: body.floor || null,
     garage: body.garage || null,
     elevator: body.elevator || null,
     furnished: body.furnished || null,

@@ -32,6 +32,16 @@ export default async function PropertyDetailPage({
   const property = rowToProperty(data as PropertyRow)
 
   const images = parseImages(property.images)
+  const floorLabel = property.floor?.trim()
+  const elevatorLabel = property.elevator?.trim().toLowerCase()
+  const hasElevator =
+    elevatorLabel === 'si' ||
+    elevatorLabel === 'sí' ||
+    elevatorLabel === 'con ascensor' ||
+    elevatorLabel === 'true'
+  const floorAndElevator = floorLabel
+    ? `${floorLabel} planta${hasElevator ? ' con ascensor' : ''}`
+    : null
   const whatsappText = `Hola! Me gustaría solicitar información sobre ${property.title}`
   const whatsappUrl = `https://wa.me/34695919069?text=${encodeURIComponent(whatsappText)}`
   const featureItems = [
@@ -156,6 +166,9 @@ export default async function PropertyDetailPage({
                   </div>
                 )}
               </div>
+              {floorAndElevator && (
+                <p className="text-sm text-stone-600 mb-8">{floorAndElevator}</p>
+              )}
 
               {/* CTAs */}
               <div className="space-y-3">

@@ -7,7 +7,7 @@ export default function ContactoPage() {
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const mapsHref = 'https://www.google.com/maps/search/?api=1&query=Av.+de+la+Estaci%C3%B3n%2C+25%2C+7%C2%BA+3+B%2C+04005+Almer%C3%ADa'
+  const mapsHref = 'https://www.google.com/maps/place/AP+Real+Estate+Services/@36.8374433,-2.4588639,18z/data=!3m1!4b1!4m6!3m5!1s0xd7a9d2dd1816679:0x72ee21246ddfb14a!8m2!3d36.8374417!4d-2.4579006!16s%2Fg%2F11j90l4_w8?entry=ttu&g_ep=EgoyMDI2MDQwNS4wIKXMDSoASAFQAw%3D%3D'
   const phoneDisplay = '950 79 02 17'
   const phoneHref = 'tel:+34950790217'
   const email = 'adm.ap.servicios.inmobiliarios@gmail.com'
