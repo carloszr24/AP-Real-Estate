@@ -452,9 +452,9 @@ export default function AdminPage() {
               </div>
 
               <div>
-                <label className="text-xs text-stone-500 block mb-1.5">Link Fotocasa</label>
+                <label className="text-xs text-stone-500 block mb-1.5">Link Idealista</label>
                 <input name="fotocasaUrl" value={form.fotocasaUrl} onChange={handleChange} type="url"
-                  placeholder="https://www.fotocasa.es/..."
+                  placeholder="https://www.idealista.com/..."
                   className="w-full border border-stone-200 px-3 py-2.5 text-sm focus:outline-none focus:border-stone-900" />
               </div>
 
