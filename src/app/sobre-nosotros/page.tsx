@@ -35,22 +35,29 @@ const services = [
 ]
 
 const team = [
-  {
-    name: 'María González',
-    role: 'Directora comercial',
-    img: 'https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?w=400',
-  },
-  {
-    name: 'Carlos Fernández',
-    role: 'Agente senior',
-    img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400',
-  },
-  {
-    name: 'Laura Martínez',
-    role: 'Asesora jurídica',
-    img: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400',
-  },
+  { name: 'María González', role: 'Directora comercial' },
+  { name: 'Carlos Fernández', role: 'Agente senior' },
+  { name: 'Laura Martínez', role: 'Asesora jurídica' },
 ]
+
+function DefaultTeamAvatar({ label }: { label: string }) {
+  return (
+    <div
+      className="absolute inset-0 flex items-center justify-center rounded-full bg-[#e8eaed]"
+      role="img"
+      aria-label={label}
+    >
+      <svg
+        className="w-[52%] h-[52%] text-[#5f6368]"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden
+      >
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+      </svg>
+    </div>
+  )
+}
 
 export default function SobreNosotrosPage() {
   return (
@@ -131,13 +138,8 @@ export default function SobreNosotrosPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
           {team.map((person) => (
             <div key={person.name} className="text-center">
-              <div className="relative aspect-square overflow-hidden mb-4 max-w-[180px] mx-auto">
-                <Image
-                  src={person.img}
-                  alt={person.name}
-                  fill
-                  className="object-cover"
-                />
+              <div className="relative aspect-square overflow-hidden mb-4 max-w-[180px] mx-auto rounded-full ring-1 ring-stone-200/80">
+                <DefaultTeamAvatar label={`${person.name}, sin foto de perfil`} />
               </div>
               <h3 className="font-medium text-stone-900">{person.name}</h3>
               <p className="text-stone-400 text-sm mt-1">{person.role}</p>
