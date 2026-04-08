@@ -39,9 +39,7 @@ export default async function PropertyDetailPage({
     elevatorLabel === 'sí' ||
     elevatorLabel === 'con ascensor' ||
     elevatorLabel === 'true'
-  const floorAndElevator = floorLabel
-    ? `${floorLabel} planta${hasElevator ? ' con ascensor' : ''}`
-    : null
+  const showFloorCard = Boolean(floorLabel || hasElevator)
   const whatsappText = `Hola! Me gustaría solicitar información sobre ${property.title}`
   const whatsappUrl = `https://wa.me/34695919069?text=${encodeURIComponent(whatsappText)}`
   const featureItems = [
@@ -146,7 +144,7 @@ export default async function PropertyDetailPage({
               </div>
 
               {/* Specs */}
-              <div className="grid grid-cols-3 gap-3 mb-8">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
                 {property.sqMeters && (
                   <div className="text-center p-4 border border-stone-100">
                     <p className="text-xl font-light text-stone-900">{property.sqMeters}</p>
@@ -165,10 +163,16 @@ export default async function PropertyDetailPage({
                     <p className="text-xs text-stone-400 mt-1">Baños</p>
                   </div>
                 )}
+                {showFloorCard && (
+                  <div className="text-center p-4 border border-stone-100">
+                    <p className="text-xl font-light text-stone-900">{floorLabel || '-'}</p>
+                    <p className="text-xs text-stone-400 mt-1">Planta</p>
+                    {hasElevator && (
+                      <p className="text-[11px] text-stone-500 mt-1">con ascensor</p>
+                    )}
+                  </div>
+                )}
               </div>
-              {floorAndElevator && (
-                <p className="text-sm text-stone-600 mb-8">{floorAndElevator}</p>
-              )}
 
               {/* CTAs */}
               <div className="space-y-3">
