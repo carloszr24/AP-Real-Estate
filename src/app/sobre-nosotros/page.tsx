@@ -34,83 +34,19 @@ const services = [
   },
 ]
 
-const team = [
-  { name: 'María González', role: 'Directora comercial' },
-  { name: 'Carlos Fernández', role: 'Agente senior' },
-  { name: 'Laura Martínez', role: 'Asesora jurídica' },
-]
-
-function DefaultTeamAvatar({ label }: { label: string }) {
-  return (
-    <div
-      className="absolute inset-0 flex items-center justify-center rounded-full bg-[#e8eaed]"
-      role="img"
-      aria-label={label}
-    >
-      <svg
-        className="w-[52%] h-[52%] text-[#5f6368]"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        aria-hidden
-      >
-        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-      </svg>
-    </div>
-  )
-}
-
 export default function SobreNosotrosPage() {
   return (
     <div className="pt-16">
-      {/* Hero */}
-      <section className="bg-stone-950 text-white py-24 px-6 md:px-10">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">Quiénes somos</p>
-            <h1 className="font-display text-5xl md:text-6xl font-light leading-tight mb-6">
-              Más de 15 años<br />
-              <span className="italic">transformando sueños</span><br />
-              en hogares
-            </h1>
-            <p className="text-stone-400 text-lg font-light leading-relaxed">
-              Somos un equipo de agentes inmobiliarios en Almería con una misión clara:
-              ofrecer un servicio cercano, honesto y completamente orientado al cliente.
-            </p>
-          </div>
-          <div className="relative aspect-[4/3] overflow-hidden">
-            <Image
-              src="/images/imagen-nosotros.jpg"
-              alt="Oficina AP Real Estate Services"
-              fill
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Values */}
-      <section className="py-24 px-6 md:px-10 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-          {[
-            { value: 'Transparencia', desc: 'Información clara y honesta en cada paso del proceso.' },
-            { value: 'Proximidad', desc: 'Te acompañamos personalmente desde el primer contacto.' },
-            { value: 'Resultados', desc: 'Más del 95% de nuestros clientes nos recomiendan.' },
-          ].map((item) => (
-            <div key={item.value} className="p-8">
-              <div className="w-1 h-8 bg-gold mx-auto mb-6" />
-              <h3 className="font-display text-2xl font-light text-stone-900 mb-3">{item.value}</h3>
-              <p className="text-stone-500 text-sm leading-relaxed">{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Services */}
       <section className="bg-stone-50 py-24 px-6 md:px-10">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">Lo que hacemos</p>
-            <h2 className="section-title">Nuestros servicios</h2>
+          <div className="text-center mb-8 md:mb-12">
+            <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">Servicios</p>
+            <h1 className="section-title">Servicios inmobiliarios en Almería</h1>
+            <p className="text-stone-500 text-sm md:text-base max-w-3xl mx-auto mt-6 leading-relaxed">
+              Te acompaño de forma cercana y personalizada para comprar, vender o invertir con
+              seguridad en Roquetas de Mar y toda Almería.
+            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service) => (
@@ -129,22 +65,40 @@ export default function SobreNosotrosPage() {
         </div>
       </section>
 
-      {/* Team */}
-      <section className="py-24 px-6 md:px-10 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">El equipo</p>
-          <h2 className="section-title">Personas que te ayudan</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-3xl mx-auto">
-          {team.map((person) => (
-            <div key={person.name} className="text-center">
-              <div className="relative aspect-square overflow-hidden mb-4 max-w-[180px] mx-auto rounded-full ring-1 ring-stone-200/80">
-                <DefaultTeamAvatar label={`${person.name}, sin foto de perfil`} />
+      {/* Sobre mi */}
+      <section className="py-24 px-6 md:px-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-end">
+            <div>
+              <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">Sobre mi</p>
+              <h2 className="section-title mb-8">Trayectoria de Alessandra Maggi</h2>
+              <div className="space-y-5 text-stone-600 leading-relaxed">
+                <p>
+                  Soy agente inmobiliaria especializada en la zona de Almería, con una
+                  trayectoria centrada en ofrecer un servicio humano, directo y transparente.
+                </p>
+                <p>
+                  Trabajo cada operación de principio a fin: análisis realista del mercado,
+                  estrategia de comercialización y negociación enfocada a proteger tus intereses.
+                </p>
+                <p>
+                  Mi compromiso es que tomes decisiones con confianza y claridad, acompañándote
+                  personalmente en cada paso hasta el cierre.
+                </p>
               </div>
-              <h3 className="font-medium text-stone-900">{person.name}</h3>
-              <p className="text-stone-400 text-sm mt-1">{person.role}</p>
             </div>
-          ))}
+            <div className="relative w-full max-w-[430px] ml-auto">
+              <div className="absolute inset-0 -z-10 translate-x-4 translate-y-4 border border-stone-200" />
+              <div className="relative aspect-[4/5] overflow-hidden bg-stone-100">
+                <Image
+                  src="/images/alessandra-maggi.png"
+                  alt="Alessandra Maggi, agente inmobiliaria en Almería"
+                  fill
+                  className="object-cover object-bottom"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
