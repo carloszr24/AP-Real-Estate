@@ -69,32 +69,73 @@ export default function SobreNosotrosPage() {
       <section className="py-24 px-6 md:px-10">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-end">
-            <div>
-              <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">Sobre mi</p>
-              <h2 className="section-title mb-8">Trayectoria de Alessandra Maggi</h2>
-              <div className="space-y-5 text-stone-600 leading-relaxed">
-                <p>
-                  Soy agente inmobiliaria especializada en la zona de Almería, con una
-                  trayectoria centrada en ofrecer un servicio humano, directo y transparente.
-                </p>
-                <p>
-                  Trabajo cada operación de principio a fin: análisis realista del mercado,
-                  estrategia de comercialización y negociación enfocada a proteger tus intereses.
-                </p>
-                <p>
-                  Mi compromiso es que tomes decisiones con confianza y claridad, acompañándote
-                  personalmente en cada paso hasta el cierre.
-                </p>
+            {/* Left: text + credentials + RE/MAX badge */}
+            <div className="flex flex-col justify-between h-full">
+              <div>
+                <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">Alessandra Maggi</p>
+                <h1 className="section-title mb-2">Sobre mí</h1>
+                <p className="text-stone-500 text-base font-medium mb-8">Agente asociada RE/MAX en Almería</p>
+
+                <div className="space-y-5 text-stone-600 leading-relaxed mb-10">
+                  <p>
+                    Soy agente inmobiliaria especializada en Almería, y mi forma de trabajar se basa
+                    en la cercanía, la transparencia y una visión estratégica de cada operación.
+                    Mi prioridad es que cada cliente se sienta acompañado con claridad y confianza
+                    desde el primer contacto.
+                  </p>
+                  <p>
+                    Trabajo cada proceso de principio a fin: análisis realista del mercado, estrategia
+                    de comercialización y negociación orientada a proteger tus intereses y maximizar
+                    el valor de cada decisión.
+                  </p>
+                  <p>
+                    Como agente asociada RE/MAX, he reforzado mi método con formación específica en
+                    comercialización y cierre, captación en exclusiva, trabajo con compradores y el
+                    modelo profesional del agente inmobiliario RE/MAX. Ese enfoque me permite ofrecer
+                    un servicio sólido, personalizado y enfocado en resultados.
+                  </p>
+                </div>
+
+                {/* Formación */}
+                <div className="border-t border-stone-100 pt-8 mb-10">
+                  <p className="text-xs text-stone-400 tracking-[0.25em] uppercase mb-4">Formación</p>
+                  <ul className="space-y-2">
+                    {[
+                      { course: 'Comercialización y Cierre', year: '2022' },
+                      { course: 'La captación en exclusiva', year: '2022' },
+                      { course: 'El Agente Inmobiliario RE/MAX', year: '2021' },
+                      { course: 'Trabajando con compradores', year: '2021' },
+                    ].map((item) => (
+                      <li key={item.course} className="flex items-baseline justify-between gap-4 text-sm">
+                        <span className="text-stone-700">{item.course}</span>
+                        <span className="text-stone-400 shrink-0">{item.year}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* RE/MAX badge bottom left */}
+              <div className="mt-4">
+                <Image
+                  src="/images/remax.certified-agent.png"
+                  alt="RE/MAX Certified Agent"
+                  width={160}
+                  height={80}
+                  className="h-auto w-36 object-contain"
+                />
               </div>
             </div>
-            <div className="relative w-full max-w-[430px] ml-auto">
+
+            {/* Right: photo */}
+            <div className="relative w-full max-w-[620px] ml-auto">
               <div className="absolute inset-0 -z-10 translate-x-4 translate-y-4 border border-stone-200" />
-              <div className="relative aspect-[4/5] overflow-hidden bg-stone-100">
+              <div className="relative aspect-[3/4] overflow-hidden bg-stone-100">
                 <Image
                   src="/images/alessandra-maggi.png"
                   alt="Alessandra Maggi, agente inmobiliaria en Almería"
                   fill
-                  className="object-cover object-bottom"
+                  className="object-cover object-top"
                 />
               </div>
             </div>
