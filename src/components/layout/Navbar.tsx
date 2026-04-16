@@ -1,19 +1,18 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 
 const links = [
   { href: '/propiedades', label: 'Propiedades' },
-  { href: '/sobre-nosotros', label: 'Nosotros' },
+  { href: '/sobre-nosotros', label: 'Sobre mi' },
   { href: '/contacto', label: 'Contacto' },
 ]
 
-const phoneDisplay = '950 79 02 17'
-const phoneHref = 'tel:+34950790217'
+const phoneDisplay = '672 80 42 86'
+const phoneHref = 'tel:+34672804286'
 
 export function Navbar() {
   const pathname = usePathname()
@@ -25,16 +24,10 @@ export function Navbar() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-stone-100">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5">
-            <Image
-              src="/images/logo-AP.png"
-              alt="AP Real Estate"
-              width={140}
-              height={36}
-              priority
-              className="h-9 w-auto"
-            />
+            <span className="font-display text-lg md:text-xl tracking-wide text-stone-900">
+              Alessandra Maggi
+            </span>
           </Link>
 
           {/* Desktop nav */}
@@ -60,7 +53,7 @@ export function Navbar() {
             <Link
               href={phoneHref}
               className="btn-primary text-xs px-5 py-2.5"
-              aria-label="Llamar al 950 79 02 17"
+              aria-label="Llamar al 672 80 42 86"
             >
               {phoneDisplay}
             </Link>
@@ -98,7 +91,7 @@ export function Navbar() {
             href={phoneHref}
             onClick={() => setOpen(false)}
             className="btn-primary text-xs mt-4 w-full text-center"
-            aria-label="Llamar al 950 79 02 17"
+            aria-label="Llamar al 672 80 42 86"
           >
             Llamar: {phoneDisplay}
           </Link>

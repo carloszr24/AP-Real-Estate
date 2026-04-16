@@ -16,11 +16,19 @@ const config: Config = {
         stone: {
           950: '#0c0a09',
         },
+        brand: {
+          blue: '#0057FF',
+          'blue-light': '#3D7DFF',
+          'blue-dark': '#003EB8',
+          red: '#C8102E',
+          'red-light': '#E13A53',
+          'red-dark': '#9C0E24',
+          white: '#FFFFFF',
+        },
         gold: {
-          // Azul corporativo (del logo)
-          DEFAULT: '#0A16FF',
-          light: '#4D5CFF',
-          dark: '#0810CC',
+          DEFAULT: '#C8102E',
+          light: '#E13A53',
+          dark: '#9C0E24',
         },
       },
       animation: {

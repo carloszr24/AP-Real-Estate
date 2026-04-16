@@ -59,13 +59,13 @@ export default async function HomePage() {
         {/* Content */}
         <div className="relative z-10 text-center px-4 min-[400px]:px-6 max-w-5xl mx-auto">
           <h1 className="font-display text-white text-balance max-md:tracking-[-0.02em] text-[calc(clamp(2.25rem,7.5vw+0.35rem,3.45rem)+4pt)] md:text-[calc(clamp(2.65rem,5.2vw+1.1rem,5.8rem)+4pt)] leading-[1.11] md:leading-[1.05] mb-6 md:mb-8 animate-fade-up">
-            Encuentra tu hogar
+            Tu vivienda ideal
             <span className="hidden md:inline"> </span>
             <br className="md:hidden" aria-hidden="true" />
-            en Almería
+            en Almería y Roquetas
           </h1>
           <p className="text-stone-200 text-[calc(1rem+4pt)] sm:text-[calc(1.125rem+4pt)] md:text-[calc(1.25rem+4pt)] font-normal max-w-[min(100%,22rem)] sm:max-w-2xl mx-auto mb-8 sm:mb-9 md:mb-10 leading-relaxed text-pretty animate-fade-up" style={{ animationDelay: '0.1s', opacity: 0, animationFillMode: 'forwards' }}>
-            Gestionamos arrendamientos y ventas de viviendas propias y de particulares.
+            Alessandra Maggi te acompaña con un servicio inmobiliario cercano y personalizado.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-up" style={{ animationDelay: '0.2s', opacity: 0, animationFillMode: 'forwards' }}>
             <Link href="/propiedades" className="btn-gold px-10 py-4 text-[calc(0.875rem+4pt)] tracking-wide">
@@ -117,17 +117,17 @@ export default async function HomePage() {
               {
                 icon: '🏡',
                 title: 'Compra y venta',
-                desc: 'Asesoramiento experto en todas las fases de la transacción.',
+                desc: 'Acompañamiento completo durante toda la operación, de principio a fin.',
               },
               {
                 icon: '📋',
-                title: 'Valoración gratuita',
-                desc: 'Conoce el valor real de tu propiedad sin compromiso.',
+                title: 'Valoración profesional',
+                desc: 'Conoce el precio real de mercado de tu inmueble en Almería.',
               },
               {
                 icon: '🤝',
-                title: 'Gestión integral',
-                desc: 'Nos encargamos de todo: notaría, hipoteca y trámites.',
+                title: 'Asesoramiento integral',
+                desc: 'Negociación, documentación y acompañamiento para una decisión segura.',
               },
             ].map((item) => (
               <div key={item.title} className="p-8 bg-white border border-stone-100 hover:border-gold transition-colors duration-300">
@@ -145,10 +145,10 @@ export default async function HomePage() {
         <div className="max-w-2xl mx-auto">
           <h2 className="section-title mb-6">¿Listo para encontrar<br />tu próximo hogar?</h2>
           <p className="section-subtitle mb-10">
-            Cuéntanos qué buscas y nuestro equipo te ayudará a encontrarlo.
+            Cuéntame qué necesitas y prepararemos la mejor estrategia para ti.
           </p>
           <Link href="/contacto" className="btn-primary px-12 py-4 text-sm tracking-wide">
-            Hablar con un asesor
+            Hablar con Alessandra
           </Link>
         </div>
       </section>

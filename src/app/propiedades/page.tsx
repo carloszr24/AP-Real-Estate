@@ -42,7 +42,7 @@ export default async function PropiedadesPage({
       {/* Header */}
       <div className="bg-stone-950 text-white py-20 px-6 md:px-10">
         <div className="max-w-7xl mx-auto">
-          <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">Catálogo</p>
+          <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">Almería</p>
           <h1 className="font-display text-5xl md:text-6xl font-light">Propiedades</h1>
           <p className="text-stone-400 mt-4 text-lg font-light">
             {properties.length} inmueble{properties.length !== 1 ? 's' : ''} encontrado{properties.length !== 1 ? 's' : ''}

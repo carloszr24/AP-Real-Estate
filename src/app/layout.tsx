@@ -10,9 +10,9 @@ const sans = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'AP Real Estate Services | Inmobiliaria en Almería',
-  description: 'Gestionamos arrendamientos y ventas de viviendas propias y de particulares en Almería.',
-  keywords: 'inmobiliaria, almería, pisos, casas, locales, alquiler, venta',
+  title: 'Alessandra Maggi | Agente inmobiliaria en Almería',
+  description: 'Servicio inmobiliario personalizado en Almería y Roquetas de Mar para compra, venta e inversión.',
+  keywords: 'alessandra maggi, agente inmobiliaria, almería, roquetas de mar, pisos, casas, venta, compra',
 }
 
 export default function RootLayout({

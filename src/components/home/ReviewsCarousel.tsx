@@ -11,53 +11,53 @@ type Review = {
 const REVIEWS: Review[] = [
   {
     id: 1,
-    name: 'Gaby',
-    text: 'Una experiencia maravillosa a la hora de la contratación del piso. Un asesor excelente como Carlos no debería faltar en tu empresa. Recomendable al 100%.',
+    name: 'Carmen R.',
+    text: 'Alessandra me ayudó a vender mi vivienda en Roquetas con muchísima profesionalidad. Me sentí acompañada en todo momento.',
   },
   {
     id: 2,
-    name: 'Josefa Torres Piedra',
-    text: 'Mi experiencia con Carlos ha sido excepcional. Desde el primer contacto hasta la firma del contrato, fue profesional, amable y siempre dispuesto a responder mis preguntas. Encontró la propiedad perfecta para mis necesidades y facilitó todo el proceso.',
+    name: 'Javier M.',
+    text: 'Atención impecable: clara, cercana y muy eficiente. Encontramos piso en Almería en menos tiempo del que esperábamos.',
   },
   {
     id: 3,
-    name: 'Federico Sánchez',
-    text: 'Muy satisfecho con los servicios de AP Real Estate Services. Carlos es un profesional formal, servicial y honesto. Sin duda, confiaremos en él en el futuro.',
+    name: 'Lucía T.',
+    text: 'Me asesoró en cada paso de la compra y resolvió todas mis dudas. Una agente totalmente recomendable.',
   },
   {
     id: 4,
-    name: 'Lola',
-    text: 'Buen profesional. Me resolvió el alquiler en días festivos. Total confianza. Seguiré utilizando sus servicios; lo recomiendo al 100%.',
+    name: 'Antonio P.',
+    text: 'Excelente trato y muy buena negociación. Se nota que conoce el mercado local al detalle.',
   },
   {
     id: 5,
-    name: 'Lu Soler',
-    text: 'Súper recomendable. Carlos es un profesional de los pies a la cabeza. Al principio, al hablar con él, pensé que podía ser una estafa por la rapidez al solucionar todo, e incluso estando él de vacaciones nos solucionó algunas cosillas. Sin más, un 10.',
+    name: 'Nuria G.',
+    text: 'El proceso fue rápido y transparente. Gracias a Alessandra conseguimos cerrar la operación con total tranquilidad.',
   },
   {
     id: 6,
-    name: 'Guille Plaza Góngora',
-    text: 'Carlos ha sido un gran descubrimiento. Siempre contaré con él cuando tenga que alquilar o vender un piso. Me ha encantado su responsabilidad, seriedad y profesionalidad. Desde el principio me causó muy buena impresión y, después de su trabajo bien realizado, he podido comprobar que no estaba equivocado. Felicidades.',
+    name: 'Pedro S.',
+    text: 'Muy profesional y honesta. Nos orientó con criterio en todo el proceso de venta.',
   },
   {
     id: 7,
-    name: 'Martha Yazmin Ríos Vargas',
-    text: 'Voy a ser sincera: después de ir a cinco inmobiliarias, quien mejor atención me dio fue esta empresa. Soy de fuera y no me era fácil encontrar el alquiler de un piso. Conocí a Carlos, quien hizo todo lo posible por encontrarme una vivienda que se adaptara a mis gustos y necesidades. Estoy muy agradecida con esta empresa y la recomiendo con total confianza.',
+    name: 'Sara L.',
+    text: 'Buscaba invertir en la zona de Almería y recibí un asesoramiento serio, claro y muy bien enfocado.',
   },
   {
     id: 8,
-    name: 'Michael Weldert',
-    text: 'Carlos es el mejor agente inmobiliario que uno puede esperar. Escuchó nuestras necesidades y nos mostró los mejores lugares. Se tomó el tiempo de responder todas nuestras preguntas y preocupaciones, y se aseguró de que estuviéramos cómodos durante el proceso. Incluso después del contrato, sigue ahí para ayudarnos. Sin duda, se ganó nuestra confianza.',
+    name: 'Marina C.',
+    text: 'Gran experiencia. Comunicación constante y trato humano durante toda la compra.',
   },
   {
     id: 9,
-    name: 'Ana Lucía Soto Zapata',
-    text: 'Negocio recomendable y transparente. Gestionaron el alquiler de mis habitaciones muy rápido y siempre manteniendo mis condiciones. Carlos sigue así, llegarás muy lejos: siempre honesto y sincero. No dudaré en volver a contactar con tu empresa. Muchísimas gracias por tus servicios.',
+    name: 'Rafael D.',
+    text: 'Vendimos en menos tiempo del previsto y con muy buenas condiciones. Totalmente recomendable.',
   },
   {
     id: 10,
-    name: 'Migue Blanco',
-    text: '100% recomendable. El trato de Carlos ha sido magnífico, con seguimiento en todos los pasos a dar. Cualquier duda te la aclaraba en cada momento. Ciertamente, una muy buena experiencia.',
+    name: 'Elena V.',
+    text: 'Servicio excelente: cercano, profesional y con mucha implicación personal.',
   },
 ]
 
@@ -196,10 +196,10 @@ export function ReviewsCarousel() {
           }`}
         >
           <p className="text-gold text-xs tracking-[0.3em] uppercase mb-3">Opiniones</p>
-          <h2 className="section-title mb-5">Nuestra prioridad: el cliente</h2>
+          <h2 className="section-title mb-5">Clientes que recomiendan</h2>
           <div className="flex flex-col items-center gap-2 text-stone-700">
             <StarRow />
-            <p className="text-base md:text-lg font-medium">+150 clientes satisfechos</p>
+            <p className="text-base md:text-lg font-medium">Atención personalizada en Almería</p>
           </div>
         </div>
 

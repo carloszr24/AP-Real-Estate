@@ -7,13 +7,13 @@ export default function ContactoPage() {
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const mapsHref = 'https://www.google.com/maps/place/AP+Real+Estate+Services/@36.8374433,-2.4588639,18z/data=!3m1!4b1!4m6!3m5!1s0xd7a9d2dd1816679:0x72ee21246ddfb14a!8m2!3d36.8374417!4d-2.4579006!16s%2Fg%2F11j90l4_w8?entry=ttu&g_ep=EgoyMDI2MDQwNS4wIKXMDSoASAFQAw%3D%3D'
-  const phoneDisplay = '950 79 02 17'
-  const phoneHref = 'tel:+34950790217'
+  const mapsHref = 'https://maps.google.com/?q=Carretera+de+Alicun+28,+Pl.+Archivo+de+Indias,+4,+04740+Roquetas+de+Mar,+Almeria'
+  const phoneDisplay = '672 80 42 86'
+  const phoneHref = 'tel:+34672804286'
   const email = 'adm.ap.servicios.inmobiliarios@gmail.com'
   const emailHref = `mailto:${email}`
-  const whatsappDisplay = '+34 695 91 90 69'
-  const whatsappHref = 'https://wa.me/34695919069'
+  const whatsappDisplay = '+34 672 80 42 86'
+  const whatsappHref = 'https://wa.me/34672804286'
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -36,7 +36,7 @@ export default function ContactoPage() {
           <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">Estamos aquí</p>
           <h1 className="font-display text-5xl md:text-6xl font-light">Contacto</h1>
           <p className="text-stone-400 mt-4 text-lg font-light max-w-md">
-            Escríbenos o llámanos. Respondemos en menos de 24 horas.
+            Escríbeme o llámame. Te respondo en menos de 24 horas.
           </p>
         </div>
       </div>
@@ -61,7 +61,7 @@ export default function ContactoPage() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
-                <h2 className="font-display text-3xl font-light text-stone-900 mb-8">Envíanos un mensaje</h2>
+                <h2 className="font-display text-3xl font-light text-stone-900 mb-8">Envíame un mensaje</h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
@@ -143,9 +143,9 @@ export default function ContactoPage() {
                       rel="noopener noreferrer"
                       className="text-stone-700 text-sm whitespace-pre-line hover:text-stone-900 transition-colors"
                     >
-                      Av. de la Estación, 25, 7º 3 B
+                      Carretera de Alicún 28, Pl. Archivo de Indias, 4
                       <br />
-                      04005 Almería
+                      04740 Roquetas de Mar, Almería
                     </a>
                   </div>
                 </div>
@@ -205,13 +205,15 @@ Sáb–Dom: Cerrado</p>
               <p className="text-xs text-stone-400 tracking-widest uppercase mb-4">Redes sociales</p>
               <div className="flex gap-4">
                 {[
-                  { name: 'Instagram', href: '#' },
-                  { name: 'Facebook', href: '#' },
-                  { name: 'LinkedIn', href: '#' },
+                  { name: 'WhatsApp', href: whatsappHref },
+                  { name: 'Google Maps', href: mapsHref },
+                  { name: 'Email', href: emailHref },
                 ].map((social) => (
                   <a
                     key={social.name}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-sm text-stone-500 hover:text-stone-900 transition-colors"
                   >
                     {social.name}
