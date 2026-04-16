@@ -70,8 +70,8 @@ export function PropertyFilters() {
             className="border-t border-stone-100 py-5 md:py-6"
           >
             <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-5 xl:items-end">
-            {/* Tipo */}
-            <div>
+              {/* Tipo */}
+              <div>
               <label className="text-sm text-stone-500 mb-2 block">Tipo de inmueble</label>
               <select
                 value={type}
@@ -85,10 +85,10 @@ export function PropertyFilters() {
                   </option>
                 ))}
               </select>
-            </div>
+              </div>
 
-            {/* Operación */}
-            <div>
+              {/* Operación */}
+              <div>
               <label className="text-sm text-stone-500 mb-2 block">Operación</label>
               <select
                 value={operation}
@@ -102,10 +102,10 @@ export function PropertyFilters() {
                   </option>
                 ))}
               </select>
-            </div>
+              </div>
 
-            {/* Estado */}
-            <div>
+              {/* Estado */}
+              <div>
               <label className="text-sm text-stone-500 mb-2 block">Estado</label>
               <select
                 value={status}
@@ -119,10 +119,10 @@ export function PropertyFilters() {
                   </option>
                 ))}
               </select>
-            </div>
+              </div>
 
-            {/* Precio mínimo */}
-            <div>
+              {/* Precio mínimo */}
+              <div>
               <label className="text-sm text-stone-500 mb-2 block">Precio mínimo</label>
               <input
                 type="number"
@@ -131,10 +131,10 @@ export function PropertyFilters() {
                 onChange={(e) => updateParam('minPrice', e.target.value)}
                 className="w-full bg-white border border-stone-200 px-4 py-3 text-base text-stone-900 focus:outline-none focus:border-stone-400"
               />
-            </div>
+              </div>
 
-            {/* Precio máximo */}
-            <div>
+              {/* Precio máximo */}
+              <div>
               <label className="text-sm text-stone-500 mb-2 block">Precio máximo</label>
               <input
                 type="number"
@@ -143,6 +143,7 @@ export function PropertyFilters() {
                 onChange={(e) => updateParam('maxPrice', e.target.value)}
                 className="w-full bg-white border border-stone-200 px-4 py-3 text-base text-stone-900 focus:outline-none focus:border-stone-400"
               />
+              </div>
             </div>
           </div>
         )}
