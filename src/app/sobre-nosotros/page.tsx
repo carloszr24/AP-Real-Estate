@@ -96,30 +96,28 @@ export default function SobreNosotrosPage() {
                   </p>
                 </div>
 
-              </div>
-
-              {/* RE/MAX badge bottom left */}
-              <div className="mt-4">
-                <a
-                  href="https://www.remax.es/buscador-de-agentes/almeria/roquetas-de-mar/todos/alessandra-maggi-18639/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    src="/images/remax.certified-agent.png"
-                    alt="RE/MAX Certified Agent"
-                    width={160}
-                    height={80}
-                    className="h-auto w-36 object-contain hover:opacity-80 transition-opacity"
-                  />
-                </a>
+                {/* RE/MAX badge */}
+                <div className="mt-8">
+                  <a
+                    href="https://www.remax.es/buscador-de-agentes/almeria/roquetas-de-mar/todos/alessandra-maggi-18639/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src="/images/remax.certified-agent.png"
+                      alt="RE/MAX Certified Agent"
+                      width={220}
+                      height={110}
+                      className="h-auto w-52 object-contain hover:opacity-80 transition-opacity"
+                    />
+                  </a>
+                </div>
               </div>
             </div>
 
             {/* Right: photo */}
-            <div className="relative w-full max-w-[620px] ml-auto">
-              <div className="absolute inset-0 -z-10 translate-x-4 translate-y-4 border border-stone-200" />
-              <div className="relative aspect-[3/4] overflow-hidden bg-stone-100">
+            <div className="relative w-full max-w-[680px] ml-auto">
+              <div className="relative aspect-[3/4] overflow-hidden">
                 <Image
                   src="/images/alessandra-maggi.png"
                   alt="Alessandra Maggi, agente inmobiliaria en Almería"
