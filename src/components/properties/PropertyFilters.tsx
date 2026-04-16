@@ -32,97 +32,103 @@ export function PropertyFilters() {
   const hasFilters = type || operation || status || minPrice || maxPrice
 
   return (
-    <div className="bg-stone-50 border border-stone-200 p-6 space-y-5">
-      <div className="flex items-center justify-between">
-        <h3 className="text-xs font-medium tracking-widest uppercase text-stone-500">Filtros</h3>
-        {hasFilters && (
-          <button onClick={clearAll} className="text-xs text-gold hover:text-gold-dark transition-colors">
-            Limpiar
-          </button>
-        )}
-      </div>
-
-      {/* Tipo */}
-      <div>
-        <label className="text-xs text-stone-500 mb-2 block">Tipo de inmueble</label>
-        <div className="flex flex-wrap gap-2">
-          {PROPERTY_TYPES.map((t) => (
-            <button
-              key={t}
-              onClick={() => updateParam('type', type === t ? '' : t)}
-              className={cn(
-                'text-xs px-3 py-1.5 border transition-colors duration-150',
-                type === t
-                  ? 'bg-stone-900 text-white border-stone-900'
-                  : 'border-stone-200 text-stone-600 hover:border-stone-400'
-              )}
-            >
-              {TYPE_LABELS[t]}
+    <div className="sticky top-16 z-30 bg-white/95 backdrop-blur-sm border-y border-stone-100 shadow-sm">
+      <div className="max-w-7xl mx-auto px-6 md:px-10 py-5">
+        <div className="flex items-center justify-between gap-4 mb-5">
+          <h3 className="text-xs font-medium tracking-widest uppercase text-stone-500">Filtros</h3>
+          {hasFilters && (
+            <button onClick={clearAll} className="text-xs text-gold hover:text-gold-dark transition-colors">
+              Limpiar
             </button>
-          ))}
+          )}
         </div>
-      </div>
 
-      {/* Operación */}
-      <div>
-        <label className="text-xs text-stone-500 mb-2 block">Operación</label>
-        <div className="flex flex-wrap gap-2">
-          {PROPERTY_OPERATIONS.map((op) => (
-            <button
-              key={op}
-              onClick={() => updateParam('operation', operation === op ? '' : op)}
-              className={cn(
-                'text-xs px-3 py-1.5 border transition-colors duration-150',
-                operation === op
-                  ? 'bg-stone-900 text-white border-stone-900'
-                  : 'border-stone-200 text-stone-600 hover:border-stone-400'
-              )}
-            >
-              {OPERATION_LABELS[op]}
-            </button>
-          ))}
-        </div>
-      </div>
+        <div className="flex flex-col xl:flex-row xl:items-end xl:justify-between gap-5 xl:gap-8">
+          <div className="grid gap-5 md:grid-cols-3 flex-1">
+            {/* Tipo */}
+            <div>
+              <label className="text-xs text-stone-500 mb-2 block">Tipo de inmueble</label>
+              <div className="flex flex-wrap gap-2">
+                {PROPERTY_TYPES.map((t) => (
+                  <button
+                    key={t}
+                    onClick={() => updateParam('type', type === t ? '' : t)}
+                    className={cn(
+                      'text-xs px-3 py-1.5 border bg-white transition-colors duration-150',
+                      type === t
+                        ? 'bg-stone-900 text-white border-stone-900'
+                        : 'border-stone-200 text-stone-600 hover:border-stone-400'
+                    )}
+                  >
+                    {TYPE_LABELS[t]}
+                  </button>
+                ))}
+              </div>
+            </div>
 
-      {/* Estado */}
-      <div>
-        <label className="text-xs text-stone-500 mb-2 block">Estado</label>
-        <div className="flex flex-wrap gap-2">
-          {PROPERTY_STATUSES.map((s) => (
-            <button
-              key={s}
-              onClick={() => updateParam('status', status === s ? '' : s)}
-              className={cn(
-                'text-xs px-3 py-1.5 border transition-colors duration-150',
-                status === s
-                  ? 'bg-stone-900 text-white border-stone-900'
-                  : 'border-stone-200 text-stone-600 hover:border-stone-400'
-              )}
-            >
-              {STATUS_LABELS[s]}
-            </button>
-          ))}
-        </div>
-      </div>
+            {/* Operación */}
+            <div>
+              <label className="text-xs text-stone-500 mb-2 block">Operación</label>
+              <div className="flex flex-wrap gap-2">
+                {PROPERTY_OPERATIONS.map((op) => (
+                  <button
+                    key={op}
+                    onClick={() => updateParam('operation', operation === op ? '' : op)}
+                    className={cn(
+                      'text-xs px-3 py-1.5 border bg-white transition-colors duration-150',
+                      operation === op
+                        ? 'bg-stone-900 text-white border-stone-900'
+                        : 'border-stone-200 text-stone-600 hover:border-stone-400'
+                    )}
+                  >
+                    {OPERATION_LABELS[op]}
+                  </button>
+                ))}
+              </div>
+            </div>
 
-      {/* Precio */}
-      <div>
-        <label className="text-xs text-stone-500 mb-2 block">Precio (€)</label>
-        <div className="grid grid-cols-2 gap-2">
-          <input
-            type="number"
-            placeholder="Mín"
-            value={minPrice}
-            onChange={(e) => updateParam('minPrice', e.target.value)}
-            className="text-xs px-3 py-2 border border-stone-200 bg-white focus:outline-none focus:border-stone-400 w-full"
-          />
-          <input
-            type="number"
-            placeholder="Máx"
-            value={maxPrice}
-            onChange={(e) => updateParam('maxPrice', e.target.value)}
-            className="text-xs px-3 py-2 border border-stone-200 bg-white focus:outline-none focus:border-stone-400 w-full"
-          />
+            {/* Estado */}
+            <div>
+              <label className="text-xs text-stone-500 mb-2 block">Estado</label>
+              <div className="flex flex-wrap gap-2">
+                {PROPERTY_STATUSES.map((s) => (
+                  <button
+                    key={s}
+                    onClick={() => updateParam('status', status === s ? '' : s)}
+                    className={cn(
+                      'text-xs px-3 py-1.5 border bg-white transition-colors duration-150',
+                      status === s
+                        ? 'bg-stone-900 text-white border-stone-900'
+                        : 'border-stone-200 text-stone-600 hover:border-stone-400'
+                    )}
+                  >
+                    {STATUS_LABELS[s]}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Precio */}
+          <div className="xl:w-[280px]">
+            <label className="text-xs text-stone-500 mb-2 block">Precio (€)</label>
+            <div className="grid grid-cols-2 gap-2">
+              <input
+                type="number"
+                placeholder="Mín"
+                value={minPrice}
+                onChange={(e) => updateParam('minPrice', e.target.value)}
+                className="text-xs px-3 py-2.5 border border-stone-200 bg-white focus:outline-none focus:border-stone-400 w-full"
+              />
+              <input
+                type="number"
+                placeholder="Máx"
+                value={maxPrice}
+                onChange={(e) => updateParam('maxPrice', e.target.value)}
+                className="text-xs px-3 py-2.5 border border-stone-200 bg-white focus:outline-none focus:border-stone-400 w-full"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
