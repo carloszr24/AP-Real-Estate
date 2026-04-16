@@ -96,34 +96,23 @@ export default function SobreNosotrosPage() {
                   </p>
                 </div>
 
-                {/* Formación */}
-                <div className="border-t border-stone-100 pt-8 mb-10">
-                  <p className="text-xs text-stone-400 tracking-[0.25em] uppercase mb-4">Formación</p>
-                  <ul className="space-y-2">
-                    {[
-                      { course: 'Comercialización y Cierre', year: '2022' },
-                      { course: 'La captación en exclusiva', year: '2022' },
-                      { course: 'El Agente Inmobiliario RE/MAX', year: '2021' },
-                      { course: 'Trabajando con compradores', year: '2021' },
-                    ].map((item) => (
-                      <li key={item.course} className="flex items-baseline justify-between gap-4 text-sm">
-                        <span className="text-stone-700">{item.course}</span>
-                        <span className="text-stone-400 shrink-0">{item.year}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
               </div>
 
               {/* RE/MAX badge bottom left */}
               <div className="mt-4">
-                <Image
-                  src="/images/remax.certified-agent.png"
-                  alt="RE/MAX Certified Agent"
-                  width={160}
-                  height={80}
-                  className="h-auto w-36 object-contain"
-                />
+                <a
+                  href="https://www.remax.es/buscador-de-agentes/almeria/roquetas-de-mar/todos/alessandra-maggi-18639/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Image
+                    src="/images/remax.certified-agent.png"
+                    alt="RE/MAX Certified Agent"
+                    width={160}
+                    height={80}
+                    className="h-auto w-36 object-contain hover:opacity-80 transition-opacity"
+                  />
+                </a>
               </div>
             </div>
 
