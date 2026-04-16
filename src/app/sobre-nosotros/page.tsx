@@ -68,27 +68,27 @@ export default function SobreNosotrosPage() {
       {/* Sobre mi */}
       <section className="py-24 px-6 md:px-10">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-end">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-stretch">
             {/* Left: text + credentials + RE/MAX badge */}
             <div className="flex flex-col justify-between h-full">
               <div>
-                <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">Alessandra Maggi</p>
+                <p className="text-gold text-sm tracking-[0.28em] uppercase mb-4">Alessandra Maggi</p>
                 <h1 className="section-title mb-2">Sobre mí</h1>
-                <p className="text-stone-500 text-base font-medium mb-8">Agente asociada RE/MAX en Almería</p>
+                <p className="text-stone-500 text-lg md:text-xl font-medium mb-8">Agente asociada RE/MAX en Almería</p>
 
-                <div className="space-y-5 text-stone-600 leading-relaxed mb-10">
-                  <p>
+                <div className="space-y-7 text-stone-700 text-lg md:text-xl leading-relaxed md:leading-10 mb-8">
+                  <p className="max-w-[34ch]">
                     Soy agente inmobiliaria especializada en Almería, y mi forma de trabajar se basa
                     en la cercanía, la transparencia y una visión estratégica de cada operación.
                     Mi prioridad es que cada cliente se sienta acompañado con claridad y confianza
                     desde el primer contacto.
                   </p>
-                  <p>
+                  <p className="max-w-[34ch]">
                     Trabajo cada proceso de principio a fin: análisis realista del mercado, estrategia
                     de comercialización y negociación orientada a proteger tus intereses y maximizar
                     el valor de cada decisión.
                   </p>
-                  <p>
+                  <p className="max-w-[34ch]">
                     Como agente asociada RE/MAX, he reforzado mi método con formación específica en
                     comercialización y cierre, captación en exclusiva, trabajo con compradores y el
                     modelo profesional del agente inmobiliario RE/MAX. Ese enfoque me permite ofrecer
@@ -97,7 +97,7 @@ export default function SobreNosotrosPage() {
                 </div>
 
                 {/* RE/MAX badge */}
-                <div className="mt-8">
+                <div className="mt-6">
                   <a
                     href="https://www.remax.es/buscador-de-agentes/almeria/roquetas-de-mar/todos/alessandra-maggi-18639/"
                     target="_blank"
@@ -106,9 +106,9 @@ export default function SobreNosotrosPage() {
                     <Image
                       src="/images/remax.certified-agent.png"
                       alt="RE/MAX Certified Agent"
-                      width={220}
-                      height={110}
-                      className="h-auto w-52 object-contain hover:opacity-80 transition-opacity"
+                      width={240}
+                      height={120}
+                      className="h-auto w-56 object-contain hover:opacity-80 transition-opacity"
                     />
                   </a>
                 </div>
@@ -116,8 +116,8 @@ export default function SobreNosotrosPage() {
             </div>
 
             {/* Right: photo */}
-            <div className="relative w-full max-w-[680px] ml-auto">
-              <div className="relative aspect-[3/4] overflow-hidden">
+            <div className="relative w-full max-w-[700px] ml-auto h-full">
+              <div className="relative h-full min-h-[760px] overflow-hidden">
                 <Image
                   src="/images/alessandra-maggi.png"
                   alt="Alessandra Maggi, agente inmobiliaria en Almería"
