@@ -22,20 +22,24 @@
     font-size: 18px;
   }
 
+  body {
+    @apply font-sans;
+  }
+
   * {
     box-sizing: border-box;
   }
 
   h1,
   h2 {
-    @apply font-display font-semibold tracking-normal leading-tight;
+    @apply font-display font-semibold tracking-[-0.01em] leading-tight;
   }
 
   h3,
   h4,
   h5,
   h6 {
-    @apply font-display font-medium tracking-normal leading-snug;
+    @apply font-display font-medium tracking-[-0.005em] leading-snug;
   }
 }
 
