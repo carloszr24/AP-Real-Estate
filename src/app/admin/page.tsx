@@ -250,6 +250,9 @@ export default function AdminPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSaving(true)
+    // #region agent log
+    fetch('http://127.0.0.1:7469/ingest/9fce4d37-ece9-4a64-80a2-f7181108eb3e',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f55194'},body:JSON.stringify({sessionId:'f55194',location:'admin/page.tsx:handleSubmit',message:'form.featured value before submit',data:{featured:form.featured,featuredType:typeof form.featured,editingId,formKeys:Object.keys(form)},timestamp:Date.now(),hypothesisId:'A'})}).catch(()=>{});
+    // #endregion
     try {
       const existingUrlsInOrder = imageItems
         .filter((i): i is Extract<ImageItem, { kind: 'existing' }> => i.kind === 'existing')
