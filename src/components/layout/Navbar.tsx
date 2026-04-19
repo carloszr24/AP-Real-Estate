@@ -23,15 +23,15 @@ export function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-stone-100">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
-        <div className="flex items-center justify-between h-16">
+        <div className="relative flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2.5">
             <span className="font-display text-lg md:text-xl tracking-wide text-stone-900">
               Alessandra Maggi
             </span>
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          {/* Desktop nav — centrado absolutamente en la barra */}
+          <nav className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
             {links.map((link) => (
               <Link
                 key={link.href}

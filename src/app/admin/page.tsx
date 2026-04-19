@@ -715,7 +715,7 @@ export default function AdminPage() {
             <div className="flex gap-3">
               <button
                 onClick={() => handleDelete(deleteId)}
-                className="btn-primary text-xs px-5 py-2.5 bg-red-600 hover:bg-red-700"
+                className="btn-primary text-xs px-5 py-2.5"
               >
                 Eliminar
               </button>

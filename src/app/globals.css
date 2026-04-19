@@ -45,15 +45,15 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-brand-blue text-white text-sm font-medium tracking-wide hover:bg-brand-blue-dark transition-colors duration-200;
+    @apply inline-flex items-center justify-center px-6 py-3 bg-brand-red text-white text-sm font-medium tracking-wide hover:bg-brand-red-dark transition-colors duration-200;
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center px-6 py-3 border border-brand-blue text-brand-blue text-sm font-medium tracking-wide hover:bg-brand-blue hover:text-white transition-colors duration-200;
+    @apply inline-flex items-center justify-center px-6 py-3 border border-brand-red text-brand-red text-sm font-medium tracking-wide hover:bg-brand-red hover:text-white transition-colors duration-200;
   }
 
   .btn-gold {
-    @apply inline-flex items-center justify-center px-6 py-3 bg-gold text-white text-sm font-medium tracking-wide hover:bg-gold-dark transition-colors duration-200;
+    @apply btn-primary;
   }
 
   .section-title {

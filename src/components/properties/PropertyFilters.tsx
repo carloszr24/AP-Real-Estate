@@ -1,19 +1,40 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback } from 'react'
 import { PROPERTY_TYPES, PROPERTY_OPERATIONS, PROPERTY_STATUSES, OPERATION_LABELS, STATUS_LABELS, TYPE_LABELS } from '@/lib/utils'
+
+const PRICE_MIN = 0
+const PRICE_MAX = 1000000
+const PRICE_STEP = 10000
+
+const EXTRA_OPTIONS = [
+  { value: 'garage', label: 'Garaje' },
+  { value: 'elevator', label: 'Ascensor' },
+  { value: 'furnished', label: 'Amueblado' },
+  { value: 'heating', label: 'Calefacción' },
+] as const
+
+function formatEuro(value: number): string {
+  return new Intl.NumberFormat('es-ES', {
+    style: 'currency',
+    currency: 'EUR',
+    maximumFractionDigits: 0,
+  }).format(value)
+}
 
 export function PropertyFilters() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const [open, setOpen] = useState(false)
 
   const type = searchParams.get('type') || ''
   const operation = searchParams.get('operation') || ''
   const status = searchParams.get('status') || ''
+  const extra = searchParams.get('extra') || ''
   const minPrice = searchParams.get('minPrice') || ''
   const maxPrice = searchParams.get('maxPrice') || ''
+  const minPriceValue = minPrice ? Number(minPrice) : PRICE_MIN
+  const maxPriceValue = maxPrice ? Number(maxPrice) : PRICE_MAX
 
   const updateParam = useCallback((key: string, value: string) => {
     const params = new URLSearchParams(searchParams.toString())
@@ -29,54 +50,28 @@ export function PropertyFilters() {
     router.push('/propiedades')
   }
 
-  const hasFilters = type || operation || status || minPrice || maxPrice
-  const activeFilters = useMemo(
-    () => [type, operation, status, minPrice, maxPrice].filter(Boolean).length,
-    [type, operation, status, minPrice, maxPrice]
-  )
+  const hasFilters = type || operation || status || extra || minPrice || maxPrice
 
   return (
-    <div className="sticky top-16 z-30 bg-white/95 backdrop-blur-sm border-y border-stone-100 shadow-sm">
+    <div className="bg-white border-b border-stone-100">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
-        <div className="flex flex-wrap items-center justify-between gap-4 py-4">
-          <div className="flex items-center gap-4">
-            <p className="text-sm md:text-base font-medium text-stone-900">Filtros</p>
-            <p className="text-sm text-stone-500">
-              {hasFilters ? `${activeFilters} activo${activeFilters !== 1 ? 's' : ''}` : 'Sin filtros activos'}
-            </p>
-          </div>
-          <div className="flex items-center gap-5">
-            {hasFilters && (
-              <button onClick={clearAll} className="text-sm text-gold hover:text-gold-dark transition-colors">
-                Limpiar
-              </button>
-            )}
-            <button
-              type="button"
-              onClick={() => setOpen((value) => !value)}
-              className="inline-flex items-center gap-2 text-sm md:text-base font-medium text-stone-900"
-              aria-expanded={open}
-              aria-controls="property-filters-panel"
-            >
-              {open ? 'Ocultar filtros' : 'Mostrar filtros'}
-              <span className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`}>⌄</span>
+        <div className="flex items-center justify-end py-2.5">
+          {hasFilters && (
+            <button onClick={clearAll} className="text-sm text-gold hover:text-gold-dark transition-colors">
+              Limpiar
             </button>
-          </div>
+          )}
         </div>
 
-        {open && (
-          <div
-            id="property-filters-panel"
-            className="border-t border-stone-100 py-5 md:py-6"
-          >
-            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-5 xl:items-end">
+        <div className="py-3 md:py-4">
+          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-6 xl:items-end">
               {/* Tipo */}
               <div>
-              <label className="text-sm text-stone-500 mb-2 block">Tipo de inmueble</label>
+              <label className="text-xs text-stone-500 mb-1.5 block">Tipo de inmueble</label>
               <select
                 value={type}
                 onChange={(e) => updateParam('type', e.target.value)}
-                className="w-full bg-white border border-stone-200 px-4 py-3 text-base text-stone-900 focus:outline-none focus:border-stone-400"
+                className="w-full bg-white border border-stone-200 rounded-full px-4 py-2.5 text-sm text-stone-900 focus:outline-none focus:border-stone-400"
               >
                 <option value="">Todos</option>
                 {PROPERTY_TYPES.map((t) => (
@@ -89,11 +84,11 @@ export function PropertyFilters() {
 
               {/* Operación */}
               <div>
-              <label className="text-sm text-stone-500 mb-2 block">Operación</label>
+              <label className="text-xs text-stone-500 mb-1.5 block">Operación</label>
               <select
                 value={operation}
                 onChange={(e) => updateParam('operation', e.target.value)}
-                className="w-full bg-white border border-stone-200 px-4 py-3 text-base text-stone-900 focus:outline-none focus:border-stone-400"
+                className="w-full bg-white border border-stone-200 rounded-full px-4 py-2.5 text-sm text-stone-900 focus:outline-none focus:border-stone-400"
               >
                 <option value="">Todas</option>
                 {PROPERTY_OPERATIONS.map((op) => (
@@ -106,11 +101,11 @@ export function PropertyFilters() {
 
               {/* Estado */}
               <div>
-              <label className="text-sm text-stone-500 mb-2 block">Estado</label>
+              <label className="text-xs text-stone-500 mb-1.5 block">Estado</label>
               <select
                 value={status}
                 onChange={(e) => updateParam('status', e.target.value)}
-                className="w-full bg-white border border-stone-200 px-4 py-3 text-base text-stone-900 focus:outline-none focus:border-stone-400"
+                className="w-full bg-white border border-stone-200 rounded-full px-4 py-2.5 text-sm text-stone-900 focus:outline-none focus:border-stone-400"
               >
                 <option value="">Todos</option>
                 {PROPERTY_STATUSES.map((s) => (
@@ -123,30 +118,66 @@ export function PropertyFilters() {
 
               {/* Precio mínimo */}
               <div>
-              <label className="text-sm text-stone-500 mb-2 block">Precio mínimo</label>
-              <input
-                type="number"
-                placeholder="Mín"
-                value={minPrice}
-                onChange={(e) => updateParam('minPrice', e.target.value)}
-                className="w-full bg-white border border-stone-200 px-4 py-3 text-base text-stone-900 focus:outline-none focus:border-stone-400"
-              />
+                <label className="text-xs text-stone-500 mb-1.5 block">
+                  Precio mínimo ({formatEuro(minPriceValue)})
+                </label>
+                <input
+                  type="range"
+                  min={PRICE_MIN}
+                  max={PRICE_MAX}
+                  step={PRICE_STEP}
+                  value={Math.min(minPriceValue, maxPriceValue)}
+                  onChange={(e) => {
+                    const next = Number(e.target.value)
+                    updateParam('minPrice', String(next))
+                    if (next > maxPriceValue) {
+                      updateParam('maxPrice', String(next))
+                    }
+                  }}
+                  className="w-full accent-stone-900 h-5"
+                />
               </div>
 
               {/* Precio máximo */}
               <div>
-              <label className="text-sm text-stone-500 mb-2 block">Precio máximo</label>
-              <input
-                type="number"
-                placeholder="Máx"
-                value={maxPrice}
-                onChange={(e) => updateParam('maxPrice', e.target.value)}
-                className="w-full bg-white border border-stone-200 px-4 py-3 text-base text-stone-900 focus:outline-none focus:border-stone-400"
-              />
+                <label className="text-xs text-stone-500 mb-1.5 block">
+                  Precio máximo ({formatEuro(maxPriceValue)})
+                </label>
+                <input
+                  type="range"
+                  min={PRICE_MIN}
+                  max={PRICE_MAX}
+                  step={PRICE_STEP}
+                  value={Math.max(maxPriceValue, minPriceValue)}
+                  onChange={(e) => {
+                    const next = Number(e.target.value)
+                    updateParam('maxPrice', String(next))
+                    if (next < minPriceValue) {
+                      updateParam('minPrice', String(next))
+                    }
+                  }}
+                  className="w-full accent-stone-900 h-5"
+                />
               </div>
-            </div>
+
+              {/* Extras */}
+              <div>
+                <label className="text-xs text-stone-500 mb-1.5 block">Extras</label>
+                <select
+                  value={extra}
+                  onChange={(e) => updateParam('extra', e.target.value)}
+                  className="w-full bg-white border border-stone-200 rounded-full px-4 py-2.5 text-sm text-stone-900 focus:outline-none focus:border-stone-400"
+                >
+                  <option value="">Cualquiera</option>
+                  {EXTRA_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   )

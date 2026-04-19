@@ -12,6 +12,14 @@ interface SearchParams {
   status?: string
   minPrice?: string
   maxPrice?: string
+  extra?: string
+}
+
+function hasExtra(value?: string | null): boolean {
+  if (!value) return false
+  const normalized = value.trim().toLowerCase()
+  if (!normalized) return false
+  return normalized === 'si' || normalized === 'sí' || normalized === 'true' || normalized.startsWith('con ')
 }
 
 async function getProperties(searchParams: SearchParams) {
@@ -26,7 +34,24 @@ async function getProperties(searchParams: SearchParams) {
 
   const { data, error } = await q
   if (error) throw error
-  return rowsToProperties(data as PropertyRow[] | null)
+  const properties = rowsToProperties(data as PropertyRow[] | null)
+
+  if (!searchParams.extra) return properties
+
+  return properties.filter((property) => {
+    switch (searchParams.extra) {
+      case 'garage':
+        return hasExtra(property.garage)
+      case 'elevator':
+        return hasExtra(property.elevator)
+      case 'furnished':
+        return hasExtra(property.furnished)
+      case 'heating':
+        return hasExtra(property.heating)
+      default:
+        return true
+    }
+  })
 }
 
 export default async function PropiedadesPage({
@@ -39,19 +64,6 @@ export default async function PropiedadesPage({
 
   return (
     <div className="pt-16">
-      {/* Header */}
-      <div className="bg-stone-950 text-white py-28 px-6 md:px-10">
-        <div className="max-w-7xl mx-auto">
-          <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">Almería</p>
-          <div className="w-16 h-px bg-gold mb-6" />
-          <h1 className="font-display text-5xl md:text-6xl font-light">Propiedades</h1>
-          <p className="text-stone-400 mt-5 text-lg font-light max-w-2xl">
-            {properties.length} inmueble{properties.length !== 1 ? 's' : ''} encontrado{properties.length !== 1 ? 's' : ''}
-            {hasFilters && ' · Filtros activos'}
-          </p>
-        </div>
-      </div>
-
       <Suspense fallback={<div className="skeleton h-40 w-full" />}>
         <PropertyFilters />
       </Suspense>

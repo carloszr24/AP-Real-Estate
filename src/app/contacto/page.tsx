@@ -10,12 +10,10 @@ export default function ContactoPage() {
   const mapsHref = 'https://maps.google.com/?q=Carretera+de+Alicun+28,+Pl.+Archivo+de+Indias,+4,+04740+Roquetas+de+Mar,+Almeria'
   const phoneDisplay = '672 80 42 86'
   const phoneHref = 'tel:+34672804286'
-  const email = 'alessandra.maggi@remax.es'
+  const email = 'adm.ap.servicios.inmobiliarios@gmail.com'
   const emailHref = `mailto:${email}`
   const whatsappDisplay = '+34 672 80 42 86'
   const whatsappHref = 'https://wa.me/34672804286'
-  const facebookHref = 'https://www.facebook.com/alemaggiasesorainmobiliaria#'
-  const instagramHref = 'https://www.instagram.com/p/DW62W2ojFHo/'
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -205,40 +203,22 @@ Sáb–Dom: Cerrado</p>
             {/* Social */}
             <div className="border-t border-stone-100 pt-8">
               <p className="text-xs text-stone-400 tracking-widest uppercase mb-4">Redes sociales</p>
-              <div className="flex items-center gap-5">
-                <a
-                  href={facebookHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-stone-500 hover:text-[#1877F2] transition-colors"
-                  aria-label="Facebook Alessandra Maggi"
-                >
-                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
-                    <path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.85c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.23.19 2.23.19v2.45h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.77l-.44 2.89h-2.33v6.99A10 10 0 0 0 22 12z" />
-                  </svg>
-                </a>
-                <a
-                  href={instagramHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-stone-500 hover:text-[#E1306C] transition-colors"
-                  aria-label="Instagram Alessandra Maggi"
-                >
-                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
-                    <path d="M7.75 2h8.5A5.76 5.76 0 0 1 22 7.75v8.5A5.76 5.76 0 0 1 16.25 22h-8.5A5.76 5.76 0 0 1 2 16.25v-8.5A5.76 5.76 0 0 1 7.75 2Zm8.37 1.73H7.88A4.15 4.15 0 0 0 3.73 7.88v8.24a4.15 4.15 0 0 0 4.15 4.15h8.24a4.15 4.15 0 0 0 4.15-4.15V7.88a4.15 4.15 0 0 0-4.15-4.15ZM12 7.3A4.7 4.7 0 1 1 7.3 12 4.7 4.7 0 0 1 12 7.3Zm0 1.74A2.96 2.96 0 1 0 14.96 12 2.96 2.96 0 0 0 12 9.04Zm4.89-2.87a1.1 1.1 0 1 1-1.1 1.1 1.1 1.1 0 0 1 1.1-1.1Z" />
-                  </svg>
-                </a>
-                <a
-                  href={whatsappHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-stone-500 hover:text-[#25D366] transition-colors"
-                  aria-label="WhatsApp Alessandra Maggi"
-                >
-                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
-                    <path d="M20.52 3.48A11.86 11.86 0 0 0 12.02 0C5.42 0 .05 5.36.05 11.96c0 2.1.55 4.16 1.6 5.97L0 24l6.24-1.63a11.9 11.9 0 0 0 5.78 1.48h.01c6.6 0 11.97-5.36 11.97-11.96 0-3.2-1.25-6.22-3.48-8.41Zm-8.5 18.35h-.01a9.9 9.9 0 0 1-5.05-1.39l-.36-.21-3.7.97.99-3.6-.23-.37a9.92 9.92 0 0 1-1.52-5.28c0-5.5 4.47-9.97 9.98-9.97 2.66 0 5.17 1.04 7.05 2.92a9.9 9.9 0 0 1 2.92 7.05c0 5.5-4.48 9.98-9.99 9.98Zm5.47-7.49c-.3-.15-1.78-.88-2.06-.98-.28-.1-.48-.15-.69.15-.2.3-.79.98-.96 1.18-.18.2-.35.23-.65.08-.3-.15-1.28-.47-2.43-1.49-.9-.8-1.51-1.79-1.69-2.09-.18-.3-.02-.46.14-.61.14-.14.3-.35.45-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.02-.53-.08-.15-.69-1.66-.94-2.28-.25-.6-.5-.52-.69-.53l-.58-.01c-.2 0-.53.08-.8.38-.28.3-1.06 1.03-1.06 2.5s1.08 2.9 1.23 3.1c.15.2 2.13 3.26 5.15 4.57.72.31 1.28.5 1.71.64.72.23 1.37.2 1.89.12.58-.09 1.78-.73 2.03-1.44.25-.7.25-1.3.18-1.44-.08-.13-.28-.2-.58-.35Z"/>
-                  </svg>
-                </a>
+              <div className="flex gap-4">
+                {[
+                  { name: 'WhatsApp', href: whatsappHref },
+                  { name: 'Google Maps', href: mapsHref },
+                  { name: 'Email', href: emailHref },
+                ].map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-stone-500 hover:text-stone-900 transition-colors"
+                  >
+                    {social.name}
+                  </a>
+                ))}
               </div>
             </div>
           </div>
