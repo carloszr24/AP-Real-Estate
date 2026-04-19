@@ -295,12 +295,16 @@ export default function AdminPage() {
           return match?.url || ''
         }).filter(Boolean)
 
-        await fetch(`/api/propiedades/${propertyId}`, {
+        const putRes = await fetch(`/api/propiedades/${propertyId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
           body: JSON.stringify({ ...form, images: finalUrls }),
         })
+        // #region agent log
+        const putBody = await putRes.clone().json().catch(() => null)
+        fetch('http://127.0.0.1:7469/ingest/9fce4d37-ece9-4a64-80a2-f7181108eb3e',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f55194'},body:JSON.stringify({sessionId:'f55194',location:'admin/page.tsx:PUT-response',message:'API PUT response featured',data:{status:putRes.status,responseFeatured:putBody?.featured,responseId:putBody?.id,sentFeatured:form.featured},timestamp:Date.now(),hypothesisId:'B'})}).catch(()=>{});
+        // #endregion
 
         await deleteRemovedImages(finalUrls)
       }
@@ -308,6 +312,9 @@ export default function AdminPage() {
       setShowForm(false)
       setEditingId(null)
       await fetchProperties()
+      // #region agent log
+      fetch('http://127.0.0.1:7469/ingest/9fce4d37-ece9-4a64-80a2-f7181108eb3e',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f55194'},body:JSON.stringify({sessionId:'f55194',location:'admin/page.tsx:after-fetchProperties',message:'properties list featured after save',data:{props: (await fetch('/api/propiedades',{credentials:'include'}).then(r=>r.json()).catch(()=>[])).map((p: {id:string,featured:boolean,title:string})=>({id:p.id,title:p.title,featured:p.featured}))},timestamp:Date.now(),hypothesisId:'C'})}).catch(()=>{});
+      // #endregion
     } finally {
       setSaving(false)
     }
