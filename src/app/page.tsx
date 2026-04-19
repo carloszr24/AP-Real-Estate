@@ -19,9 +19,6 @@ async function getFeaturedProperties() {
   if (featuredError) throw featuredError
 
   const featuredRows = (featuredData as PropertyRow[] | null) ?? []
-  // #region agent log
-  console.log('[DEBUG f55194 HypC] getFeaturedProperties result:', JSON.stringify({ featuredCount: featuredRows.length, featuredError, ids: featuredRows.map((r) => ({ id: r.id, featured: r.featured, title: r.title })) }))
-  // #endregion
   if (featuredRows.length >= 3) {
     return rowsToProperties(featuredRows.slice(0, 3))
   }

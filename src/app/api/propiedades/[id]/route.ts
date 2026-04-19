@@ -37,9 +37,6 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
       floor, garage, elevator, furnished, energyRating, energyValue,
       emissionsRating, emissionsValue,
     } = body
-    // #region agent log
-    console.log('[DEBUG f55194 HypB] PUT /api/propiedades/[id] featured value:', JSON.stringify({ id: params.id, featured, featuredType: typeof featured, bodyFeatured: body.featured }))
-    // #endregion
 
     const row = bodyToInsert({
       title,
