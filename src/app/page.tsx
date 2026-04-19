@@ -8,33 +8,34 @@ import { formatPrice } from '@/lib/utils'
 
 export const dynamic = 'force-dynamic'
 
+function rowIsFeatured(r: PropertyRow): boolean {
+  const v = r.featured as unknown
+  return v === true || v === 'true' || v === 't' || v === 1
+}
+
 async function getFeaturedProperties() {
   const supabase = createPublicSupabase()
-  const { data: featuredData, error: featuredError } = await supabase
+  const { data, error } = await supabase
     .from('properties')
     .select('*')
-    .eq('featured', true)
     .order('created_at', { ascending: false })
-    .limit(3)
-  if (featuredError) throw featuredError
+    .limit(80)
+  if (error) throw error
 
-  const featuredRows = (featuredData as PropertyRow[] | null) ?? []
-  if (featuredRows.length >= 3) {
-    return rowsToProperties(featuredRows.slice(0, 3))
+  const rows = (data as PropertyRow[] | null) ?? []
+  const featuredRows = rows.filter(rowIsFeatured)
+  const picked = featuredRows.slice(0, 3)
+  if (picked.length >= 3) {
+    return rowsToProperties(picked)
   }
-
-  const remaining = 3 - featuredRows.length
-  const { data: fallbackData, error: fallbackError } = await supabase
-    .from('properties')
-    .select('*')
-    .or('featured.eq.false,featured.is.null')
-    .order('created_at', { ascending: false })
-    .limit(remaining)
-
-  if (fallbackError) throw fallbackError
-
-  const fallbackRows = (fallbackData as PropertyRow[] | null) ?? []
-  return rowsToProperties([...featuredRows, ...fallbackRows].slice(0, 3))
+  const pickedIds = new Set(picked.map((r) => r.id))
+  const fill: PropertyRow[] = [...picked]
+  for (const r of rows) {
+    if (fill.length >= 3) break
+    if (pickedIds.has(r.id)) continue
+    if (!rowIsFeatured(r)) fill.push(r)
+  }
+  return rowsToProperties(fill)
 }
 
 export default async function HomePage() {
