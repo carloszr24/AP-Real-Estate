@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Property } from '@/types'
+import { MAX_FEATURED_ON_HOME } from '@/lib/property-db'
 import { formatPrice, OPERATION_LABELS, PROPERTY_OPERATIONS, PROPERTY_STATUSES, PROPERTY_TYPES, STATUS_LABELS, TYPE_LABELS } from '@/lib/utils'
 import { cn } from '@/lib/utils'
 
@@ -81,6 +82,8 @@ export default function AdminPage() {
   const [initialImageUrls, setInitialImageUrls] = useState<string[]>([])
   const [saving, setSaving] = useState(false)
   const [deleteId, setDeleteId] = useState<string | null>(null)
+  const [featuredCapError, setFeaturedCapError] = useState<string | null>(null)
+  const [submitError, setSubmitError] = useState<string | null>(null)
 
   useEffect(() => {
     fetch('/api/admin/session', { credentials: 'include' })
@@ -131,7 +134,22 @@ export default function AdminPage() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target
     if (type === 'checkbox') {
-      setForm({ ...form, [name]: (e.target as HTMLInputElement).checked })
+      const checked = (e.target as HTMLInputElement).checked
+      if (name === 'featured') {
+        if (checked) {
+          const selfFeatured = editingId ? properties.some((p) => p.id === editingId && p.featured) : false
+          const nFeatured = properties.filter((p) => p.featured).length
+          if (!selfFeatured && nFeatured >= MAX_FEATURED_ON_HOME) {
+            setFeaturedCapError(
+              `Solo puedes tener ${MAX_FEATURED_ON_HOME} destacadas en la home. Quita la marca en otra propiedad primero.`
+            )
+            return
+          }
+        } else {
+          setFeaturedCapError(null)
+        }
+      }
+      setForm({ ...form, [name]: checked })
     } else {
       setForm({ ...form, [name]: value })
     }
@@ -142,6 +160,8 @@ export default function AdminPage() {
     setEditingId(null)
     setImageItems([])
     setInitialImageUrls([])
+    setFeaturedCapError(null)
+    setSubmitError(null)
     setShowForm(true)
   }
 
@@ -177,6 +197,8 @@ export default function AdminPage() {
     setEditingId(p.id)
     setInitialImageUrls(urls)
     setImageItems(urls.map((url) => ({ id: crypto.randomUUID(), kind: 'existing', url })))
+    setFeaturedCapError(null)
+    setSubmitError(null)
     setShowForm(true)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -250,6 +272,7 @@ export default function AdminPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSaving(true)
+    setSubmitError(null)
     try {
       const existingUrlsInOrder = imageItems
         .filter((i): i is Extract<ImageItem, { kind: 'existing' }> => i.kind === 'existing')
@@ -263,7 +286,11 @@ export default function AdminPage() {
           credentials: 'include',
           body: JSON.stringify({ ...form, images: existingUrlsInOrder }),
         })
-        if (!createRes.ok) throw new Error('Error al crear propiedad')
+        if (!createRes.ok) {
+          const errBody = (await createRes.json().catch(() => ({}))) as { error?: string }
+          setSubmitError(errBody.error || 'Error al crear propiedad')
+          return
+        }
         const created = await createRes.json() as { id: string }
         const propertyId = created.id
 
@@ -275,12 +302,17 @@ export default function AdminPage() {
           return match?.url || ''
         }).filter(Boolean)
 
-        await fetch(`/api/propiedades/${propertyId}`, {
+        const putAfterCreate = await fetch(`/api/propiedades/${propertyId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
           body: JSON.stringify({ ...form, images: finalUrls }),
         })
+        if (!putAfterCreate.ok) {
+          const errBody = (await putAfterCreate.json().catch(() => ({}))) as { error?: string }
+          setSubmitError(errBody.error || 'Error al guardar la propiedad')
+          return
+        }
       } else {
         const propertyId = editingId
 
@@ -292,12 +324,17 @@ export default function AdminPage() {
           return match?.url || ''
         }).filter(Boolean)
 
-        await fetch(`/api/propiedades/${propertyId}`, {
+        const putRes = await fetch(`/api/propiedades/${propertyId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
           body: JSON.stringify({ ...form, images: finalUrls }),
         })
+        if (!putRes.ok) {
+          const errBody = (await putRes.json().catch(() => ({}))) as { error?: string }
+          setSubmitError(errBody.error || 'Error al guardar la propiedad')
+          return
+        }
 
         await deleteRemovedImages(finalUrls)
       }
@@ -611,12 +648,19 @@ export default function AdminPage() {
                   checked={form.featured} onChange={handleChange}
                   className="accent-stone-900 w-4 h-4" />
                 <label htmlFor="featured" className="text-sm text-stone-600 cursor-pointer">
-                  Destacar en home
+                  Destacar en home (máx. {MAX_FEATURED_ON_HOME})
                 </label>
               </div>
+              {featuredCapError && (
+                <p className="text-red-600 text-xs -mt-2">{featuredCapError}</p>
+              )}
             </div>
 
-            <div className="flex items-center gap-3 pt-4 border-t border-stone-100">
+            <div className="flex flex-col gap-2 pt-4 border-t border-stone-100">
+              {submitError && (
+                <p className="text-red-600 text-sm">{submitError}</p>
+              )}
+              <div className="flex items-center gap-3">
               <button type="submit" disabled={saving} className="btn-primary text-xs px-6 py-2.5 disabled:opacity-50">
                 {saving ? 'Guardando...' : editingId ? 'Guardar cambios' : 'Crear propiedad'}
               </button>
@@ -624,6 +668,7 @@ export default function AdminPage() {
                 className="text-sm text-stone-500 hover:text-stone-900 transition-colors">
                 Cancelar
               </button>
+              </div>
             </div>
           </form>
         </div>

@@ -2,7 +2,13 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createPublicSupabase } from '@/lib/supabase/public-server'
 import { createAdminSupabase } from '@/lib/supabase/admin'
 import { getAdminTokenFromRequest, verifyAdminSessionToken } from '@/lib/admin-session'
-import { bodyToInsert, rowToProperty, type PropertyRow } from '@/lib/property-db'
+import {
+  bodyToInsert,
+  rowToProperty,
+  wouldExceedFeaturedHomeLimit,
+  MAX_FEATURED_ON_HOME,
+  type PropertyRow,
+} from '@/lib/property-db'
 
 function unauthorized() {
   return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
@@ -68,6 +74,24 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     })
 
     const supabase = createAdminSupabase()
+    const { data: idFeaturedRows, error: countError } = await supabase
+      .from('properties')
+      .select('id, featured')
+    if (countError) throw countError
+    if (
+      wouldExceedFeaturedHomeLimit(idFeaturedRows ?? [], {
+        wantFeatured: row.featured,
+        editingPropertyId: params.id,
+      })
+    ) {
+      return NextResponse.json(
+        {
+          error: `Ya hay ${MAX_FEATURED_ON_HOME} propiedades destacadas en la home. Quita una antes de añadir otra.`,
+        },
+        { status: 400 }
+      )
+    }
+
     const { data, error } = await supabase
       .from('properties')
       .update({ ...row, updated_at: new Date().toISOString() })

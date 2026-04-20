@@ -1,17 +1,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { createPublicSupabase } from '@/lib/supabase/public-server'
-import { rowsToProperties, type PropertyRow } from '@/lib/property-db'
+import { isFeaturedFlag, MAX_FEATURED_ON_HOME, rowsToProperties, type PropertyRow } from '@/lib/property-db'
 import { ReviewsCarousel } from '@/components/home/ReviewsCarousel'
 import { FeaturedPropertiesGrid } from '@/components/home/FeaturedPropertiesGrid'
 import { formatPrice } from '@/lib/utils'
 
 export const dynamic = 'force-dynamic'
-
-function rowIsFeatured(r: PropertyRow): boolean {
-  const v = r.featured as unknown
-  return v === true || v === 'true' || v === 't' || v === 1
-}
 
 async function getFeaturedProperties() {
   const supabase = createPublicSupabase()
@@ -23,17 +18,17 @@ async function getFeaturedProperties() {
   if (error) throw error
 
   const rows = (data as PropertyRow[] | null) ?? []
-  const featuredRows = rows.filter(rowIsFeatured)
-  const picked = featuredRows.slice(0, 3)
-  if (picked.length >= 3) {
+  const featuredRows = rows.filter((r) => isFeaturedFlag(r.featured))
+  const picked = featuredRows.slice(0, MAX_FEATURED_ON_HOME)
+  if (picked.length >= MAX_FEATURED_ON_HOME) {
     return rowsToProperties(picked)
   }
   const pickedIds = new Set(picked.map((r) => r.id))
   const fill: PropertyRow[] = [...picked]
   for (const r of rows) {
-    if (fill.length >= 3) break
+    if (fill.length >= MAX_FEATURED_ON_HOME) break
     if (pickedIds.has(r.id)) continue
-    if (!rowIsFeatured(r)) fill.push(r)
+    if (!isFeaturedFlag(r.featured)) fill.push(r)
   }
   return rowsToProperties(fill)
 }
