@@ -41,7 +41,7 @@ export function createPublicSupabase() {
     global: {
       fetch: (input: RequestInfo | URL, init: RequestInit = {}) => {
         debugLog({
-          runId: 'pre-fix',
+          runId: 'post-fix',
           hypothesisId: 'H1',
           location: 'src/lib/supabase/public-server.ts:global.fetch',
           message: 'Supabase server fetch called',
@@ -51,7 +51,7 @@ export function createPublicSupabase() {
             method: init.method ?? 'GET',
           },
         })
-        return fetch(input, init)
+        return fetch(input, { ...init, cache: 'no-store' })
       },
     },
   })
