@@ -1,32 +1,12 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { createPublicSupabase } from '@/lib/supabase/public-server'
 import { isFeaturedFlag, MAX_FEATURED_ON_HOME, rowsToProperties, type PropertyRow } from '@/lib/property-db'
 import { ReviewsCarousel } from '@/components/home/ReviewsCarousel'
 import { FeaturedPropertiesGrid } from '@/components/home/FeaturedPropertiesGrid'
+import { HeroCarousel } from '@/components/home/HeroCarousel'
 import { formatPrice } from '@/lib/utils'
 
 export const dynamic = 'force-dynamic'
-
-function debugLog(payload: {
-  runId: string
-  hypothesisId: string
-  location: string
-  message: string
-  data: Record<string, unknown>
-}) {
-  // #region agent log
-  fetch('http://127.0.0.1:7474/ingest/405f2639-3a52-4550-ad87-60b4b9c70aff', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '31b3af' },
-    body: JSON.stringify({
-      sessionId: '31b3af',
-      ...payload,
-      timestamp: Date.now(),
-    }),
-  }).catch(() => {})
-  // #endregion
-}
 
 async function getFeaturedProperties() {
   const supabase = createPublicSupabase()
@@ -35,18 +15,6 @@ async function getFeaturedProperties() {
     .select('*')
     .order('created_at', { ascending: false })
     .limit(80)
-  debugLog({
-    runId: 'pre-fix',
-    hypothesisId: 'H4',
-    location: 'src/app/page.tsx:getFeaturedProperties',
-    message: 'Supabase query resolved for home featured',
-    data: {
-      hasError: Boolean(error),
-      errorCode: error?.code ?? null,
-      rowsLength: Array.isArray(data) ? data.length : 0,
-      topIds: Array.isArray(data) ? data.slice(0, 5).map((row) => (row as { id?: string }).id ?? null) : [],
-    },
-  })
   if (error) throw error
 
   const rows = (data as PropertyRow[] | null) ?? []
@@ -62,18 +30,7 @@ async function getFeaturedProperties() {
     if (pickedIds.has(r.id)) continue
     if (!isFeaturedFlag(r.featured)) fill.push(r)
   }
-  const resolved = rowsToProperties(fill)
-  debugLog({
-    runId: 'pre-fix',
-    hypothesisId: 'H5',
-    location: 'src/app/page.tsx:getFeaturedProperties',
-    message: 'Home featured selection resolved',
-    data: {
-      featuredRowsLength: featuredRows.length,
-      finalLength: resolved.length,
-    },
-  })
-  return resolved
+  return rowsToProperties(fill)
 }
 
 export default async function HomePage() {
@@ -84,14 +41,8 @@ export default async function HomePage() {
       {/* HERO */}
       <section className="relative min-h-svh pt-24 pb-14 md:pt-28 md:pb-20 flex items-center justify-center overflow-hidden">
         {/* Background */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/images/Hero-Almeria.jpg"
-            alt="Viviendas en Almería"
-            fill
-            className="object-cover"
-            priority
-          />
+        <div className="absolute inset-0">
+          <HeroCarousel />
           <div className="absolute inset-0 bg-gradient-to-b from-stone-950/70 via-stone-950/55 to-stone-950/75" />
         </div>
 
