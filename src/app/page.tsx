@@ -4,6 +4,7 @@ import { isFeaturedFlag, MAX_FEATURED_ON_HOME, rowsToProperties, type PropertyRo
 import { ReviewsCarousel } from '@/components/home/ReviewsCarousel'
 import { FeaturedPropertiesGrid } from '@/components/home/FeaturedPropertiesGrid'
 import { HeroCarousel } from '@/components/home/HeroCarousel'
+import { ValoracionGratuitaModal } from '@/components/home/ValoracionGratuitaModal'
 import { formatPrice } from '@/lib/utils'
 
 export const dynamic = 'force-dynamic'
@@ -55,7 +56,7 @@ export default async function HomePage() {
             en <span className="text-gold">menos de 60 días</span>
           </h1>
           <p className="text-stone-200 text-[calc(1rem+4pt)] sm:text-[calc(1.125rem+4pt)] md:text-[calc(1.25rem+4pt)] font-normal max-w-[min(100%,22rem)] sm:max-w-2xl mx-auto mb-8 sm:mb-9 md:mb-10 leading-relaxed text-pretty animate-fade-up" style={{ animationDelay: '0.1s', opacity: 0, animationFillMode: 'forwards' }}>
-            Alessandra Maggi te acompaña con un servicio inmobiliario cercano y personalizado.
+            Te acompaño desde el inicio hasta el final de la operación con un servicio totalmente personalizado
           </p>
           <div
             className="flex w-full max-w-xl mx-auto flex-col sm:flex-row gap-4 animate-fade-up"
@@ -65,14 +66,12 @@ export default async function HomePage() {
               href="/propiedades"
               className="btn-gold w-full sm:flex-1 sm:min-w-0 min-h-[3.25rem] px-8 py-4 text-[calc(0.875rem+4pt)] tracking-wide text-center border-2 border-transparent box-border"
             >
-              Ver propiedades
+              Quiero comprar
             </Link>
-            <Link
-              href="/contacto"
-              className="inline-flex w-full sm:flex-1 sm:min-w-0 min-h-[3.25rem] items-center justify-center px-8 py-4 text-[calc(0.875rem+4pt)] tracking-wide font-medium border-2 border-gold text-gold box-border hover:bg-gold hover:text-white transition-colors duration-200"
-            >
-              Contactar
-            </Link>
+            <ValoracionGratuitaModal
+              triggerLabel="Quiero vender"
+              triggerClassName="inline-flex w-full sm:flex-1 sm:min-w-0 min-h-[3.25rem] items-center justify-center px-8 py-4 text-[calc(0.875rem+4pt)] tracking-wide font-medium border-2 border-gold text-gold box-border hover:bg-gold hover:text-white transition-colors duration-200"
+            />
           </div>
         </div>
 
