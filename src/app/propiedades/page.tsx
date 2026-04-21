@@ -6,6 +6,26 @@ import { PropertyFilters } from '@/components/properties/PropertyFilters'
 
 export const dynamic = 'force-dynamic'
 
+function debugLog(payload: {
+  runId: string
+  hypothesisId: string
+  location: string
+  message: string
+  data: Record<string, unknown>
+}) {
+  // #region agent log
+  fetch('http://127.0.0.1:7474/ingest/405f2639-3a52-4550-ad87-60b4b9c70aff', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '31b3af' },
+    body: JSON.stringify({
+      sessionId: '31b3af',
+      ...payload,
+      timestamp: Date.now(),
+    }),
+  }).catch(() => {})
+  // #endregion
+}
+
 interface SearchParams {
   type?: string
   operation?: string
@@ -33,6 +53,19 @@ async function getProperties(searchParams: SearchParams) {
   if (searchParams.maxPrice) q = q.lte('price', parseFloat(searchParams.maxPrice))
 
   const { data, error } = await q
+  debugLog({
+    runId: 'pre-fix',
+    hypothesisId: 'H3',
+    location: 'src/app/propiedades/page.tsx:getProperties',
+    message: 'Supabase query resolved for propiedades list',
+    data: {
+      hasError: Boolean(error),
+      errorCode: error?.code ?? null,
+      rowsLength: Array.isArray(data) ? data.length : 0,
+      topIds: Array.isArray(data) ? data.slice(0, 5).map((row) => (row as { id?: string }).id ?? null) : [],
+      filters: searchParams,
+    },
+  })
   if (error) throw error
   const properties = rowsToProperties(data as PropertyRow[] | null)
 
@@ -61,6 +94,17 @@ export default async function PropiedadesPage({
 }) {
   const properties = await getProperties(searchParams)
   const hasFilters = Object.values(searchParams).some(Boolean)
+  debugLog({
+    runId: 'pre-fix',
+    hypothesisId: 'H2',
+    location: 'src/app/propiedades/page.tsx:PropiedadesPage',
+    message: 'SSR propiedades render payload',
+    data: {
+      hasFilters,
+      searchParams,
+      propertiesLength: properties.length,
+    },
+  })
 
   return (
     <div className="pt-16">

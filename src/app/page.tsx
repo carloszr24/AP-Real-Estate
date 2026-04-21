@@ -8,6 +8,26 @@ import { formatPrice } from '@/lib/utils'
 
 export const dynamic = 'force-dynamic'
 
+function debugLog(payload: {
+  runId: string
+  hypothesisId: string
+  location: string
+  message: string
+  data: Record<string, unknown>
+}) {
+  // #region agent log
+  fetch('http://127.0.0.1:7474/ingest/405f2639-3a52-4550-ad87-60b4b9c70aff', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '31b3af' },
+    body: JSON.stringify({
+      sessionId: '31b3af',
+      ...payload,
+      timestamp: Date.now(),
+    }),
+  }).catch(() => {})
+  // #endregion
+}
+
 async function getFeaturedProperties() {
   const supabase = createPublicSupabase()
   const { data, error } = await supabase
@@ -15,6 +35,18 @@ async function getFeaturedProperties() {
     .select('*')
     .order('created_at', { ascending: false })
     .limit(80)
+  debugLog({
+    runId: 'pre-fix',
+    hypothesisId: 'H4',
+    location: 'src/app/page.tsx:getFeaturedProperties',
+    message: 'Supabase query resolved for home featured',
+    data: {
+      hasError: Boolean(error),
+      errorCode: error?.code ?? null,
+      rowsLength: Array.isArray(data) ? data.length : 0,
+      topIds: Array.isArray(data) ? data.slice(0, 5).map((row) => (row as { id?: string }).id ?? null) : [],
+    },
+  })
   if (error) throw error
 
   const rows = (data as PropertyRow[] | null) ?? []
@@ -30,7 +62,18 @@ async function getFeaturedProperties() {
     if (pickedIds.has(r.id)) continue
     if (!isFeaturedFlag(r.featured)) fill.push(r)
   }
-  return rowsToProperties(fill)
+  const resolved = rowsToProperties(fill)
+  debugLog({
+    runId: 'pre-fix',
+    hypothesisId: 'H5',
+    location: 'src/app/page.tsx:getFeaturedProperties',
+    message: 'Home featured selection resolved',
+    data: {
+      featuredRowsLength: featuredRows.length,
+      finalLength: resolved.length,
+    },
+  })
+  return resolved
 }
 
 export default async function HomePage() {
