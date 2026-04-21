@@ -11,53 +11,53 @@ type Review = {
 const REVIEWS: Review[] = [
   {
     id: 1,
-    name: 'Carmen R.',
-    text: 'Alessandra me ayudó a vender mi vivienda en Roquetas con muchísima profesionalidad. Me sentí acompañada en todo momento.',
+    name: 'Olga Albert',
+    text: 'Desde el primer momento supe que estaba en buenas manos. Muy competente, ágil y eficaz, siempre disponible para cualquier duda durante la compra.',
   },
   {
     id: 2,
-    name: 'Javier M.',
-    text: 'Atención impecable: clara, cercana y muy eficiente. Encontramos piso en Almería en menos tiempo del que esperábamos.',
+    name: 'Maite G.v',
+    text: 'Mi experiencia ha sido excelente. He contado con Alessandra para la compra y la venta de vivienda, y en ambas ocasiones fue excepcional.',
   },
   {
     id: 3,
-    name: 'Lucía T.',
-    text: 'Me asesoró en cada paso de la compra y resolvió todas mis dudas. Una agente totalmente recomendable.',
+    name: 'Pasquale',
+    text: 'Muy profesional y muy competente. Nos acompañó durante todo el proceso de venta, siempre disponible y con actitud cooperativa.',
   },
   {
     id: 4,
-    name: 'Antonio P.',
-    text: 'Excelente trato y muy buena negociación. Se nota que conoce el mercado local al detalle.',
+    name: 'Joel Medina Castro',
+    text: 'Me asesoró desde el minuto 0 y me gestionó todo a la perfección. Compré con ella y años después también me volvió a vender la vivienda.',
   },
   {
     id: 5,
-    name: 'Nuria G.',
-    text: 'El proceso fue rápido y transparente. Gracias a Alessandra conseguimos cerrar la operación con total tranquilidad.',
+    name: 'Jose Salmeron',
+    text: 'Muy contento con su trabajo: atención, amabilidad, persistencia y muy buena comunicación. Una gran profesional.',
   },
   {
     id: 6,
-    name: 'Pedro S.',
-    text: 'Muy profesional y honesta. Nos orientó con criterio en todo el proceso de venta.',
+    name: 'Kamil Zygma',
+    text: 'Desde el primer contacto hasta la postcompra, todo genial. Te acompaña en cada paso y responde siempre a tus preguntas.',
   },
   {
     id: 7,
-    name: 'Sara L.',
-    text: 'Buscaba invertir en la zona de Almería y recibí un asesoramiento serio, claro y muy bien enfocado.',
+    name: 'Sole Moya Moya',
+    text: 'Una gran profesional. Se encargó de todos los aspectos de la venta, desde anuncios con fotos y vídeos hasta trámites administrativos.',
   },
   {
     id: 8,
-    name: 'Marina C.',
-    text: 'Gran experiencia. Comunicación constante y trato humano durante toda la compra.',
+    name: 'Anthony Costa',
+    text: 'Tras la primera reunión supimos que queríamos que ella vendiera nuestro apartamento. Muy profesional, con plan claro y excelentes ideas.',
   },
   {
     id: 9,
-    name: 'Rafael D.',
-    text: 'Vendimos en menos tiempo del previsto y con muy buenas condiciones. Totalmente recomendable.',
+    name: 'Davide Scalici',
+    text: 'Excelente profesional: honesta, directa y muy atenta con sus clientes. Excepcional tanto a nivel profesional como humano.',
   },
   {
     id: 10,
-    name: 'Elena V.',
-    text: 'Servicio excelente: cercano, profesional y con mucha implicación personal.',
+    name: 'TOMASZ KUZAWIŃSKI',
+    text: 'Muy buena ayuda y profesionalidad. Si quieres comprar o vender un piso, recomiendo trabajar con Alessandra.',
   },
 ]
 
