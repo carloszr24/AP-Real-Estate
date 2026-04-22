@@ -24,7 +24,7 @@ export function Navbar() {
         <div className="relative flex items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5">
-            <span className="font-display text-lg md:text-xl tracking-wide text-stone-900">
+            <span className="font-logo text-[1.95rem] md:text-[2.2rem] leading-none font-black tracking-[-0.03em] text-brand-blue">
               Alessandra Maggi
             </span>
           </Link>
