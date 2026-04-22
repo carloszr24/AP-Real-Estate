@@ -196,10 +196,10 @@ export function ReviewsCarousel() {
           }`}
         >
           <p className="text-gold text-xs tracking-[0.3em] uppercase mb-3">Opiniones</p>
-          <h2 className="section-title mb-5">Clientes que recomiendan</h2>
+          <h2 className="section-title mb-5">Nuestra prioridad: el cliente</h2>
           <div className="flex flex-col items-center gap-2 text-stone-700">
             <StarRow />
-            <p className="text-base md:text-lg font-medium">Atención personalizada en Almería</p>
+            <p className="text-base md:text-lg font-medium">Líderes en ofrecer un servicio adaptado a las necesidades del cliente</p>
           </div>
         </div>
 
