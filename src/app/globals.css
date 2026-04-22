@@ -146,7 +146,7 @@
 }
 
 .lead-modal-hero {
-  background: linear-gradient(135deg, #7f145d 0%, #9a2b77 100%);
+  background: linear-gradient(135deg, var(--brand-red-dark) 0%, var(--brand-red) 100%);
   border-radius: 10px;
   padding: 0.75rem 0.85rem 0.7rem;
   margin-bottom: 0.75rem;
@@ -207,7 +207,7 @@
 .lead-modal-progress-fill {
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #7f145d 0%, #9a2b77 100%);
+  background: linear-gradient(90deg, var(--brand-red-dark) 0%, var(--brand-red) 100%);
   transition: width 0.25s ease;
 }
 
