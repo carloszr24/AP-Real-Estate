@@ -87,6 +87,24 @@ const services = [
   },
 ]
 
+const values = [
+  {
+    title: 'Cercanía',
+    description:
+      'Cada operación es personal. Escucho tu situación y adapto la estrategia a lo que realmente necesitas.',
+  },
+  {
+    title: 'Transparencia',
+    description:
+      'Información clara en todo momento: precio, tiempos, documentación y decisiones basadas en datos reales.',
+  },
+  {
+    title: 'Compromiso',
+    description:
+      'Te acompaño de principio a fin, cuidando cada detalle para que compres o vendas con seguridad y tranquilidad.',
+  },
+]
+
 export default function SobreNosotrosPage() {
   const [active, setActive] = useState(0)
   const [cursor, setCursor] = useState({ x: 0, y: 0, visible: false })
@@ -100,7 +118,32 @@ export default function SobreNosotrosPage() {
 
   return (
     <div className="pt-16">
-      {/* ── Servicios ── */}
+      {/* Values */}
+      <section className="py-20 px-6 md:px-10 bg-stone-50 border-b border-stone-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-3xl">
+            <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">Valores</p>
+            <h2 className="section-title">Nuestra forma de trabajar</h2>
+            <p className="text-stone-500 text-base md:text-lg mt-5 leading-relaxed">
+              Construimos relaciones basadas en confianza, claridad y resultados.
+            </p>
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5">
+            {values.map((value) => (
+              <article
+                key={value.title}
+                className="bg-white border border-stone-200 p-6 md:p-7 rounded-lg"
+              >
+                <h3 className="font-display text-2xl text-stone-900 mb-3">{value.title}</h3>
+                <p className="text-stone-600 leading-relaxed">{value.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Services */}
       <section className="py-24 px-6 md:px-10 bg-white">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
@@ -196,15 +239,15 @@ export default function SobreNosotrosPage() {
         </div>
       </section>
 
-      {/* ── Sobre mí ── */}
+      {/* Team */}
       <section className="py-24 px-6 md:px-10 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-end">
             {/* Left: text + RE/MAX badge */}
             <div className="flex flex-col justify-between h-full">
               <div>
-                <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">Alessandra Maggi</p>
-                <h2 className="section-title mb-2">Sobre mí</h2>
+                <p className="text-gold text-xs tracking-[0.3em] uppercase mb-4">El equipo</p>
+                <h2 className="section-title mb-2">Alessandra Maggi</h2>
                 <p className="text-stone-500 text-base md:text-lg font-medium mb-8">Agente asociada RE/MAX en Almería</p>
 
                 <div className="space-y-6 text-stone-600 text-lg leading-relaxed mb-10">
