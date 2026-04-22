@@ -10,7 +10,7 @@ export default function ContactoPage() {
   const mapsHref = 'https://maps.google.com/?q=Carretera+de+Alicun+28,+Pl.+Archivo+de+Indias,+4,+04740+Roquetas+de+Mar,+Almeria'
   const phoneDisplay = '672 80 42 86'
   const phoneHref = 'tel:+34672804286'
-  const email = 'adm.ap.servicios.inmobiliarios@gmail.com'
+  const email = 'alessandra.maggi@remax.es'
   const emailHref = `mailto:${email}`
   const whatsappDisplay = '+34 672 80 42 86'
   const whatsappHref = 'https://wa.me/34672804286'

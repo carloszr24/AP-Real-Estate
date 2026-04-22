@@ -3,7 +3,7 @@ import Link from 'next/link'
 export function Footer() {
   const mapsHref = 'https://maps.google.com/?q=Carretera+de+Alicun+28,+Pl.+Archivo+de+Indias,+4,+04740+Roquetas+de+Mar,+Almeria'
   const phoneHref = 'tel:+34672804286'
-  const emailHref = 'mailto:adm.ap.servicios.inmobiliarios@gmail.com'
+  const emailHref = 'mailto:alessandra.maggi@remax.es'
   const whatsappHref = 'https://wa.me/34672804286'
 
   return (
@@ -42,7 +42,7 @@ export function Footer() {
                 <a href={phoneHref} className="hover:text-stone-900 transition-colors">672 80 42 86</a>
               </li>
               <li>
-                <a href={emailHref} className="hover:text-stone-900 transition-colors">adm.ap.servicios.inmobiliarios@gmail.com</a>
+                <a href={emailHref} className="hover:text-stone-900 transition-colors">alessandra.maggi@remax.es</a>
               </li>
               <li>
                 <a
