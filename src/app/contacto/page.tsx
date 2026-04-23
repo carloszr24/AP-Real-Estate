@@ -6,6 +6,7 @@ export default function ContactoPage() {
   const [form, setForm] = useState({ nombre: '', email: '', telefono: '', mensaje: '' })
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const mapsHref = 'https://maps.google.com/?q=Carretera+de+Alicun+28,+Pl.+Archivo+de+Indias,+4,+04740+Roquetas+de+Mar,+Almeria'
   const phoneDisplay = '672 80 42 86'
@@ -21,11 +22,31 @@ export default function ContactoPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setError('')
     setLoading(true)
-    // Simula envío - conectar con EmailJS, Resend o similar
-    await new Promise((r) => setTimeout(r, 1000))
-    setSent(true)
-    setLoading(false)
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: form.nombre,
+          email: form.email,
+          phone: form.telefono || 'No facilitado',
+          notes: form.mensaje,
+          source: 'web_contacto',
+          intent: 'comprar',
+          priority: 'media',
+        }),
+      })
+      if (!res.ok) {
+        throw new Error('No se pudo enviar el mensaje')
+      }
+      setSent(true)
+    } catch {
+      setError('No se pudo enviar el formulario. Prueba de nuevo en unos minutos.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -120,6 +141,11 @@ export default function ContactoPage() {
                 >
                   {loading ? 'Enviando...' : 'Enviar mensaje'}
                 </button>
+                {error && (
+                  <p className="text-xs text-red-600 text-center">
+                    {error}
+                  </p>
+                )}
 
                 <p className="text-xs text-stone-400 text-center">
                   Al enviar aceptas nuestra política de privacidad.

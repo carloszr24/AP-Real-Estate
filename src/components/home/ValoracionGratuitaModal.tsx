@@ -60,6 +60,7 @@ export function ValoracionGratuitaModal({ triggerClassName = '', triggerLabel = 
   const [mounted, setMounted] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
   const [step, setStep] = useState<1 | 2 | 3>(1)
   const [form, setForm] = useState<ValoracionForm>(initialForm)
   const [error, setError] = useState('')
@@ -115,7 +116,7 @@ export function ValoracionGratuitaModal({ triggerClassName = '', triggerLabel = 
     setStep((prev) => (prev < 3 ? (prev + 1) as 1 | 2 | 3 : prev))
   }
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setError('')
     const required = [form.name, form.phone, form.email]
@@ -130,29 +131,38 @@ export function ValoracionGratuitaModal({ triggerClassName = '', triggerLabel = 
       return
     }
 
-    const subject = 'Solicitud de valoración gratuita'
-    const bodyLines = [
-      'Hola, quiero una valoración gratuita de mi propiedad.',
-      '',
-      'Datos del inmueble:',
-      `- Tipo: ${form.propertyType}`,
-      `- Zona / Dirección: ${form.location}`,
-      `- Metros cuadrados: ${form.sqMeters}`,
-      `- Habitaciones: ${form.bedrooms || 'No indicado'}`,
-      `- Baños: ${form.bathrooms || 'No indicado'}`,
-      `- Estado: ${form.condition || 'No indicado'}`,
-      `- Cuándo planea vender: ${form.saleTimeline}`,
-      `- Observaciones: ${form.notes || 'No indicado'}`,
-      '',
-      'Datos de contacto:',
-      `- Nombre: ${form.name}`,
-      `- Teléfono: ${form.phone}`,
-      `- Email: ${form.email}`,
-    ]
-
-    const mailto = `mailto:alessandra.maggi@remax.es?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`
-    setSubmitted(true)
-    window.location.href = mailto
+    setSubmitting(true)
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: form.name,
+          email: form.email,
+          phone: form.phone,
+          source: 'web_valoracion',
+          intent: 'vender',
+          priority: form.saleTimeline === 'Lo antes posible' ? 'alta' : 'media',
+          saleTimeline: form.saleTimeline,
+          propertyRef: `${form.propertyType} - ${form.location}`,
+          notes: [
+            `Tipo: ${form.propertyType}`,
+            `Zona/Direccion: ${form.location}`,
+            `Metros cuadrados: ${form.sqMeters}`,
+            `Habitaciones: ${form.bedrooms || 'No indicado'}`,
+            `Banos: ${form.bathrooms || 'No indicado'}`,
+            `Estado: ${form.condition || 'No indicado'}`,
+            `Observaciones: ${form.notes || 'No indicado'}`,
+          ].join('\n'),
+        }),
+      })
+      if (!res.ok) throw new Error('No se pudo enviar la solicitud')
+      setSubmitted(true)
+    } catch {
+      setError('No se pudo enviar la solicitud. Intentalo de nuevo.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -349,8 +359,8 @@ export function ValoracionGratuitaModal({ triggerClassName = '', triggerLabel = 
                         Siguiente
                       </button>
                     ) : (
-                      <button type="submit" className="btn-primary lead-modal-submit">
-                        Solicitar valoración
+                      <button type="submit" disabled={submitting} className="btn-primary lead-modal-submit disabled:opacity-60">
+                        {submitting ? 'Enviando...' : 'Solicitar valoración'}
                       </button>
                     )}
                   </div>

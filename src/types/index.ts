@@ -38,6 +38,41 @@ export interface PropertyFilters {
   maxPrice?: number
 }
 
+export type LeadSource = 'facebook' | 'web_contacto' | 'web_valoracion' | 'whatsapp' | 'telefono' | 'otro'
+
+export type LeadIntent = 'comprar' | 'vender' | 'alquilar' | 'otro'
+
+export type LeadStatus =
+  | 'nuevo'
+  | 'contactado'
+  | 'visita_agendada'
+  | 'visita_realizada'
+  | 'oferta'
+  | 'reserva'
+  | 'cerrado'
+  | 'descartado'
+
+export type LeadPriority = 'alta' | 'media' | 'baja'
+
+export interface Lead {
+  id: string
+  fullName: string
+  email?: string | null
+  phone: string
+  source: LeadSource
+  intent: LeadIntent
+  status: LeadStatus
+  priority: LeadPriority
+  propertyRef?: string | null
+  notes?: string | null
+  saleTimeline?: string | null
+  assignedTo?: string | null
+  firstResponseAt?: Date | null
+  lastContactAt?: Date | null
+  createdAt: Date
+  updatedAt: Date
+}
+
 export interface PropertyFormData {
   title: string
   price: string

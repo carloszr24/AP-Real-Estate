@@ -15,6 +15,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             AP <span className="text-gold">Real Estate</span> Services
             <span className="text-stone-400 text-xs ml-2 font-sans font-normal tracking-widest uppercase">Admin</span>
           </span>
+          <nav className="hidden md:flex items-center gap-4 text-xs">
+            <a href="/admin" className="text-stone-300 hover:text-white transition-colors">
+              Propiedades
+            </a>
+            <a href="/admin/leads" className="text-stone-300 hover:text-white transition-colors">
+              Leads
+            </a>
+          </nav>
         </div>
         <a href="/" className="text-xs text-stone-400 hover:text-white transition-colors">
           ← Ver web
