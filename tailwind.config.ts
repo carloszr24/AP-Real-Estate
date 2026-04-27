@@ -18,6 +18,9 @@ const config: Config = {
           950: '#0c0a09',
         },
         brand: {
+          primary: '#C8102E',
+          'primary-dark': '#9C0E24',
+          'primary-light': '#E13A53',
           blue: '#0057FF',
           'blue-light': '#3D7DFF',
           'blue-dark': '#003EB8',
