@@ -24,14 +24,14 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="relative flex items-center h-16 md:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5">
+          <Link href="/" className="flex w-56 items-center overflow-hidden md:w-72">
             <Image
               src="/images/ventable-logo.png"
               alt="Ventable logo"
               width={420}
               height={120}
               priority
-              className="h-14 w-auto md:h-16"
+              className="h-8 w-auto origin-left scale-[2.8] md:h-10 md:scale-[3]"
             />
           </Link>
 
