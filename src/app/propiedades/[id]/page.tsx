@@ -95,7 +95,9 @@ export default async function PropertyDetailPage({
             {/* Description */}
             <div className="mt-8">
               <h2 className="font-display text-2xl font-light text-stone-900 mb-4">Descripción</h2>
-              <p className="text-stone-600 leading-relaxed text-sm">{property.description}</p>
+              <p className="whitespace-pre-line text-sm leading-relaxed text-stone-600">
+                {property.description}
+              </p>
             </div>
 
             {featureItems.length > 0 && (
