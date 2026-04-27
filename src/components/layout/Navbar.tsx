@@ -20,7 +20,7 @@ export function Navbar() {
   if (pathname.startsWith('/admin')) return null
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-brand-primary border-b border-white/20">
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/20 bg-[#1d335c]">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         <div className="relative flex items-center h-16">
           {/* Logo */}
@@ -28,10 +28,10 @@ export function Navbar() {
             <Image
               src="/images/ventable-logo.png"
               alt="Ventable logo"
-              width={180}
-              height={52}
+              width={230}
+              height={66}
               priority
-              className="h-10 w-auto"
+              className="h-12 w-auto md:h-14"
             />
           </Link>
 
