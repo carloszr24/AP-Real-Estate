@@ -142,7 +142,7 @@ export default function ContactoPage() {
                   {loading ? 'Enviando...' : 'Enviar mensaje'}
                 </button>
                 {error && (
-                  <p className="text-xs text-red-600 text-center">
+                  <p className="text-xs text-brand-primary text-center">
                     {error}
                   </p>
                 )}

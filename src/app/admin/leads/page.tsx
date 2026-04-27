@@ -193,7 +193,7 @@ export default function AdminLeadsPage() {
         </div>
       </section>
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-brand-primary">{error}</p>}
 
       <div className="bg-white border border-stone-200 overflow-x-auto">
         {loading ? (
@@ -254,7 +254,7 @@ export default function AdminLeadsPage() {
                       </select>
                     </td>
                     <td className="px-4 py-3">
-                      <span className={`text-xs px-2 py-1 ${inSla ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'}`}>
+                      <span className={`text-xs px-2 py-1 ${inSla ? 'bg-emerald-50 text-emerald-700' : 'bg-brand-primary/10 text-brand-primary'}`}>
                         {inSla ? 'En SLA' : 'Fuera SLA'}
                       </span>
                     </td>

@@ -53,7 +53,7 @@ export default async function HomePage() {
             Compra o vende tu vivienda en Almería
             <span className="hidden md:inline"> </span>
             <br className="md:hidden" aria-hidden="true" />
-            en <span className="text-rose-100 [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]">menos de 60 días</span>
+            en <span className="text-blue-100 [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]">menos de 60 días</span>
           </h1>
           <p className="text-stone-200 text-[calc(1rem+4pt)] sm:text-[calc(1.125rem+4pt)] md:text-[calc(1.25rem+4pt)] font-normal max-w-[min(100%,22rem)] sm:max-w-2xl mx-auto mb-8 sm:mb-9 md:mb-10 leading-relaxed text-pretty animate-fade-up" style={{ animationDelay: '0.1s', opacity: 0, animationFillMode: 'forwards' }}>
             Te acompaño desde el inicio hasta el final de la operación con un servicio totalmente personalizado
