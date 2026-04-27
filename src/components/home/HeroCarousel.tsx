@@ -4,11 +4,10 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 
 const HERO_IMAGES = [
-  '/images/roquetas-carrusel-1.webp',
-  '/images/roquetas-carrusel-2.jpg',
-  '/images/roquetas-carrusel-3.jpg',
-  '/images/roquetas-carrusel-4.jpg',
-  '/images/roquetas-carrusel-5.jpg',
+  '/images/carrusel-jerez-1.webp',
+  '/images/carrusel-jerez-2.png',
+  '/images/carrusel-jerez-3.png',
+  '/images/carrusel-jerez-4.png',
 ] as const
 
 export function HeroCarousel() {
@@ -28,7 +27,7 @@ export function HeroCarousel() {
         <Image
           key={src}
           src={src}
-          alt="Viviendas en Almería y Roquetas"
+          alt="Viviendas en Jerez"
           fill
           priority={index === 0}
           className={`object-cover transition-opacity duration-1000 ${index === activeIndex ? 'opacity-100' : 'opacity-0'}`}

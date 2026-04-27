@@ -50,7 +50,7 @@ export default async function HomePage() {
         {/* Content */}
         <div className="relative z-10 text-center px-4 min-[400px]:px-6 max-w-5xl mx-auto">
           <h1 className="font-display text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.45)] text-balance max-md:tracking-[-0.02em] text-[calc(clamp(2.25rem,7.5vw+0.35rem,3.45rem)+4pt)] md:text-[calc(clamp(2.65rem,5.2vw+1.1rem,5.8rem)+4pt)] leading-[1.11] md:leading-[1.05] mb-6 md:mb-8 animate-fade-up">
-            Compra o vende tu vivienda en Almería
+            Compra o vende tu vivienda en Jerez
             <span className="hidden md:inline"> </span>
             <br className="md:hidden" aria-hidden="true" />
             en <span className="text-blue-100 [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]">menos de 60 días</span>
@@ -120,7 +120,7 @@ export default async function HomePage() {
               {
                 icon: '📋',
                 title: 'Valoración profesional',
-                desc: 'Conoce el precio real de mercado de tu inmueble en Almería.',
+                desc: 'Conoce el precio real de mercado de tu inmueble en Jerez.',
               },
               {
                 icon: '🤝',
