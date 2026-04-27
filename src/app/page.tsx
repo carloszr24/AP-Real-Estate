@@ -64,13 +64,13 @@ export default async function HomePage() {
           >
             <Link
               href="/propiedades"
-              className="inline-flex w-full sm:flex-1 sm:min-w-0 min-h-[3.25rem] items-center justify-center px-8 py-4 text-[calc(0.875rem+4pt)] tracking-wide font-medium border-2 border-brand-primary bg-brand-primary/92 text-white shadow-sm backdrop-blur-[1px] box-border hover:bg-brand-primary hover:text-white transition-colors duration-200"
+              className="inline-flex w-full sm:flex-1 sm:min-w-0 min-h-[3.25rem] items-center justify-center px-8 py-4 text-[calc(0.875rem+4pt)] tracking-wide font-medium border-2 border-brand-primary bg-brand-primary text-white shadow-sm box-border hover:bg-brand-primary-dark hover:text-white transition-colors duration-200"
             >
               Quiero comprar
             </Link>
             <ValoracionGratuitaModal
               triggerLabel="Quiero vender"
-              triggerClassName="inline-flex w-full sm:flex-1 sm:min-w-0 min-h-[3.25rem] items-center justify-center px-8 py-4 text-[calc(0.875rem+4pt)] tracking-wide font-medium border-2 border-white bg-white/92 text-brand-primary shadow-sm backdrop-blur-[1px] box-border hover:bg-white hover:text-brand-primary transition-colors duration-200"
+              triggerClassName="inline-flex w-full sm:flex-1 sm:min-w-0 min-h-[3.25rem] items-center justify-center px-8 py-4 text-[calc(0.875rem+4pt)] tracking-wide font-medium border-2 border-white bg-white text-brand-primary shadow-sm box-border hover:bg-stone-100 hover:text-brand-primary transition-colors duration-200"
             />
           </div>
         </div>
