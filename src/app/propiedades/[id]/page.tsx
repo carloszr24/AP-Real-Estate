@@ -115,9 +115,9 @@ export default async function PropertyDetailPage({
 
           {/* RIGHT: Info panel */}
           <div className="lg:col-span-2">
-            <div className="sticky top-24">
+            <div className="sticky top-20">
               {/* Status + type */}
-              <div className="flex items-center gap-2 mb-4">
+              <div className="mb-3 flex items-center gap-2">
                 <span className={cn(
                   'text-xs font-medium px-2.5 py-1 border',
                   statusColors[property.status] || statusColors.disponible
@@ -132,45 +132,45 @@ export default async function PropertyDetailPage({
                 </span>
               </div>
 
-              <h1 className="font-display text-3xl font-light text-stone-900 leading-tight mb-2">
+              <h1 className="mb-1.5 font-display text-2xl font-light leading-tight text-stone-900 lg:text-3xl">
                 {property.title}
               </h1>
 
-              <p className="text-stone-500 text-sm mb-6 flex items-center gap-1">
+              <p className="mb-4 flex items-center gap-1 text-sm text-stone-500">
                 📍 {property.location}
               </p>
 
               {/* Price */}
-              <div className="bg-stone-50 border border-stone-200 p-6 mb-6">
+              <div className="mb-4 border border-stone-200 bg-stone-50 p-4">
                 <p className="text-xs text-stone-400 tracking-widest uppercase mb-1">Precio</p>
-                <p className="font-display text-4xl font-light text-stone-900">
+                <p className="font-display text-3xl font-light text-stone-900">
                   {formatPrice(property.price, property.operation)}
                 </p>
               </div>
 
               {/* Specs */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+              <div className="mb-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
                 {property.sqMeters && (
-                  <div className="text-center p-4 border border-stone-100">
-                    <p className="text-xl font-light text-stone-900">{property.sqMeters}</p>
+                  <div className="border border-stone-100 p-3 text-center">
+                    <p className="text-lg font-light text-stone-900">{property.sqMeters}</p>
                     <p className="text-xs text-stone-400 mt-1">m²</p>
                   </div>
                 )}
                 {property.bedrooms != null && property.bedrooms > 0 && (
-                  <div className="text-center p-4 border border-stone-100">
-                    <p className="text-xl font-light text-stone-900">{property.bedrooms}</p>
+                  <div className="border border-stone-100 p-3 text-center">
+                    <p className="text-lg font-light text-stone-900">{property.bedrooms}</p>
                     <p className="text-xs text-stone-400 mt-1">Habitaciones</p>
                   </div>
                 )}
                 {property.bathrooms && (
-                  <div className="text-center p-4 border border-stone-100">
-                    <p className="text-xl font-light text-stone-900">{property.bathrooms}</p>
+                  <div className="border border-stone-100 p-3 text-center">
+                    <p className="text-lg font-light text-stone-900">{property.bathrooms}</p>
                     <p className="text-xs text-stone-400 mt-1">Baños</p>
                   </div>
                 )}
                 {showFloorCard && (
-                  <div className="text-center p-4 border border-stone-100">
-                    <p className="text-xl font-light text-stone-900">{floorLabel || '-'}</p>
+                  <div className="border border-stone-100 p-3 text-center">
+                    <p className="text-lg font-light text-stone-900">{floorLabel || '-'}</p>
                     <p className="text-xs text-stone-400 mt-1">Planta</p>
                     {hasElevator && (
                       <p className="text-[11px] text-stone-500 mt-1">con ascensor</p>
@@ -185,7 +185,7 @@ export default async function PropertyDetailPage({
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary w-full text-center text-sm py-4"
+                  className="btn-primary w-full py-3 text-center text-sm"
                 >
                   Solicitar información
                 </a>
@@ -194,14 +194,14 @@ export default async function PropertyDetailPage({
                     href={idealistaUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full block text-center text-sm py-4 border border-[#69BE28] text-[#69BE28] hover:bg-[#69BE28] hover:text-white transition-colors duration-200"
+                    className="block w-full border border-[#69BE28] py-3 text-center text-sm text-[#69BE28] transition-colors duration-200 hover:bg-[#69BE28] hover:text-white"
                   >
                     Ver en Idealista ↗
                   </a>
                 )}
                 <a
                   href={`tel:+${VENTABLE_PHONE_E164}`}
-                  className="block text-center text-sm text-stone-500 hover:text-stone-900 transition-colors py-2"
+                  className="block py-1 text-center text-sm text-stone-500 transition-colors hover:text-stone-900"
                 >
                   📞 {VENTABLE_PHONE_DISPLAY}
                 </a>
