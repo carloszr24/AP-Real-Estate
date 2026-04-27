@@ -8,13 +8,13 @@ export default function ContactoPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
-  const mapsHref = 'https://maps.google.com/?q=Carretera+de+Alicun+28,+Pl.+Archivo+de+Indias,+4,+04740+Roquetas+de+Mar,+Almeria'
-  const phoneDisplay = '672 80 42 86'
-  const phoneHref = 'tel:+34672804286'
+  const mapsHref = 'https://maps.google.com/?q=Av.+Virgen+de+Fatima,+3,+Local+Bajo,+11405+Jerez+de+la+Frontera,+Cadiz'
+  const phoneDisplay = '635 87 29 27'
+  const phoneHref = 'tel:+34635872927'
   const email = 'alessandra.maggi@remax.es'
   const emailHref = `mailto:${email}`
-  const whatsappDisplay = '+34 672 80 42 86'
-  const whatsappHref = 'https://wa.me/34672804286'
+  const whatsappDisplay = '+34 635 87 29 27'
+  const whatsappHref = 'https://wa.me/34635872927'
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -169,9 +169,9 @@ export default function ContactoPage() {
                       rel="noopener noreferrer"
                       className="text-stone-700 text-sm whitespace-pre-line hover:text-stone-900 transition-colors"
                     >
-                      Carretera de Alicún 28, Pl. Archivo de Indias, 4
+                      Av. Virgen de Fátima, 3, Local Bajo
                       <br />
-                      04740 Roquetas de Mar, Almería
+                      11405 Jerez de la Frontera, Cádiz
                     </a>
                   </div>
                 </div>
@@ -219,7 +219,7 @@ export default function ContactoPage() {
                   <span className="text-xl shrink-0">🕐</span>
                   <div>
                     <p className="text-xs text-stone-400 tracking-wide mb-1">Horario</p>
-                    <p className="text-stone-700 text-sm whitespace-pre-line">Lun–Vie: 9:30–14:00 · 17:00–20:00
+                    <p className="text-stone-700 text-sm whitespace-pre-line">Lun–Vie: 10:00–14:00 · 17:00–20:00
 Sáb–Dom: Cerrado</p>
                   </div>
                 </div>

@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
 export function Footer() {
-  const mapsHref = 'https://maps.google.com/?q=Carretera+de+Alicun+28,+Pl.+Archivo+de+Indias,+4,+04740+Roquetas+de+Mar,+Almeria'
-  const phoneHref = 'tel:+34672804286'
+  const mapsHref = 'https://maps.google.com/?q=Av.+Virgen+de+Fatima,+3,+Local+Bajo,+11405+Jerez+de+la+Frontera,+Cadiz'
+  const phoneHref = 'tel:+34635872927'
   const emailHref = 'mailto:alessandra.maggi@remax.es'
   const whatsappHref = 'https://wa.me/34672804286'
 
@@ -35,11 +35,11 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="hover:text-stone-900 transition-colors"
                 >
-                  Carretera de Alicún 28, Pl. Archivo de Indias, 4, 04740 Roquetas de Mar, Almería
+                  Av. Virgen de Fátima, 3, Local Bajo, 11405 Jerez de la Frontera, Cádiz
                 </a>
               </li>
               <li>
-                <a href={phoneHref} className="hover:text-stone-900 transition-colors">672 80 42 86</a>
+                <a href={phoneHref} className="hover:text-stone-900 transition-colors">635 87 29 27</a>
               </li>
               <li>
                 <a href={emailHref} className="hover:text-stone-900 transition-colors">alessandra.maggi@remax.es</a>
@@ -51,7 +51,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="hover:text-stone-900 transition-colors"
                 >
-                  WhatsApp: +34 672 80 42 86
+                  WhatsApp: +34 635 87 29 27
                 </a>
               </li>
             </ul>
