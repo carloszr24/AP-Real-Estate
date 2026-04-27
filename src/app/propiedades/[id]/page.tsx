@@ -7,6 +7,8 @@ import { cn } from '@/lib/utils'
 import { PropertyImageViewer } from '@/components/properties/PropertyImageViewer'
 
 export const dynamic = 'force-dynamic'
+const VENTABLE_PHONE_E164 = '34635872927'
+const VENTABLE_PHONE_DISPLAY = '+34 635 87 29 27'
 
 const statusColors: Record<string, string> = {
   disponible: 'bg-emerald-50 text-emerald-700 border-emerald-200',
@@ -41,7 +43,10 @@ export default async function PropertyDetailPage({
     elevatorLabel === 'true'
   const showFloorCard = Boolean(floorLabel || hasElevator)
   const whatsappText = `Hola! Me gustaría solicitar información sobre ${property.title}`
-  const whatsappUrl = `https://wa.me/34672804286?text=${encodeURIComponent(whatsappText)}`
+  const whatsappUrl = `https://wa.me/${VENTABLE_PHONE_E164}?text=${encodeURIComponent(whatsappText)}`
+  const idealistaUrl = property.fotocasaUrl
+    ? (/^https?:\/\//i.test(property.fotocasaUrl) ? property.fotocasaUrl : `https://${property.fotocasaUrl}`)
+    : null
   const featureItems = [
     { label: 'Tipo de inmueble', value: TYPE_LABELS[property.type] || property.type },
     { label: 'Disponibilidad', value: property.availability },
@@ -184,9 +189,9 @@ export default async function PropertyDetailPage({
                 >
                   Solicitar información
                 </a>
-                {property.fotocasaUrl && (
+                {idealistaUrl && (
                   <a
-                    href={property.fotocasaUrl}
+                    href={idealistaUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full block text-center text-sm py-4 border border-[#69BE28] text-[#69BE28] hover:bg-[#69BE28] hover:text-white transition-colors duration-200"
@@ -195,10 +200,10 @@ export default async function PropertyDetailPage({
                   </a>
                 )}
                 <a
-                  href="tel:+34672804286"
+                  href={`tel:+${VENTABLE_PHONE_E164}`}
                   className="block text-center text-sm text-stone-500 hover:text-stone-900 transition-colors py-2"
                 >
-                  📞 +34 672 80 42 86
+                  📞 {VENTABLE_PHONE_DISPLAY}
                 </a>
               </div>
             </div>
