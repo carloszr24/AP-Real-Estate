@@ -3,8 +3,8 @@ import Link from 'next/link'
 export function Footer() {
   const mapsHref = 'https://maps.google.com/?q=Av.+Virgen+de+Fatima,+3,+Local+Bajo,+11405+Jerez+de+la+Frontera,+Cadiz'
   const phoneHref = 'tel:+34635872927'
-  const emailHref = 'mailto:alessandra.maggi@remax.es'
-  const whatsappHref = 'https://wa.me/34672804286'
+  const emailHref = 'mailto:ventableinmobiliaria@gmail.com'
+  const whatsappHref = 'https://wa.me/34635872927'
 
   return (
     <footer className="bg-stone-100 text-stone-700 mt-24 border-t border-stone-200">
@@ -42,7 +42,7 @@ export function Footer() {
                 <a href={phoneHref} className="hover:text-stone-900 transition-colors">635 87 29 27</a>
               </li>
               <li>
-                <a href={emailHref} className="hover:text-stone-900 transition-colors">alessandra.maggi@remax.es</a>
+                <a href={emailHref} className="hover:text-stone-900 transition-colors">ventableinmobiliaria@gmail.com</a>
               </li>
               <li>
                 <a

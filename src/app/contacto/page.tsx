@@ -11,7 +11,7 @@ export default function ContactoPage() {
   const mapsHref = 'https://maps.google.com/?q=Av.+Virgen+de+Fatima,+3,+Local+Bajo,+11405+Jerez+de+la+Frontera,+Cadiz'
   const phoneDisplay = '635 87 29 27'
   const phoneHref = 'tel:+34635872927'
-  const email = 'alessandra.maggi@remax.es'
+  const email = 'ventableinmobiliaria@gmail.com'
   const emailHref = `mailto:${email}`
   const whatsappDisplay = '+34 635 87 29 27'
   const whatsappHref = 'https://wa.me/34635872927'
