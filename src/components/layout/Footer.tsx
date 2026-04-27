@@ -16,9 +16,9 @@ export function Footer() {
               <Image
                 src="/images/ventable-logo.png"
                 alt="Ventable logo"
-                width={280}
-                height={80}
-                className="h-14 w-auto"
+                width={360}
+                height={104}
+                className="h-16 w-auto md:h-20"
               />
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/80">

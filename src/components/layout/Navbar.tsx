@@ -22,16 +22,16 @@ export function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/20 bg-brand-primary">
       <div className="max-w-7xl mx-auto px-6 md:px-10">
-        <div className="relative flex items-center h-20 md:h-24">
+        <div className="relative flex items-center h-24 md:h-28">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5">
             <Image
               src="/images/ventable-logo.png"
               alt="Ventable logo"
-              width={320}
-              height={92}
+              width={420}
+              height={120}
               priority
-              className="h-14 w-auto md:h-20"
+              className="h-16 w-auto md:h-24"
             />
           </Link>
 
