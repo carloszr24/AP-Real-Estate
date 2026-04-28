@@ -4,7 +4,7 @@ import Image from 'next/image'
 export function Footer() {
   const mapsHref = 'https://maps.google.com/?q=Av.+Virgen+de+Fatima,+3,+Local+Bajo,+11405+Jerez+de+la+Frontera,+Cadiz'
   const phoneHref = 'tel:+34635872927'
-  const emailHref = 'mailto:ventableinmobiliaria@gmail.com'
+  const emailHref = 'mailto:carloszr2005@gmail.com'
   const whatsappHref = 'https://wa.me/34635872927'
   const instagramHref = 'https://www.instagram.com/ventableinmobiliaria/'
   const tiktokHref = 'https://www.tiktok.com/@ventableinmobiliaria?lang=es'
@@ -53,7 +53,7 @@ export function Footer() {
                 <a href={phoneHref} className="transition-colors hover:text-white/80">635 87 29 27</a>
               </li>
               <li>
-                <a href={emailHref} className="transition-colors hover:text-white/80">ventableinmobiliaria@gmail.com</a>
+                <a href={emailHref} className="transition-colors hover:text-white/80">carloszr2005@gmail.com</a>
               </li>
               <li>
                 <a
