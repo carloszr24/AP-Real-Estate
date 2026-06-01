@@ -41,7 +41,7 @@ export default async function HomePage() {
   return (
     <>
       {/* HERO */}
-      <section className="relative min-h-svh pt-28 pb-28 md:pt-36 md:pb-28 flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-svh pt-24 pb-28 md:pt-28 md:pb-28 flex items-center justify-center overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
           <HeroImageCarousel />
@@ -49,11 +49,8 @@ export default async function HomePage() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 text-center px-4 min-[400px]:px-6 max-w-5xl mx-auto">
-          <p className="mb-5 text-[11px] uppercase tracking-[0.16em] text-stone-200/95 animate-fade-up">
-            Servicio inmobiliario en {SITE.city}
-          </p>
-          <h1 className="font-display text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.45)] text-balance max-md:tracking-[-0.02em] text-[calc(clamp(2.25rem,7.5vw+0.35rem,3.45rem)+4pt)] md:text-[calc(clamp(2.65rem,5.2vw+1.1rem,5.8rem)+4pt)] leading-[1.11] md:leading-[1.05] mb-6 md:mb-8 animate-fade-up">
+        <div className="relative z-10 -translate-y-2 md:-translate-y-4 text-center px-4 min-[400px]:px-6 max-w-5xl mx-auto">
+          <h1 className="font-display text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.45)] text-balance max-md:tracking-[-0.02em] text-[calc(clamp(2.25rem,7.5vw+0.35rem,3.45rem)+4pt)] md:text-[calc(clamp(2.65rem,5.2vw+1.1rem,5.8rem)+4pt)] leading-[1.11] md:leading-[1.05] mb-5 md:mb-7 animate-fade-up">
             Encuentra tu hogar en
             <span className="hidden md:inline"> </span>
             <br className="md:hidden" aria-hidden="true" />
