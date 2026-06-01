@@ -83,4 +83,52 @@ En Cilleros Inmobiliaria vendemos hogares y construimos sueños.`,
     createdAt: now,
     updatedAt: now,
   },
+  {
+    id: 'piso-santa-marta-tormes',
+    title: 'Piso en venta en Santa Marta de Tormes',
+    price: 145_000,
+    location: 'Área Metropolitana, Salamanca',
+    type: 'piso',
+    operation: 'venta',
+    status: 'disponible',
+    description: `Luminoso y espacioso piso de 95 m² construidos, en cuarta planta exterior con doble ascensor y abundante luz natural.
+
+Tres amplios dormitorios, todos con armarios empotrados.
+
+Dos baños completos.
+
+Cocina independiente y amueblada.
+
+Salón amplio y luminoso, con posibilidad de crear dos ambientes distintos.
+
+Balcón cerrado con despensa.
+
+Segunda mano, para reformar. Orientación sur. Calefacción central.
+
+Certificado energético: consumo D · emisiones D.
+
+No cobramos comisión al comprador.
+
+En Cilleros Inmobiliaria vendemos hogares y construimos sueños.`,
+    images: JSON.stringify([
+      '/images/piso-santa-marta-salon.png',
+      '/images/piso-santa-marta-dormitorio.png',
+      '/images/piso-santa-marta-cocina.png',
+    ]),
+    fotocasaUrl: null,
+    bedrooms: 3,
+    bathrooms: 2,
+    sqMeters: 95,
+    availability: 'Disponible',
+    floor: '4ª planta exterior',
+    elevator: 'Sí (doble ascensor)',
+    heating: 'Calefacción central',
+    condition: 'Segunda mano / para reformar',
+    furnished: 'Cocina amueblada',
+    energyRating: 'D',
+    emissionsRating: 'D',
+    featured: true,
+    createdAt: now,
+    updatedAt: now,
+  },
 ]
