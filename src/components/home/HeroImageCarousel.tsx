@@ -26,7 +26,7 @@ export function HeroImageCarousel() {
         <Image
           key={src}
           src={src}
-          alt="Viviendas en Salamanca"
+          alt="Viviendas en Fernán Núñez"
           fill
           priority={index === 0}
           className={`object-cover transition-opacity duration-700 ${

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Panel Admin | Inmobiliaria Cilleros',
+  title: 'Panel Admin | Sales Inmobiliaria',
   robots: { index: false, follow: false },
 }
 
@@ -12,7 +12,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <header className="bg-stone-950 text-white px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-6">
           <span className="font-display text-lg font-medium">
-            Inmobiliaria <span className="text-gold">Cilleros</span>
+            Sales <span className="text-gold">Inmobiliaria</span>
             <span className="text-stone-400 text-xs ml-2 font-sans font-normal tracking-widest uppercase">Admin</span>
           </span>
           <nav className="hidden md:flex items-center gap-4 text-xs">

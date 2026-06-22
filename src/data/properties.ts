@@ -24,7 +24,7 @@ Actualmente se encuentra alquilado en 980 € + gastos, lo que supone una buena 
 
 1ª planta exterior con ascensor. Superficie de 130 m².
 
-En Cilleros Inmobiliaria vendemos hogares y construimos sueños. No dudes en llamarnos para visitarlo.`,
+En Sales Inmobiliaria vendemos hogares y construimos sueños. No dudes en llamarnos para visitarlo.`,
     images: JSON.stringify([
       '/images/piso-salesas-salon.png',
       '/images/piso-salesas-dormitorio-1.png',
@@ -65,7 +65,7 @@ Electricidad por generadores (placas y baterías). Agua por sondeo comunitario y
 
 No cobramos comisión al comprador.
 
-En Cilleros Inmobiliaria vendemos hogares y construimos sueños.`,
+En Sales Inmobiliaria vendemos hogares y construimos sueños.`,
     images: JSON.stringify([
       '/images/chalet-calvarrasa-1.png',
       '/images/chalet-calvarrasa-2.png',
@@ -109,7 +109,7 @@ Certificado energético: consumo D · emisiones D.
 
 No cobramos comisión al comprador.
 
-En Cilleros Inmobiliaria vendemos hogares y construimos sueños.`,
+En Sales Inmobiliaria vendemos hogares y construimos sueños.`,
     images: JSON.stringify([
       '/images/piso-santa-marta-salon.png',
       '/images/piso-santa-marta-dormitorio.png',

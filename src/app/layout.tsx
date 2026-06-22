@@ -24,10 +24,10 @@ const logo = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: `${SITE.name} | Inmobiliaria en Salamanca`,
+  title: `${SITE.name} | Inmobiliaria en Fernán Núñez`,
   description: SITE.description,
   keywords:
-    'inmobiliaria cilleros, inmobiliaria salamanca, compra vivienda salamanca, venta vivienda, alquiler salamanca',
+    'sales inmobiliaria, inmobiliaria fernán núñez, inmobiliaria córdoba, compra vivienda córdoba, venta vivienda, alquiler córdoba',
 }
 
 export default function RootLayout({

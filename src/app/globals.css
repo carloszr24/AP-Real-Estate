@@ -3,9 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --brand-red: #e52322;
-  --brand-red-light: #ef4a49;
-  --brand-red-dark: #b81c1b;
+  --brand-red: #c81858;
+  --brand-red-light: #e03078;
+  --brand-red-dark: #9e1248;
+  --brand-charcoal: #282830;
   --brand-white: #ffffff;
   /* Backward-compatible token used throughout existing components */
   --gold: var(--brand-red);
@@ -255,7 +256,7 @@
 .lead-modal select:focus,
 .lead-modal textarea:focus {
   outline: none;
-  border-color: #7f145d;
+  border-color: #c81858;
 }
 
 .lead-modal-full {

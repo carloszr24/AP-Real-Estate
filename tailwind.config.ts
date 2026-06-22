@@ -18,15 +18,16 @@ const config: Config = {
           950: '#0c0a09',
         },
         brand: {
-          red: '#E52322',
-          'red-light': '#EF4A49',
-          'red-dark': '#B81C1B',
+          red: '#C81858',
+          'red-light': '#E03078',
+          'red-dark': '#9E1248',
+          charcoal: '#282830',
           white: '#FFFFFF',
         },
         gold: {
-          DEFAULT: '#E52322',
-          light: '#EF4A49',
-          dark: '#B81C1B',
+          DEFAULT: '#C81858',
+          light: '#E03078',
+          dark: '#9E1248',
         },
       },
       animation: {
